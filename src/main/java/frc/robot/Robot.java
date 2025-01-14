@@ -4,9 +4,14 @@
 
 package frc.robot;
 
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -25,6 +30,24 @@ public class Robot extends TimedRobot
 
   private Timer disabledTimer;
 
+  // public SparkMax frontRightDrive = new SparkMax(35, MotorType.kBrushless);
+  // public SparkMax frontRightTurn = new SparkMax(34, MotorType.kBrushless);
+  // public SparkMax frontLeftDrive = new SparkMax(32, MotorType.kBrushless);
+  // public SparkMax frontLeftTurn = new SparkMax(33, MotorType.kBrushless);
+  // public SparkMax backRightDrive = new SparkMax(37, MotorType.kBrushless);
+  // public SparkMax backRightTurn = new SparkMax(36, MotorType.kBrushless);
+  // public SparkMax backLeftDrive = new SparkMax(31, MotorType.kBrushless);
+  // public SparkMax backLeftTurn = new SparkMax(30, MotorType.kBrushless);
+
+  // public RelativeEncoder frontRightDriveRelativeEncoder;
+  // public RelativeEncoder frontRightTurnRelativeEncoder;
+  // public RelativeEncoder frontLeftDriveRelativeEncoder;
+  // public RelativeEncoder frontLeftTurnRelativeEncoder;
+  // public RelativeEncoder backRightDriveRelativeEncoder;
+  // public RelativeEncoder backRightTurnRelativeEncoder;
+  // public RelativeEncoder backleftDriveRelativeEncoder;
+  // public RelativeEncoder backleftTurnRelativeEncoder;
+
   public Robot()
   {
     instance = this;
@@ -34,6 +57,7 @@ public class Robot extends TimedRobot
   {
     return instance;
   }
+
 
   /**
    * This function is run when the robot is first started up and should be used for any initialization code.
@@ -53,6 +77,20 @@ public class Robot extends TimedRobot
     {
       DriverStation.silenceJoystickConnectionWarning(true);
     }
+
+    // frontRightDriveRelativeEncoder = frontRightDrive.getEncoder();
+    // frontRightTurnRelativeEncoder = frontRightTurn.getEncoder();
+    // frontLeftDriveRelativeEncoder = frontLeftDrive.getEncoder();
+    // frontLeftTurnRelativeEncoder = frontLeftTurn.getEncoder();
+    // backRightDriveRelativeEncoder = backRightDrive.getEncoder();
+    // backRightTurnRelativeEncoder = backRightTurn.getEncoder();
+    // backleftDriveRelativeEncoder = backLeftDrive.getEncoder();
+    // backleftTurnRelativeEncoder = backLeftTurn.getEncoder();
+
+    //For Debugging
+    while (true);
+      
+    
   }
 
   /**
@@ -70,6 +108,15 @@ public class Robot extends TimedRobot
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+
+    // SmartDashboard.putNumber("FRdEncoder", frontRightDriveRelativeEncoder.getPosition());
+    // SmartDashboard.putNumber("FRtEncoder", frontRightTurnRelativeEncoder.getPosition());
+    // SmartDashboard.putNumber("FLdEncoder", frontLeftDriveRelativeEncoder.getPosition());
+    // SmartDashboard.putNumber("FLtEncoder", frontLeftTurnRelativeEncoder.getPosition());
+    // SmartDashboard.putNumber("BRdEncoder", backRightDriveRelativeEncoder.getPosition());
+    // SmartDashboard.putNumber("BRtEncoder", backRightTurnRelativeEncoder.getPosition());
+    // SmartDashboard.putNumber("BLdEncoder", backleftDriveRelativeEncoder.getPosition());
+    // SmartDashboard.putNumber("BLtEncoder", backleftTurnRelativeEncoder.getPosition());
   }
 
   /**
