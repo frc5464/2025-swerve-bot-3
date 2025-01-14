@@ -48,6 +48,8 @@ public class Robot extends TimedRobot
   // public RelativeEncoder backleftDriveRelativeEncoder;
   // public RelativeEncoder backleftTurnRelativeEncoder;
 
+
+
   public Robot()
   {
     instance = this;
@@ -88,7 +90,7 @@ public class Robot extends TimedRobot
     // backleftTurnRelativeEncoder = backLeftTurn.getEncoder();
 
     //For Debugging
-    while (true);
+    // while (true);
       
     
   }
