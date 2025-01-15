@@ -4,16 +4,16 @@
 
 package frc.robot;
 
-import com.revrobotics.RelativeEncoder;
-import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ClimbSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.ProcessorArmSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to each mode, as
@@ -23,10 +23,18 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot
 {
 
-  private static Robot   instance;
-  private        Command m_autonomousCommand;
+  private static Robot instance;
+  private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+
+  private ArmSubsystem armSubsystem;
+
+  private ClimbSubsystem climbSubsystem;
+  
+  private ElevatorSubsystem elevatorSubsystem;
+
+  private ProcessorArmSubsystem processorArmSubsystem;
 
   private Timer disabledTimer;
 
@@ -48,8 +56,6 @@ public class Robot extends TimedRobot
   // public RelativeEncoder backleftDriveRelativeEncoder;
   // public RelativeEncoder backleftTurnRelativeEncoder;
 
-
-
   public Robot()
   {
     instance = this;
@@ -65,11 +71,14 @@ public class Robot extends TimedRobot
    * This function is run when the robot is first started up and should be used for any initialization code.
    */
   @Override
-  public void robotInit()
-  {
+  public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    armSubsystem = new ArmSubsystem();
+    climbSubsystem = new ClimbSubsystem();
+    elevatorSubsystem = new ElevatorSubsystem();
+    processorArmSubsystem = new ProcessorArmSubsystem();
 
     // Create a timer to disable motor brake a few seconds after disable.  This will let the robot stop
     // immediately when disabled, but then also let it be pushed more 
@@ -93,8 +102,11 @@ public class Robot extends TimedRobot
     // while (true);
       
     
+
   }
 
+  Joystick driverController = new Joystick(0);
+  Joystick mineController = new Joystick(1);
   /**
    * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics that you want ran
    * during disabled, autonomous, teleoperated and test.
@@ -111,6 +123,7 @@ public class Robot extends TimedRobot
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 
+    
     // SmartDashboard.putNumber("FRdEncoder", frontRightDriveRelativeEncoder.getPosition());
     // SmartDashboard.putNumber("FRtEncoder", frontRightTurnRelativeEncoder.getPosition());
     // SmartDashboard.putNumber("FLdEncoder", frontLeftDriveRelativeEncoder.getPosition());
@@ -187,8 +200,20 @@ public class Robot extends TimedRobot
    * This function is called periodically during operator control.
    */
   @Override
-  public void teleopPeriodic()
-  {
+  public void teleopPeriodic(){
+
+    double leftstickval = driverController.getRawAxis(0);
+    double rightstickval = driverController.getRawAxis(0);
+ 
+    if(driverController.getRawButton(0)){
+
+    } else if(driverController.getRawButton(0)){
+      
+    } else{
+      armSubsystem.stopArm();
+    }
+ 
+ 
   }
 
   @Override
@@ -197,6 +222,7 @@ public class Robot extends TimedRobot
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
     m_robotContainer.setDriveMode();
+    
   }
 
   /**
