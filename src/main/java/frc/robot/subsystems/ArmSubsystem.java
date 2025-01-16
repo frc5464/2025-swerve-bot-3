@@ -14,6 +14,7 @@ public class ArmSubsystem {
 
 SparkMax armAlgae = new SparkMax(0, MotorType.kBrushless);
 SparkMax armCoral = new SparkMax(0, MotorType.kBrushless);
+//third motor for rotation
 
 RelativeEncoder relativeEncoder;
 public double encoderPos;
@@ -30,7 +31,7 @@ public void rotArm(){
 public void stopArm(){
     armAlgae.set(0);
     armCoral.set(0);
-}
+} 
 
 
 }

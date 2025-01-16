@@ -206,7 +206,7 @@ public class Robot extends TimedRobot
     double rightstickval = driverController.getRawAxis(0);
  
     if(driverController.getRawButton(0)){
-
+      armSubsystem.rotArm();
     } else if(driverController.getRawButton(0)){
       
     } else{
