@@ -233,6 +233,15 @@ public class Robot extends TimedRobot
   } else{
     processorArmSubsystem.stoproll_procarm();
   }
+  
+    // Elevator
+  if(driverController.getPOV() == 180){
+    elevatorSubsystem.goElevate();
+  } else if(driverController.getPOV() == 0){
+    elevatorSubsystem.reverseElevate();
+  } else{
+    elevatorSubsystem.stopElevate();
+  }
 }
   @Override
   public void testInit()
