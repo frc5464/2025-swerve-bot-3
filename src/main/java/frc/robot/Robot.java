@@ -205,14 +205,18 @@ public class Robot extends TimedRobot
     double leftstickval = driverController.getRawAxis(0);
     double rightstickval = driverController.getRawAxis(0);
  
-    if(driverController.getRawButton(0)){
-
-    } else if(driverController.getRawButton(0)){
+   
+    if(driverController.getRawButton(1)){
       
-    } else{
-      armSubsystem.stopArm();
-    }
+    } else if(driverController.getRawButton(2)){
 
+    } else if(driverController.getRawButton(3)){
+
+    } else if(driverController.getRawButton(4)){
+
+    } else {
+
+    }
   // Rotation
   if(mineController.getRawButton(1)){
     processorArmSubsystem.downrot_procarm();
@@ -221,7 +225,6 @@ public class Robot extends TimedRobot
   } else{
     processorArmSubsystem.stoprot_procarm();
   }
-
   // Roll
   if(mineController.getRawAxis(2) > 0.1){
     processorArmSubsystem.roll_procarm();
@@ -229,15 +232,6 @@ public class Robot extends TimedRobot
     processorArmSubsystem.revroll_procarm();
   } else{
     processorArmSubsystem.stoproll_procarm();
-  }
-
-  // Elevator
-  if(driverController.getPOV() == 180){
-    elevatorSubsystem.goElevate();
-  } else if(driverController.getPOV() == 0){
-    elevatorSubsystem.reverseElevate();
-  } else{
-    elevatorSubsystem.stopElevate();
   }
 }
   @Override
