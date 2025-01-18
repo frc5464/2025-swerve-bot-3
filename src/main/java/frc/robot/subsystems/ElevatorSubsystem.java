@@ -34,18 +34,18 @@ public class ElevatorSubsystem {
     }
 
     public void goElevate(){
-        leftEl.set(0);
-        rightEl.set(0);
+        leftEl.set(0.5);
+        // rightEl.set(-0.5);
     }
 
     public void reverseElevate(){
-        leftEl.set(0);
-        rightEl.set(0);
+        leftEl.set(-0.5);
+        // rightEl.set(0.5);
     }
 
     public void stopElevate(){
         leftEl.set(0);
-        rightEl.set(0);
+        // rightEl.set(0);
     }
 
     

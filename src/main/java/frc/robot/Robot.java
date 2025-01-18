@@ -212,6 +212,7 @@ public class Robot extends TimedRobot
     } else{
       armSubsystem.stopArm();
     }
+
   // Rotation
   if(mineController.getRawButton(1)){
     processorArmSubsystem.downrot_procarm();
@@ -220,6 +221,7 @@ public class Robot extends TimedRobot
   } else{
     processorArmSubsystem.stoprot_procarm();
   }
+
   // Roll
   if(mineController.getRawAxis(2) > 0.1){
     processorArmSubsystem.roll_procarm();
@@ -227,6 +229,15 @@ public class Robot extends TimedRobot
     processorArmSubsystem.revroll_procarm();
   } else{
     processorArmSubsystem.stoproll_procarm();
+  }
+
+  // Elevator
+  if(driverController.getPOV() == 180){
+    elevatorSubsystem.goElevate();
+  } else if(driverController.getPOV() == 0){
+    elevatorSubsystem.reverseElevate();
+  } else{
+    elevatorSubsystem.stopElevate();
   }
 }
   @Override
