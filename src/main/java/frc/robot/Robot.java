@@ -24,6 +24,7 @@ public class Robot extends TimedRobot
 {
 
   private static Robot instance;
+
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
@@ -35,6 +36,8 @@ public class Robot extends TimedRobot
   private ElevatorSubsystem elevatorSubsystem;
 
   private ProcessorArmSubsystem processorArmSubsystem;
+
+  private Constants constants;
 
   private Timer disabledTimer;
 
@@ -79,6 +82,7 @@ public class Robot extends TimedRobot
     climbSubsystem = new ClimbSubsystem();
     elevatorSubsystem = new ElevatorSubsystem();
     processorArmSubsystem = new ProcessorArmSubsystem();
+    constants = new Constants();
 
     // Create a timer to disable motor brake a few seconds after disable.  This will let the robot stop
     // immediately when disabled, but then also let it be pushed more 
@@ -204,20 +208,25 @@ public class Robot extends TimedRobot
 
     double leftstickval = driverController.getRawAxis(0);
     double rightstickval = driverController.getRawAxis(0);
- 
-   
+
     if(driverController.getRawButton(1)){
-      
+      armSubsystem.lvl1Arm();
+      elevatorSubsystem.lvl1El();
     } else if(driverController.getRawButton(2)){
-
+      armSubsystem.lvl3Arm();
+      elevatorSubsystem.lvl3El();
     } else if(driverController.getRawButton(3)){
-
+      armSubsystem.lvl2Arm();
+      elevatorSubsystem.lvl2El();
     } else if(driverController.getRawButton(4)){
-
-    } else {
-
+      armSubsystem.lvl4Arm();
+      elevatorSubsystem.lvl4El();
+    } else{
+      armSubsystem.stopArm();
+      elevatorSubsystem.stopElevate();
     }
-  // Rotation
+
+  // Processor Rotation
   if(mineController.getRawButton(1)){
     processorArmSubsystem.downrot_procarm();
   } else if(mineController.getRawButton(4)){
@@ -225,7 +234,7 @@ public class Robot extends TimedRobot
   } else{
     processorArmSubsystem.stoprot_procarm();
   }
-  // Roll
+  // Processor Roll (Int_Out)
   if(mineController.getRawAxis(2) > 0.1){
     processorArmSubsystem.roll_procarm();
   } else if(mineController.getRawAxis(3) < 0.1){
@@ -234,7 +243,7 @@ public class Robot extends TimedRobot
     processorArmSubsystem.stoproll_procarm();
   }
   
-    // Elevator
+  // Elevator
   if(driverController.getPOV() == 180){
     elevatorSubsystem.goElevate();
   } else if(driverController.getPOV() == 0){
@@ -243,6 +252,7 @@ public class Robot extends TimedRobot
     elevatorSubsystem.stopElevate();
   }
 }
+
   @Override
   public void testInit()
   {
@@ -253,7 +263,7 @@ public class Robot extends TimedRobot
   }
 
   /**
-   * This function is called periodically during test mode.
+  //  * This function is called periodically during test mode.
    */
   @Override
   public void testPeriodic()
