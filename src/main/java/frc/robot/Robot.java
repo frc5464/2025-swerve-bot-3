@@ -228,7 +228,7 @@ public class Robot extends TimedRobot
   } else{
     processorArmSubsystem.stoproll_procarm();
   }
-
+}
   @Override
   public void testInit()
   {

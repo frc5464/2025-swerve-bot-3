@@ -28,13 +28,13 @@ public class ProcessorArmSubsystem {
     }
     // Roll the intake/vomit
     public void roll_procarm(){
-        processorroller.set(0);
+        processorRoller.set(0);
     }
     public void stoproll_procarm(){
-        processorroller.set(0);
+        processorRoller.set(0);
     }
     public void revroll_procarm(){
-        processorroller.set(-0);
+        processorRoller.set(-0);
     }
     // Rotate the processor arm (whole thing/up and down)
     public void rot_procarm(){
@@ -44,6 +44,6 @@ public class ProcessorArmSubsystem {
         processorRotater.set(0);
     }
     public void downrot_procarm(){
-        proccesorRotater.set(-0);
+        processorRotater.set(-0);
     }
 }
