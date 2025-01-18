@@ -212,8 +212,21 @@ public class Robot extends TimedRobot
     } else{
       armSubsystem.stopArm();
     }
- 
- 
+  // Rotation
+  if(mineController.getRawButton(1)){
+    processorArmSubsystem.downrot_procarm();
+  } else if(mineController.getRawButton(4)){
+    processorArmSubsystem.rot_procarm();
+  } else{
+    processorArmSubsystem.stoprot_procarm();
+  }
+  // Roll
+  if(mineController.getRawAxis(1) > 0){
+    processorArmSubsystem.roll_procarm();
+  } else if(mineController.getRawAxis(1) < 0){
+    processorArmSubsystem.revroll_procarm();
+  } else{
+    processorArmSubsystem.stoproll_procarm();
   }
 
   @Override
