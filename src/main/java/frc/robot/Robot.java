@@ -221,9 +221,9 @@ public class Robot extends TimedRobot
     processorArmSubsystem.stoprot_procarm();
   }
   // Roll
-  if(mineController.getRawAxis(1) > 0){
+  if(mineController.getRawAxis(2) > 0.1){
     processorArmSubsystem.roll_procarm();
-  } else if(mineController.getRawAxis(1) < 0){
+  } else if(mineController.getRawAxis(3) < 0.1){
     processorArmSubsystem.revroll_procarm();
   } else{
     processorArmSubsystem.stoproll_procarm();
