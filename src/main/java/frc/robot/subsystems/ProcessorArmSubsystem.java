@@ -23,6 +23,25 @@ public class ProcessorArmSubsystem {
             .d(kD)
             .outputRange(extMinOutput, extMaxOutput);
     
-        processorRotater.configure(sparkMaxConfig, null, null);        
+        processorRotater.configure(sparkMaxConfig, null, null); 
+               
+    }
+    public void roll_procarm(){
+        processorroller.set(0);
+    }
+    public void stoproll_procarm(){
+        processorroller.set(0);
+    }
+    public void rot_procarm(){
+        processorRotater.set(0);
+    }
+    public void stoprot_procarm(){
+        processorRotater.set(0);
+    }
+    public void revroll_procarm(){
+        processorroller.set(-0);
+    }
+    public void downrot_procarm(){
+        proccesorRotater.set(-0);
     }
 }
