@@ -6,7 +6,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 public class ProcessorArmSubsystem {
     SparkMax processorRotater = new SparkMax(0, MotorType.kBrushless);
-    SparkMax processorRoller = new SparkMax(0, MotorType.kBrushless);
+    SparkMax processorint_out = new SparkMax(0, MotorType.kBrushless);
     SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
     double kP = 800000;
     double kI = 69420.1;
@@ -28,13 +28,13 @@ public class ProcessorArmSubsystem {
     }
     // Roll the intake/vomit
     public void roll_procarm(){
-        processorRoller.set(0);
+        processorint_out.set(0);
     }
     public void stoproll_procarm(){
-        processorRoller.set(0);
+        processorint_out.set(0);
     }
     public void revroll_procarm(){
-        processorRoller.set(-0);
+        processorint_out.set(-0);
     }
     // Rotate the processor arm (whole thing/up and down)
     public void rot_procarm(){
