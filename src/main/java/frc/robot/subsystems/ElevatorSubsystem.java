@@ -9,15 +9,15 @@ import edu.wpi.first.wpilibj.motorcontrol.Spark;
 
 public class ElevatorSubsystem {
 
-    SparkMax leftEl = new SparkMax(0, MotorType.kBrushless);
-    SparkMax rightEl = new SparkMax(0, MotorType.kBrushless);
+    SparkMax leftEl = new SparkMax(37, MotorType.kBrushless);
+    SparkMax rightEl = new SparkMax(36, MotorType.kBrushless);
     SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
     // SparkClosedLoopController elPid;
-    double kP = 800000;
-    double kI = 69420.1;
-    double kD = 8008;
-    double kIz = 1337;
-    double kFF = 666;
+    double kP = 0;
+    double kI = 0;
+    double kD = 0;
+    double kIz = 0;
+    double kFF = 0;
     double extMaxOutput = -2;
     double extMinOutput = 2;
     
@@ -34,18 +34,18 @@ public class ElevatorSubsystem {
     }
 
     public void goElevate(){
-        leftEl.set(0.5);
-        // rightEl.set(-0.5);
+        leftEl.set(-0.075);
+        rightEl.set(-0.075);
     }
 
     public void reverseElevate(){
-        leftEl.set(-0.5);
-        // rightEl.set(0.5);
+        leftEl.set(0.05);
+        rightEl.set(0.05);
     }
 
     public void stopElevate(){
         leftEl.set(0);
-        // rightEl.set(0);
+        rightEl.set(0);
     }
 
     
