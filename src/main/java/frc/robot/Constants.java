@@ -34,6 +34,7 @@ public final class Constants{
  int clickLeft = 9;
  int clickRight = 10;
 
+ 
  // Maximum speed of the robot in meters per second, used to limit acceleration.
 
 // public static final class AutonConstants
@@ -42,6 +43,10 @@ public final class Constants{
 //  public static final PIDConstants TRANSLATION_PID = new PIDConstants(0.7, 0, 0);
 //  public static final PIDConstants ANGLE_PID    = new PIDConstants(0.4, 0, 0.01);
 // }
+
+ public static final class PortConstants{
+    public static final int BLINKIN_LED_CONTROLLER_PORT = 0;
+ }
 
  public static final class DrivebaseConstants{
 
