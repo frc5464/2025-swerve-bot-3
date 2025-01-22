@@ -42,6 +42,17 @@ public class ArmSubsystem {
   armRot.configure(sparkMaxConfig, null, null);
   }
 
+  //Drop Coral
+  public void dropCoral(){
+    armCoral.set(0.15);
+  }
+  public void retrieveCoral(){
+    armCoral.set(-0.15);
+  }
+  //Kick Algea
+  public void windUp(){
+    armAlgae.set(0.2);
+  }
   //Rotate arm
   public void rotArm(){
   armRot.set(0.15);
