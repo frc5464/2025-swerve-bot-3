@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.ProcessorArmSubsystem;
 
@@ -29,7 +30,7 @@ public class Robot extends TimedRobot{
 
   // private RobotContainer m_robotContainer;
 
-  // private ArmSubsystem armSubsystem;
+  private ArmSubsystem armSubsystem;
 
   // private ClimbSubsystem climbSubsystem;
   
@@ -86,11 +87,12 @@ public class Robot extends TimedRobot{
     elevatorSubsystem = new ElevatorSubsystem();
     processorArmSubsystem = new ProcessorArmSubsystem();
     constants = new Constants();
-
+    armSubsystem = new ArmSubsystem();
     // Create a timer to disable motor brake a few seconds after disable.  This will let the robot stop
     // immediately when disabled, but then also let it be pushed more 
     disabledTimer = new Timer();
     
+    armSubsystem.init();
     elevatorSubsystem.init();
     processorArmSubsystem.init();
 
@@ -144,7 +146,7 @@ public class Robot extends TimedRobot{
 
     elevatorSubsystem.periodic();
     processorArmSubsystem.periodic();
-    
+    armSubsystem.periodic();
     
     // SmartDashboard.putNumber("FRdEncoder", frontRightDriveRelativeEncoder.getPosition());
     // SmartDashboard.putNumber("FRtEncoder", frontRightTurnRelativeEncoder.getPosition());
@@ -227,6 +229,18 @@ public class Robot extends TimedRobot{
     double leftstickval = driverController.getRawAxis(0);
     double rightstickval = driverController.getRawAxis(0);
 
+    double leftTriggerVal = mineController.getRawAxis(2);
+    double rightTriggerVal = mineController.getRawAxis(3);
+
+      if(mineController.getRawButton(6)){
+        armSubsystem.rotArm();
+      } else if(mineController.getRawButton(5)){
+        armSubsystem.revrotArm();
+      } else {
+        armSubsystem.stopArm();
+      } 
+      
+  
     // if(driverController.getRawButton(1)){
     //   // armSubsystem.lvl1Arm();
     //   elevatorSubsystem.lvl1El();
