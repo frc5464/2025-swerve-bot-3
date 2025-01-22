@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import au.grapplerobotics.CanBridge;
+import au.grapplerobotics.ConfigurationFailedException;
+import au.grapplerobotics.LaserCan;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -11,14 +14,14 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.ProcessorArmSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to each mode, as
  * described in the TimedRobot documentation. If you change the name of this class or the package after creating this
  * project, you must also update the build.gradle file in the project.
  */
-public class Robot extends TimedRobot
-{
+public class Robot extends TimedRobot{
 
   private static Robot instance;
 
@@ -32,7 +35,7 @@ public class Robot extends TimedRobot
   
   private ElevatorSubsystem elevatorSubsystem;
 
-  // private ProcessorArmSubsystem processorArmSubsystem;
+  private ProcessorArmSubsystem processorArmSubsystem;
 
   private Constants constants;
 
@@ -56,8 +59,11 @@ public class Robot extends TimedRobot
   // public RelativeEncoder backleftDriveRelativeEncoder;
   // public RelativeEncoder backleftTurnRelativeEncoder;
 
-  public Robot()
-  {
+  
+  // public LaserCan laserCan;
+  
+  public Robot(){
+    CanBridge.runTCP();
     instance = this;
   }
 
@@ -75,10 +81,10 @@ public class Robot extends TimedRobot
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     // m_robotContainer = new RobotContainer();
-  //armSubsystem = new ArmSubsystem();
+    //armSubsystem = new ArmSubsystem();
     // climbSubsystem = new ClimbSubsystem();
     elevatorSubsystem = new ElevatorSubsystem();
-    // processorArmSubsystem = new ProcessorArmSubsystem();
+    processorArmSubsystem = new ProcessorArmSubsystem();
     constants = new Constants();
 
     // Create a timer to disable motor brake a few seconds after disable.  This will let the robot stop
@@ -86,6 +92,7 @@ public class Robot extends TimedRobot
     disabledTimer = new Timer();
     
     elevatorSubsystem.init();
+    processorArmSubsystem.init();
 
     if (isSimulation())
     {
@@ -104,7 +111,17 @@ public class Robot extends TimedRobot
     //For Debugging
     // while (true);
       
-    
+  
+
+    // laserCan = new LaserCan(0);
+    // Optionally initialise the settings of the LaserCAN, if you haven't already done so in GrappleHook
+    // try {
+    //   laserCan.setRangingMode(LaserCan.RangingMode.SHORT);
+    //   laserCan.setRegionOfInterest(new LaserCan.RegionOfInterest(8, 8, 16, 16));
+    //   laserCan.setTimingBudget(LaserCan.TimingBudget.TIMING_BUDGET_33MS);
+    // } catch (ConfigurationFailedException e) {
+    //   System.out.println("Configuration failed! " + e);
+    // }
 
   }
 
@@ -126,6 +143,7 @@ public class Robot extends TimedRobot
     CommandScheduler.getInstance().run();
 
     elevatorSubsystem.periodic();
+    processorArmSubsystem.periodic();
     
     
     // SmartDashboard.putNumber("FRdEncoder", frontRightDriveRelativeEncoder.getPosition());
@@ -225,7 +243,7 @@ public class Robot extends TimedRobot
     //   // armSubsystem.stopArm();
     //   elevatorSubsystem.stopElevate();
     // }
-/* 
+
   // Processor Rotation
   if(mineController.getRawButton(1)){
     processorArmSubsystem.downrot_procarm();
@@ -241,16 +259,17 @@ public class Robot extends TimedRobot
     processorArmSubsystem.revroll_procarm();
   } else{
     processorArmSubsystem.stoproll_procarm();
-  }*/
+  }
   
   // Elevator
   if(driverController.getPOV() == 0){
-    if(elevatorSubsystem.elencoderPos <= 57.6){
+    if(elevatorSubsystem.elencoderPos < 59){
       elevatorSubsystem.goElevate();}
-
   } else if(driverController.getPOV() == 180){
-    elevatorSubsystem.reverseElevate();
-  } else{
+    if(elevatorSubsystem.elencoderPos > 1){
+      elevatorSubsystem.reverseElevate();}
+    } 
+  else{
     elevatorSubsystem.stopElevate();
   }
 

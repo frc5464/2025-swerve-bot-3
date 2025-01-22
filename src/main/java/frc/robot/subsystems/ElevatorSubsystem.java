@@ -23,11 +23,8 @@ public class ElevatorSubsystem {
   double kFF = 0;
   double extMaxOutput = -0.2;
   double extMinOutput = 0.2;
-
   RelativeEncoder leftelEncoder;
   public double elencoderPos;
-
-
 
   public void periodic(){
   elencoderPos = leftelEncoder.getPosition();
