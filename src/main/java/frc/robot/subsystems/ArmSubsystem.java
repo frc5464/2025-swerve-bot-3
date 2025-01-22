@@ -11,9 +11,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ArmSubsystem {
   
-  SparkMax armAlgae = new SparkMax(0, MotorType.kBrushless);
-  SparkMax armCoral = new SparkMax(0, MotorType.kBrushless);
-  SparkMax armRot = new SparkMax(0, MotorType.kBrushless);
+  SparkMax armAlgae = new SparkMax(32, MotorType.kBrushless);
+  SparkMax armCoral = new SparkMax(33, MotorType.kBrushless);
+  SparkMax armRot = new SparkMax(34, MotorType.kBrushless);
   SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
   SparkClosedLoopController loopController1 = armRot.getClosedLoopController();
   double kP = 0;
@@ -44,10 +44,10 @@ public class ArmSubsystem {
 
   //Rotate arm
   public void rotArm(){
-  armRot.set(1);
+  armRot.set(0.15);
   }
   public void revrotArm(){
-  armRot.set(-1);
+  armRot.set(-0.15);
   }
   //Stop arm movement
   public void stopArm(){
