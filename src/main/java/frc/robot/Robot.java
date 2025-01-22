@@ -63,7 +63,7 @@ public class Robot extends TimedRobot{
   // public LaserCan laserCan;
   
   public Robot(){
-    CanBridge.runTCP();
+    // CanBridge.runTCP();
     instance = this;
   }
 
