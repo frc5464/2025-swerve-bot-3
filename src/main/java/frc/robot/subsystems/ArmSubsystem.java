@@ -43,11 +43,11 @@ public class ArmSubsystem {
   }
 
   //Drop Coral
-  public void dropCoral(){
-    armCoral.set(0.15);
+  public void dropCoral(double axi2){
+    armCoral.set(axi2);
   }
-  public void retrieveCoral(){
-    armCoral.set(-0.15);
+  public void retrieveCoral(double axi3){
+    armCoral.set(-axi3);
   }
   //Kick Algea
   public void windUp(){
