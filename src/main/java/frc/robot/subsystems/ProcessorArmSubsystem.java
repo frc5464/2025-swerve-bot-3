@@ -9,6 +9,7 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ProcessorArmSubsystem {
+  
   SparkMax processorRotater = new SparkMax(35, MotorType.kBrushless);
   SparkFlex processorint_out = new SparkFlex(10, MotorType.kBrushless);
   SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
@@ -22,11 +23,6 @@ public class ProcessorArmSubsystem {
   RelativeEncoder procrotEncoder;
   public double procrotEncoderPos;
   
-  public void periodic(){
-  procrotEncoderPos = procrotEncoder.getPosition();
-  SmartDashboard.putNumber("ProcRotEncoder", procrotEncoderPos);
-  }
-
   public void init(){
 
       procrotEncoder = processorRotater.getEncoder();
@@ -40,6 +36,13 @@ public class ProcessorArmSubsystem {
     // processorRotater.configure(sparkMaxConfig, null, null); 
         
   }
+  
+  public void periodic(){
+  procrotEncoderPos = procrotEncoder.getPosition();
+  SmartDashboard.putNumber("ProcRotEncoder", procrotEncoderPos);
+  }
+
+ 
 
   
   

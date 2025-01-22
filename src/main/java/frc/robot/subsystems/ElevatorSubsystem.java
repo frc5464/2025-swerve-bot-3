@@ -12,8 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class ElevatorSubsystem {
 
   SparkMax leftEl = new SparkMax(37, MotorType.kBrushless);
-  SparkMax rightEl = new SparkMax(36, MotorType.kBrushless);
-  //right follows Left
+  SparkMax rightEl = new SparkMax(36, MotorType.kBrushless); //right follows Left
   SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
   SparkClosedLoopController elPid = leftEl.getClosedLoopController();
   double kP = 0;
@@ -26,11 +25,6 @@ public class ElevatorSubsystem {
   RelativeEncoder leftelEncoder;
   public double elencoderPos;
 
-  public void periodic(){
-  elencoderPos = leftelEncoder.getPosition();
-  SmartDashboard.putNumber("ElEncoder", elencoderPos);
-  }  
-
   public void init(){
 
     leftelEncoder = leftEl.getEncoder();
@@ -42,8 +36,14 @@ public class ElevatorSubsystem {
     //   .outputRange(extMinOutput, extMaxOutput);
     
     // leftEl.configure(sparkMaxConfig, null, null);
+
   }
 
+  public void periodic(){
+  elencoderPos = leftelEncoder.getPosition();
+  SmartDashboard.putNumber("ElEncoder", elencoderPos);
+  }
+  
   public void goElevate(){
     leftEl.set(0.15);
     // rightEl.set(-0.075);
@@ -61,30 +61,21 @@ public class ElevatorSubsystem {
 
   //Get arm to the 1st stage
   public void lvl1El(){
-
-    elPid.setReference(333, ControlType.kPosition);
-
+    elPid.setReference(0, ControlType.kPosition);
   }
   
   //Get arm to the 2nd stage
   public void lvl2El(){
-
-    elPid.setReference(444, ControlType.kPosition);
-
+    elPid.setReference(0, ControlType.kPosition);
   }
   
   //Get arm to the 3rd stage
   public void lvl3El(){
-
-    elPid.setReference(666, ControlType.kPosition);
-
+    elPid.setReference(0, ControlType.kPosition);
   }  
   
   //Get arm to the 4th stage
   public void lvl4El(){
-  
-    elPid.setReference(999, ControlType.kPosition);
-
+    elPid.setReference(0, ControlType.kPosition);
   }
-  
 }
