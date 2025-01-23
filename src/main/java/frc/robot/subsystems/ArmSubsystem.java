@@ -23,24 +23,29 @@ public class ArmSubsystem {
   double kFF = 0;
   double extMaxOutput = 0;
   double extMinOutput = 0;
-
-  RelativeEncoder relativeEncoder;
+  RelativeEncoder armEncoder;
   public double encoderPos;
+
+  public void init(){
+    
+    armEncoder = armRot.getEncoder();
+  //Encoderstuff
+  // sparkMaxConfig.closedLoop
+  //   .p(kP)
+  //   .i(kI)
+  //   .d(kD)
+  //   .outputRange(extMinOutput, extMaxOutput);
+  
+  // armRot.configure(sparkMaxConfig, null, null);
+  
+  }
+
   public void periodic(){
-  encoderPos = relativeEncoder.getPosition();
+  encoderPos = armEncoder.getPosition();
   SmartDashboard.putNumber("Encoder", encoderPos);
   }
 
-  public void init(){
-  //Encoderstuff
-  sparkMaxConfig.closedLoop
-    .p(kP)
-    .i(kI)
-    .d(kD)
-    .outputRange(extMinOutput, extMaxOutput);
   
-  armRot.configure(sparkMaxConfig, null, null);
-  }
 
   //Drop Coral
   public void dropCoral(double axi2){

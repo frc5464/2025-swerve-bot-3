@@ -230,6 +230,8 @@ public class Robot extends TimedRobot{
     double rightstickval = driverController.getRawAxis(0);
     double leftTriggerVal = driverController.getRawAxis(2);
     double rightTriggerVal = driverController.getRawAxis(3);
+    double leftTriggerVal2 = mineController.getRawAxis(2);
+    double rightTriggerVal2 = mineController.getRawAxis(3);
 
       if(driverController.getRawButton(6)){
         armSubsystem.rotArm();
@@ -285,7 +287,7 @@ public class Robot extends TimedRobot{
     elevatorSubsystem.stopElevate();
   }
 
-  
+ //  im programming im haker man i do haks yeahahahahahahahahhh im in the mainframe babyyyyyyyyyyyyyy
 }
 
   @Override

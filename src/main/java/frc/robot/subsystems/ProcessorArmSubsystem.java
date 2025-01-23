@@ -18,8 +18,8 @@ public class ProcessorArmSubsystem {
   double kD = 0;
   double kIz = 0;
   double kFF = 0;
-  double extMaxOutput = 0;
-  double extMinOutput = 0;
+  double extMaxOutput = 0.2;
+  double extMinOutput = 0.2;
   RelativeEncoder procrotEncoder;
   public double procrotEncoderPos;
   
@@ -36,7 +36,7 @@ public class ProcessorArmSubsystem {
     // processorRotater.configure(sparkMaxConfig, null, null); 
         
   }
-  
+
   public void periodic(){
   procrotEncoderPos = procrotEncoder.getPosition();
   SmartDashboard.putNumber("ProcRotEncoder", procrotEncoderPos);
@@ -59,10 +59,10 @@ public class ProcessorArmSubsystem {
 
   // Rotate the processor arm (whole thing/up and down)
   public void rot_procarm(){
-    processorRotater.set(0);
+    processorRotater.set(0.1);
   }
   public void downrot_procarm(){
-    processorRotater.set(-0);
+    processorRotater.set(-0.1);
   }
   public void stoprot_procarm(){
     processorRotater.set(0);

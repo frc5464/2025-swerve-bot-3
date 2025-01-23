@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ElevatorSubsystem {
 
-  SparkMax leftEl = new SparkMax(37, MotorType.kBrushless);
+  SparkMax leftEl = new SparkMax(30, MotorType.kBrushless);
   SparkMax rightEl = new SparkMax(36, MotorType.kBrushless); //right follows Left
   SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
   SparkClosedLoopController elPid = leftEl.getClosedLoopController();
@@ -43,7 +43,7 @@ public class ElevatorSubsystem {
   elencoderPos = leftelEncoder.getPosition();
   SmartDashboard.putNumber("ElEncoder", elencoderPos);
   }
-  
+
   public void goElevate(){
     leftEl.set(0.15);
     // rightEl.set(-0.075);
