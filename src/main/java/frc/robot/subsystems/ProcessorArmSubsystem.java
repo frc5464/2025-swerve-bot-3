@@ -55,6 +55,9 @@ public class ProcessorArmSubsystem {
   public void outake(double axis3){
     processorint_out.set(-axis3);
   }
+  public void stoprot(){
+    processorint_out.set(0);
+  }
 
   // Rotate the processor arm (whole thing/up and down)
   public void rot_procarm(){

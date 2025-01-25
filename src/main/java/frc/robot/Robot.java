@@ -267,8 +267,17 @@ public class Robot extends TimedRobot{
     processorArmSubsystem.stoprot_procarm();
   }
   // Processor Roll (Int_Out)
-  processorArmSubsystem.intake(leftTriggerVal2);
-  processorArmSubsystem.outake(rightTriggerVal2);
+  if(mineController.getRawAxis(2) < 0.05){
+    processorArmSubsystem.intake(leftTriggerVal2);
+  } else {
+    processorArmSubsystem.stoprot();
+  }
+  if(mineController.getRawAxis(3) < 0.05){
+    processorArmSubsystem.outake(rightTriggerVal2);
+  } else {
+    processorArmSubsystem.stoprot();
+  }
+  
   
   // Elevator
   if(driverController.getPOV() == 0){
