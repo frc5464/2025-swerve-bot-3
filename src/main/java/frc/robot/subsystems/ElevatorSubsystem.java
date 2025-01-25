@@ -31,7 +31,7 @@ public class ElevatorSubsystem {
   public void init(){
 
     leftelEncoder = leftEl.getEncoder();
-
+    laserInit();
     // sparkMaxConfig.closedLoop
     //   .p(kP)
     //   .i(kI)
