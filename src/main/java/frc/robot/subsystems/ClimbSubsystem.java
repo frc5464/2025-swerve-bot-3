@@ -34,5 +34,6 @@ public class ClimbSubsystem {
 
         loopController.setReference(400, ControlType.kPosition );
         
-    }
+    }   
 }
+
