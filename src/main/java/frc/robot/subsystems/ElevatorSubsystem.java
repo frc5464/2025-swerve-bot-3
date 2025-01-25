@@ -27,6 +27,8 @@ public class ElevatorSubsystem {
   double extMinOutput = 0.2;
   RelativeEncoder leftelEncoder;
   public double elencoderPos;
+  public double counts;
+
 
   public void init(){
 
@@ -85,23 +87,43 @@ public class ElevatorSubsystem {
     // rightEl.set(0);
   }
 
-  //Get arm to the 1st stage
-  public void lvl1El(){
-    elPid.setReference(10, ControlType.kPosition);
-  }
+  // //Get arm to the 1st stage
+  // public void lvl1El(){
+  //   elPid.setReference(10, ControlType.kPosition);
+  // }
   
-  //Get arm to the 2nd stage
-  public void lvl2El(){
-    elPid.setReference(20, ControlType.kPosition);
-  }
+  // //Get arm to the 2nd stage
+  // public void lvl2El(){
+  //   elPid.setReference(20, ControlType.kPosition);
+  // }
   
-  //Get arm to the 3rd stage
-  public void lvl3El(){
-    elPid.setReference(30, ControlType.kPosition);
-  }  
+  // //Get arm to the 3rd stage
+  // public void lvl3El(){
+  //   elPid.setReference(30, ControlType.kPosition);
+  // }  
   
-  //Get arm to the 4th stage
-  public void lvl4El(){
-    elPid.setReference(50, ControlType.kPosition);
+  // //Get arm to the 4th stage
+  // public void lvl4El(){
+  //   elPid.setReference(50, ControlType.kPosition);
+  // }
+
+  public void pidToLevel(int level){
+    if(level == 1){
+      counts = 10;
+    }
+    
+    if(level == 2){
+      counts = 20;
+    }
+    
+    if(level == 3){
+      counts = 30;
+    }
+
+    if(level == 4){
+      counts  = 50;
+    }
+
+    elPid.setReference(counts, ControlType.kPosition);
   }
 }
