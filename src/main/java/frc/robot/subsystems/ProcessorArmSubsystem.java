@@ -13,8 +13,8 @@ public class ProcessorArmSubsystem {
   
   SparkMax processorRotater = new SparkMax(35, MotorType.kBrushless);
   SparkFlex processorint_out = new SparkFlex(10, MotorType.kBrushless);
-  SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
-  SparkClosedLoopController procRotPid = processorRotater.getClosedLoopController();
+  SparkMaxConfig sparkMaxConfig2 = new SparkMaxConfig();
+  SparkClosedLoopController procRotPID = processorRotater.getClosedLoopController();
   double kP = 0;
   double kI = 0;
   double kD = 0;
