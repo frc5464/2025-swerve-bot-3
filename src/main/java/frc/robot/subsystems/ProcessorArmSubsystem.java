@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
@@ -12,7 +13,8 @@ public class ProcessorArmSubsystem {
   
   SparkMax processorRotater = new SparkMax(35, MotorType.kBrushless);
   SparkFlex processorint_out = new SparkFlex(10, MotorType.kBrushless);
-  SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
+  SparkMaxConfig sparkMaxConfig2 = new SparkMaxConfig();
+  SparkClosedLoopController procRotPID = processorRotater.getClosedLoopController();
   double kP = 0;
   double kI = 0;
   double kD = 0;
@@ -47,13 +49,13 @@ public class ProcessorArmSubsystem {
   
   
   // Roll the intake/vomit
-  public void roll_procarm(){
-    processorint_out.set(0.1);
+  public void intake(double axis2){
+    processorint_out.set(axis2);
   }
-  public void revroll_procarm(){
-    processorint_out.set(-0.1);
+  public void outake(double axis3){
+    processorint_out.set(-axis3);
   }
-  public void stoproll_procarm(){
+  public void stoprot(){
     processorint_out.set(0);
   }
 
