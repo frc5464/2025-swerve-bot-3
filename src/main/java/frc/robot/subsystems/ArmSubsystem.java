@@ -60,10 +60,10 @@ public class ArmSubsystem {
   }
   //Rotate arm
   public void rotArm(){
-  armRot.set(0.15);
+  armRot.set(0.3);
   }
   public void revrotArm(){
-  armRot.set(-0.15);
+  armRot.set(-0.3);
   }
   //Stop arm movement
   public void stopArm(){
