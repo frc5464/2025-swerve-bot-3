@@ -61,21 +61,21 @@ public class ElevatorSubsystem {
 
   //Get arm to the 1st stage
   public void lvl1El(){
-    elPid.setReference(0, ControlType.kPosition);
+    elPid.setReference(10, ControlType.kPosition);
   }
   
   //Get arm to the 2nd stage
   public void lvl2El(){
-    elPid.setReference(0, ControlType.kPosition);
+    elPid.setReference(20, ControlType.kPosition);
   }
   
   //Get arm to the 3rd stage
   public void lvl3El(){
-    elPid.setReference(0, ControlType.kPosition);
+    elPid.setReference(30, ControlType.kPosition);
   }  
   
   //Get arm to the 4th stage
   public void lvl4El(){
-    elPid.setReference(0, ControlType.kPosition);
+    elPid.setReference(50, ControlType.kPosition);
   }
 }
