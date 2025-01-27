@@ -4,9 +4,6 @@
 
 package frc.robot;
 
-import au.grapplerobotics.CanBridge;
-import au.grapplerobotics.ConfigurationFailedException;
-import au.grapplerobotics.LaserCan;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -41,6 +38,17 @@ public class Robot extends TimedRobot{
   private Constants constants;
 
   private Timer disabledTimer;
+
+
+
+  // private String auto_selected;
+  //   private final SendableChooser<String> auto_chooser = new SendableChooser<>();
+  //   public static final String kPos1 = "Pos1";
+
+    // auto_chooser.addOption("Pos1", kPos1);
+  
+
+
 
   // public SparkMax frontRightDrive = new SparkMax(35, MotorType.kBrushless);
   // public SparkMax frontRightTurn = new SparkMax(34, MotorType.kBrushless);
