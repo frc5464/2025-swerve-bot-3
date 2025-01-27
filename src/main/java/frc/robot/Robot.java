@@ -259,16 +259,16 @@ public class Robot extends TimedRobot{
     // }
 
   if(driverController.getRawButton(1)){
-      elevatorSubsystem.pidToLevel(1);
+      elevatorSubsystem.elPIDToLevel(1);
   }
     else if(driverController.getRawButton(3)){
-      elevatorSubsystem.pidToLevel(2);
+      elevatorSubsystem.elPIDToLevel(2);
   }
     else if(driverController.getRawButton(2)){
-      elevatorSubsystem.pidToLevel(3);
+      elevatorSubsystem.elPIDToLevel(3);
   }
     else if(driverController.getRawButton(4)){
-      elevatorSubsystem.pidToLevel(4);
+      elevatorSubsystem.elPIDToLevel(4);
   }
 
   // Processor Rotation

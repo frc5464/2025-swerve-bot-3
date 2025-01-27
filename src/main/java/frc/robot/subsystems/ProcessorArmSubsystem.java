@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -24,6 +25,7 @@ public class ProcessorArmSubsystem {
   double extMinOutput = 0.2;
   RelativeEncoder procrotEncoder;
   public double procrotEncoderPos;
+  public double counts;
   
   public void init(){
 
@@ -43,10 +45,6 @@ public class ProcessorArmSubsystem {
   procrotEncoderPos = procrotEncoder.getPosition();
   SmartDashboard.putNumber("ProcRotEncoder", procrotEncoderPos);
   }
-
- 
-
-  
   
   // Roll the intake/vomit
   public void intake(double axis2){
@@ -68,6 +66,26 @@ public class ProcessorArmSubsystem {
   }
   public void stoprot_procarm(){
     processorRotater.set(0);
+  }
+
+  public void procArmToLevel(int level){
+    if(level == 1){
+      counts = 1;
+    }
+    
+    if(level == 2){
+      counts = 2;
+    }
+    
+    if(level == 3){
+      counts = 3;
+    }
+
+    if(level == 4){
+      counts  = 4;
+    }
+
+    procRotPID.setReference(counts, ControlType.kPosition);
   }
 }
 

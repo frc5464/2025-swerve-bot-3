@@ -17,7 +17,7 @@ public class ElevatorSubsystem {
   SparkMax leftEl = new SparkMax(30, MotorType.kBrushless);
   SparkMax rightEl = new SparkMax(36, MotorType.kBrushless); //right follows Left
   SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
-  SparkClosedLoopController elPid = leftEl.getClosedLoopController();
+  SparkClosedLoopController elPID = leftEl.getClosedLoopController();
   double kP = 0;
   double kI = 0;
   double kD = 0;
@@ -28,7 +28,6 @@ public class ElevatorSubsystem {
   RelativeEncoder leftelEncoder;
   public double elencoderPos;
   public double counts;
-
 
   public void init(){
 
@@ -107,7 +106,7 @@ public class ElevatorSubsystem {
   //   elPid.setReference(50, ControlType.kPosition);
   // }
 
-  public void pidToLevel(int level){
+  public void elPIDToLevel(int level){
     if(level == 1){
       counts = 10;
     }
@@ -124,6 +123,6 @@ public class ElevatorSubsystem {
       counts  = 50;
     }
 
-    elPid.setReference(counts, ControlType.kPosition);
+    elPID.setReference(counts, ControlType.kPosition);
   }
 }

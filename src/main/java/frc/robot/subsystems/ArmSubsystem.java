@@ -7,6 +7,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
+import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ArmSubsystem {
@@ -14,6 +15,7 @@ public class ArmSubsystem {
   SparkMax armAlgae = new SparkMax(32, MotorType.kBrushless);
   SparkMax armCoral = new SparkMax(33, MotorType.kBrushless);
   SparkMax armRot = new SparkMax(34, MotorType.kBrushless);
+  Talon ermRot = new Talon(0);
   SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
   SparkClosedLoopController loopController1 = armRot.getClosedLoopController();
   double kP = 0;
