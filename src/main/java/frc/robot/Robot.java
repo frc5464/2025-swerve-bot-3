@@ -249,6 +249,7 @@ public class Robot extends TimedRobot{
         armSubsystem.stopArm();
       } 
       
+      
     // if(driverController.getRawButton(1)){
     //   // armSubsystem.lvl1Arm();
     //   elevatorSubsystem.lvl1El();
@@ -265,19 +266,6 @@ public class Robot extends TimedRobot{
     //   // armSubsystem.stopArm();
     //   elevatorSubsystem.stopElevate();
     // }
-
-  if(driverController.getRawButton(1)){
-      elevatorSubsystem.elPIDToLevel(1);
-  }
-    else if(driverController.getRawButton(3)){
-      elevatorSubsystem.elPIDToLevel(2);
-  }
-    else if(driverController.getRawButton(2)){
-      elevatorSubsystem.elPIDToLevel(3);
-  }
-    else if(driverController.getRawButton(4)){
-      elevatorSubsystem.elPIDToLevel(4);
-  }
 
   // Processor Rotation
   if(mineController.getRawButton(1)){
