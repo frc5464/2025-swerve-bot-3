@@ -1,5 +1,8 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.configs.Slot0Configs;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.hardware.TalonFX;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkClosedLoopController;
@@ -14,10 +17,10 @@ public class ArmSubsystem {
   
   SparkMax armAlgae = new SparkMax(32, MotorType.kBrushless);
   SparkMax armCoral = new SparkMax(33, MotorType.kBrushless);
-  SparkMax armRot = new SparkMax(34, MotorType.kBrushless);
-  Talon ermRot = new Talon(0);
+  //SparkMax armRot = new SparkMax(34, MotorType.kBrushless);
+  TalonFX armRot = new TalonFX(34);
   SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
-  SparkClosedLoopController loopController1 = armRot.getClosedLoopController();
+  
   double kP = 0;
   double kI = 0;
   double kD = 0;
@@ -30,7 +33,13 @@ public class ArmSubsystem {
 
   public void init(){
     
-    armEncoder = armRot.getEncoder();
+    var slot0Configs = new Slot0Configs();
+    slot0Configs.kP = 2.4;
+    slot0Configs.kI = 0;
+    slot0Configs.kD = 0.1;
+
+    
+    //armEncoder = armRot.getEncoder();
   //Encoderstuff
   // sparkMaxConfig.closedLoop
   //   .p(kP)
@@ -73,31 +82,31 @@ public class ArmSubsystem {
   }
 
   //Get arm to the 1st stage
-  public void lvl1Arm(){
+  // public void lvl1Arm(){
 
-    loopController1.setReference(333, ControlType.kPosition);
+  //   loopController1.setReference(333, ControlType.kPosition);
 
-  }
+  // }
   
-  //Get arm to the 2nd stage
-  public void lvl2Arm(){
+  // //Get arm to the 2nd stage
+  // public void lvl2Arm(){
 
-    loopController1.setReference(444, ControlType.kPosition);
+  //   loopController1.setReference(444, ControlType.kPosition);
 
-  }
+  // }
   
-  //Get arm to the 3rd stage
-  public void lvl3Arm(){
+  // //Get arm to the 3rd stage
+  // public void lvl3Arm(){
 
-    loopController1.setReference(666, ControlType.kPosition);
+  //   loopController1.setReference(666, ControlType.kPosition);
 
-  }  
+  // }  
   
-  //Get arm to the 4th stage
-  public void lvl4Arm(){
+  // //Get arm to the 4th stage
+  // public void lvl4Arm(){
   
-    loopController1.setReference(999, ControlType.kPosition);
+  //   loopController1.setReference(999, ControlType.kPosition);
 
-  }
+  // }
 
   }

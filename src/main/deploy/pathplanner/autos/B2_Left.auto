@@ -13,19 +13,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "R2_C1"
+            "pathName": "R2_C2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "C1_R6"
+            "pathName": "C2_R4"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "R6_C1"
+            "pathName": "R4_C2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "C2_LeftEndPoint"
           }
         }
       ]

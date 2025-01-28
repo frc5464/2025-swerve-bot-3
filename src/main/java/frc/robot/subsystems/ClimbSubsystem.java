@@ -8,7 +8,7 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 
 public class ClimbSubsystem {
   
-  SparkMax climb1 = new SparkMax(0, MotorType.kBrushless);
+  SparkMax climb1 = new SparkMax(29, MotorType.kBrushless);
   SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
   SparkClosedLoopController loopController = climb1.getClosedLoopController();
   double kP = 0;
