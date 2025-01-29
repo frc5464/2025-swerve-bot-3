@@ -50,14 +50,7 @@ public class Robot extends TimedRobot{
 
 
 
-  // public SparkMax frontRightDrive = new SparkMax(35, MotorType.kBrushless);
-  // public SparkMax frontRightTurn = new SparkMax(34, MotorType.kBrushless);
-  // public SparkMax frontLeftDrive = new SparkMax(32, MotorType.kBrushless);
-  // public SparkMax frontLeftTurn = new SparkMax(33, MotorType.kBrushless);
-  // public SparkMax backRightDrive = new SparkMax(37, MotorType.kBrushless);
-  // public SparkMax backRightTurn = new SparkMax(36, MotorType.kBrushless);
-  // public SparkMax backLeftDrive = new SparkMax(31, MotorType.kBrushless);
-  // public SparkMax backLeftTurn = new SparkMax(30, MotorType.kBrushless);
+
 
   // public RelativeEncoder frontRightDriveRelativeEncoder;
   // public RelativeEncoder frontRightTurnRelativeEncoder;
@@ -284,7 +277,16 @@ public class Robot extends TimedRobot{
     processorArmSubsystem.stoprot();
   }
   
-  
+  if(driverController.getRawButton(1)){
+    elevatorSubsystem.elPIDToLevel(1);
+  } else if(driverController.getRawButton(3)){
+    elevatorSubsystem.elPIDToLevel(2);
+  } else if(driverController.getRawButton(3)){
+    elevatorSubsystem.elPIDToLevel(3);
+  } else if(driverController.getRawButton(4)){
+    elevatorSubsystem.elPIDToLevel(4);
+  }
+
   
   // Elevator
   if(driverController.getPOV() == 0){
