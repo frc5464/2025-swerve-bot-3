@@ -26,7 +26,7 @@ public class Robot extends TimedRobot{
 
   private Command m_autonomousCommand;
 
-  // private RobotContainer m_robotContainer;
+  private RobotContainer m_robotContainer;
 
   private ArmSubsystem armSubsystem;
 
@@ -83,18 +83,17 @@ public class Robot extends TimedRobot{
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    // m_robotContainer = new RobotContainer();
-    //armSubsystem = new ArmSubsystem();
+    m_robotContainer = new RobotContainer();
     climbSubsystem = new ClimbSubsystem();
     elevatorSubsystem = new ElevatorSubsystem();
     processorArmSubsystem = new ProcessorArmSubsystem();
     constants = new Constants();
-    armSubsystem = new ArmSubsystem();
+    // armSubsystem = new ArmSubsystem();
     // Create a timer to disable motor brake a few seconds after disable.  This will let the robot stop
     // immediately when disabled, but then also let it be pushed more 
     disabledTimer = new Timer();
     
-    armSubsystem.init();
+    // armSubsystem.init();
     elevatorSubsystem.init();
     processorArmSubsystem.init();
 
@@ -148,7 +147,7 @@ public class Robot extends TimedRobot{
 
     elevatorSubsystem.periodic();
     processorArmSubsystem.periodic();
-    armSubsystem.periodic();
+    // armSubsystem.periodic();
     climbSubsystem.periodic();
     // SmartDashboard.putNumber("FRdEncoder", frontRightDriveRelativeEncoder.getPosition());
     // SmartDashboard.putNumber("FRtEncoder", frontRightTurnRelativeEncoder.getPosition());
@@ -166,7 +165,7 @@ public class Robot extends TimedRobot{
   @Override
   public void disabledInit()
   {
-    // m_robotContainer.setMotorBrake(true);
+    m_robotContainer.setMotorBrake(true);
     disabledTimer.reset();
     disabledTimer.start();
   }
@@ -176,7 +175,7 @@ public class Robot extends TimedRobot{
   {
     if (disabledTimer.hasElapsed(Constants.DrivebaseConstants.WHEEL_LOCK_TIME))
     {
-      // m_robotContainer.setMotorBrake(false);
+      m_robotContainer.setMotorBrake(false);
       disabledTimer.stop();
     }
   }
@@ -187,8 +186,8 @@ public class Robot extends TimedRobot{
   @Override
   public void autonomousInit()
   {
-    // m_robotContainer.setMotorBrake(true);
-    // m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_robotContainer.setMotorBrake(true);
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null)
@@ -219,7 +218,7 @@ public class Robot extends TimedRobot{
     {
       CommandScheduler.getInstance().cancelAll();
     }
-    // m_robotContainer.setDriveMode();
+    m_robotContainer.setDriveMode();
   }
 
   /**
@@ -235,13 +234,13 @@ public class Robot extends TimedRobot{
     double leftTriggerVal2 = mineController.getRawAxis(2);
     double rightTriggerVal2 = mineController.getRawAxis(3);
 
-      if(driverController.getRawButton(6)){
-        armSubsystem.rotArm();
-      } else if(driverController.getRawButton(5)){
-        armSubsystem.revrotArm();
-      } else {
-        armSubsystem.stopArm();
-      } 
+      // if(driverController.getRawButton(6)){
+      //   armSubsystem.rotArm();
+      // } else if(driverController.getRawButton(5)){
+      //   armSubsystem.revrotArm();
+      // } else {
+      //   armSubsystem.stopArm();
+      // } 
       
       if(mineController.getRawButton(1)){
         climbSubsystem.closeHand();
@@ -315,7 +314,7 @@ public class Robot extends TimedRobot{
   {
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
-    // m_robotContainer.setDriveMode();
+    m_robotContainer.setDriveMode();
     
   }
 

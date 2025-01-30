@@ -10,7 +10,7 @@ public class ClimbSubsystem {
   
   SparkMax climb1 = new SparkMax(47, MotorType.kBrushless);
   SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
-  SparkClosedLoopController loopController = climb1.getClosedLoopController();
+  // SparkClosedLoopController loopController = climb1.getClosedLoopController();
   double kP = 0;
   double kI = 0;
   double kD = 0;
@@ -31,15 +31,15 @@ public class ClimbSubsystem {
 
     public void periodic(){
 
-        loopController.setReference(400, ControlType.kPosition );
+        //loopController.setReference(400, ControlType.kPosition );
         
     } 
     
     public void openHand(){
-      climb1.set(0.2);
+      climb1.set(1);
     }
     public void closeHand(){
-      climb1.set(-0.7);
+      climb1.set(-1);
     }
     public void stopHand(){
       climb1.set(0);

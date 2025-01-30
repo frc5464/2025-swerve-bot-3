@@ -59,7 +59,7 @@ public class ProcessorArmSubsystem {
 
   // Rotate the processor arm (whole thing/up and down)
   public void rot_procarm(){
-    processorRotater.set(1);
+    processorRotater.set(0.3);
   }
   public void downrot_procarm(){
     processorRotater.set(-0.1);
