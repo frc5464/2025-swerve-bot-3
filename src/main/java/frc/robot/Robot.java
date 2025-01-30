@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.ProcessorArmSubsystem;
 
@@ -29,7 +30,7 @@ public class Robot extends TimedRobot{
 
   private ArmSubsystem armSubsystem;
 
-  // private ClimbSubsystem climbSubsystem;
+  private ClimbSubsystem climbSubsystem;
   
   private ElevatorSubsystem elevatorSubsystem;
 
@@ -84,7 +85,7 @@ public class Robot extends TimedRobot{
     // autonomous chooser on the dashboard.
     // m_robotContainer = new RobotContainer();
     //armSubsystem = new ArmSubsystem();
-    // climbSubsystem = new ClimbSubsystem();
+    climbSubsystem = new ClimbSubsystem();
     elevatorSubsystem = new ElevatorSubsystem();
     processorArmSubsystem = new ProcessorArmSubsystem();
     constants = new Constants();
@@ -148,7 +149,7 @@ public class Robot extends TimedRobot{
     elevatorSubsystem.periodic();
     processorArmSubsystem.periodic();
     armSubsystem.periodic();
-    
+    climbSubsystem.periodic();
     // SmartDashboard.putNumber("FRdEncoder", frontRightDriveRelativeEncoder.getPosition());
     // SmartDashboard.putNumber("FRtEncoder", frontRightTurnRelativeEncoder.getPosition());
     // SmartDashboard.putNumber("FLdEncoder", frontLeftDriveRelativeEncoder.getPosition());
@@ -242,7 +243,13 @@ public class Robot extends TimedRobot{
         armSubsystem.stopArm();
       } 
       
-      
+      if(mineController.getRawButton(1)){
+        climbSubsystem.closeHand();
+      } else if(mineController.getRawButton(4)){
+        climbSubsystem.openHand();
+      } else {
+        climbSubsystem.stopHand();
+      }
     // if(driverController.getRawButton(1)){
     //   // armSubsystem.lvl1Arm();
     //   elevatorSubsystem.lvl1El();
@@ -261,9 +268,9 @@ public class Robot extends TimedRobot{
     // }
 
   // Processor Rotation
-  if(mineController.getRawButton(1)){
+  if(mineController.getRawButton(5)){
     processorArmSubsystem.downrot_procarm();
-  } else if(mineController.getRawButton(4)){
+  } else if(mineController.getRawButton(6)){
     processorArmSubsystem.rot_procarm();
   } else{
     processorArmSubsystem.stoprot_procarm();

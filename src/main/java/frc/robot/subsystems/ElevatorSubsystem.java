@@ -33,13 +33,13 @@ public class ElevatorSubsystem {
 
     leftelEncoder = leftEl.getEncoder();
     laserInit();
-    sparkMaxConfig.closedLoop
-      .p(kP)
-      .i(kI)
-      .d(kD)
-      .outputRange(extMinOutput, extMaxOutput);
+    // sparkMaxConfig.closedLoop
+    //   .p(kP)
+    //   .i(kI)
+    //   .d(kD)
+    //   .outputRange(extMinOutput, extMaxOutput);
     
-    leftEl.configure(sparkMaxConfig, null, null);
+    // leftEl.configure(sparkMaxConfig, null, null);
 
   }
   //lasercan
