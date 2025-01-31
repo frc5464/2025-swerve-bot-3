@@ -14,8 +14,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class ElevatorSubsystem {
   private LaserCan lc;
 
-  SparkMax leftEl = new SparkMax(30, MotorType.kBrushless);
-  SparkMax rightEl = new SparkMax(36, MotorType.kBrushless); //right follows Left
+  SparkMax leftEl = new SparkMax(5, MotorType.kBrushless);
+  SparkMax rightEl = new SparkMax(6, MotorType.kBrushless); //right follows Left
   SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
   SparkClosedLoopController elPID = leftEl.getClosedLoopController();
   double kP = 0;

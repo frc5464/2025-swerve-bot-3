@@ -13,10 +13,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ArmSubsystem {
   
-  SparkMax armAlgae = new SparkMax(32, MotorType.kBrushless);
-  SparkMax armCoral = new SparkMax(33, MotorType.kBrushless);
+  SparkMax armAlgae = new SparkMax(7, MotorType.kBrushless);
+  SparkMax armCoral = new SparkMax(8, MotorType.kBrushless);
   //SparkMax armRot = new SparkMax(34, MotorType.kBrushless);
-  TalonFX armRot = new TalonFX(34);
+  TalonFX armRot = new TalonFX(9);
   SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
   
   double kP = 0;
