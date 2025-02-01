@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ElevatorSubsystem {
   private LaserCan lc;
-
   SparkMax leftEl = new SparkMax(5, MotorType.kBrushless);
   SparkMax rightEl = new SparkMax(6, MotorType.kBrushless); //right follows Left
   SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
@@ -28,6 +27,7 @@ public class ElevatorSubsystem {
   RelativeEncoder leftelEncoder;
   public double elencoderPos;
   public double counts;
+  public int level = 0;
 
   public void init(){
 
@@ -68,6 +68,8 @@ public class ElevatorSubsystem {
   public void periodic(){
   elencoderPos = leftelEncoder.getPosition();
   SmartDashboard.putNumber("ElEncoder", elencoderPos);
+  elPIDToLevel();
+
   // laserPeriodic();
   }
 
@@ -106,7 +108,7 @@ public class ElevatorSubsystem {
   //   elPid.setReference(50, ControlType.kPosition);
   // }
 
-  public void elPIDToLevel(int level){
+  public void elPIDToLevel(){
     if(level == 1){
       counts = 10;
     }
