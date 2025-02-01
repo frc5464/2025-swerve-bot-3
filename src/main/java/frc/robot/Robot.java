@@ -92,6 +92,7 @@ public class Robot extends TimedRobot{
     armSubsystem.init();
     elevatorSubsystem.init();
     processorArmSubsystem.init();
+    climbSubsystem.init();
 
     if (isSimulation())
     {
@@ -234,7 +235,7 @@ public class Robot extends TimedRobot{
         climbSubsystem.closeHand();
       } else if(mineController.getRawButton(4)){
         climbSubsystem.openHand();
-      } else {
+      } else{
         climbSubsystem.stopHand();
       }
     // if(driverController.getRawButton(1)){
@@ -256,9 +257,11 @@ public class Robot extends TimedRobot{
 
   // Processor Rotation
   if(mineController.getRawButton(5)){
-    processorArmSubsystem.downrot_procarm();
+    if(processorArmSubsystem.procrotEncoderPos > 5){
+    processorArmSubsystem.downrot_procarm();}
   } else if(mineController.getRawButton(6)){
-    processorArmSubsystem.rot_procarm();
+    if(processorArmSubsystem.procrotEncoderPos < 559){
+    processorArmSubsystem.rot_procarm();}
   } else{
     processorArmSubsystem.stoprot_procarm();
   }
@@ -271,15 +274,15 @@ public class Robot extends TimedRobot{
     processorArmSubsystem.stoprot();
   }
   
-  if(driverController.getRawButton(1)){
-    elevatorSubsystem.level = 1;
-  } else if(driverController.getRawButton(3)){
-    elevatorSubsystem.level = 2;
-  } else if(driverController.getRawButton(3)){
-    elevatorSubsystem.level = 3;
-  } else if(driverController.getRawButton(4)){
-    elevatorSubsystem.level = 4;
-  }
+  // if(driverController.getRawButton(1)){
+  //   elevatorSubsystem.level = 1;
+  // } else if(driverController.getRawButton(3)){
+  //   elevatorSubsystem.level = 2;
+  // } else if(driverController.getRawButton(3)){
+  //   elevatorSubsystem.level = 3;
+  // } else if(driverController.getRawButton(4)){
+  //   elevatorSubsystem.level = 4;
+  // }
 
   
   // Elevator
@@ -289,8 +292,7 @@ public class Robot extends TimedRobot{
   } else if(driverController.getPOV() == 180){
     if(elevatorSubsystem.elencoderPos > 1){
       elevatorSubsystem.reverseElevate();}
-    } 
-  else{
+  } else{
     elevatorSubsystem.stopElevate();
   }
 
