@@ -44,6 +44,7 @@ public class ProcessorArmSubsystem {
   public void periodic(){
   procrotEncoderPos = procrotEncoder.getPosition();
   SmartDashboard.putNumber("ProcRotEncoder", procrotEncoderPos);
+  procArmToLevel(0);
   }
   
   // Roll the intake/vomit
