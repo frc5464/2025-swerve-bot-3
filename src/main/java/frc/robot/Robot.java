@@ -84,12 +84,12 @@ public class Robot extends TimedRobot{
     elevatorSubsystem = new ElevatorSubsystem();
     processorArmSubsystem = new ProcessorArmSubsystem();
     constants = new Constants();
-    // armSubsystem = new ArmSubsystem();
+    armSubsystem = new ArmSubsystem();
     // Create a timer to disable motor brake a few seconds after disable.  This will let the robot stop
     // immediately when disabled, but then also let it be pushed more 
     disabledTimer = new Timer();
     
-    // armSubsystem.init();
+    armSubsystem.init();
     elevatorSubsystem.init();
     processorArmSubsystem.init();
 
@@ -135,7 +135,7 @@ public class Robot extends TimedRobot{
 
     elevatorSubsystem.periodic();
     processorArmSubsystem.periodic();
-    // armSubsystem.periodic();
+    armSubsystem.periodic();
     climbSubsystem.periodic();
     // SmartDashboard.putNumber("FRdEncoder", frontRightDriveRelativeEncoder.getPosition());
     // SmartDashboard.putNumber("FRtEncoder", frontRightTurnRelativeEncoder.getPosition());
@@ -222,13 +222,13 @@ public class Robot extends TimedRobot{
     double leftTriggerVal2 = mineController.getRawAxis(2);
     double rightTriggerVal2 = mineController.getRawAxis(3);
 
-      // if(driverController.getRawButton(6)){
-      //   armSubsystem.rotArm();
-      // } else if(driverController.getRawButton(5)){
-      //   armSubsystem.revrotArm();
-      // } else {
-      //   armSubsystem.stopArm();
-      // } 
+      if(driverController.getRawButton(6)){
+        armSubsystem.rotArm();
+      } else if(driverController.getRawButton(5)){
+        armSubsystem.revrotArm();
+      } else {
+        armSubsystem.stopArm();
+      } 
       
       if(mineController.getRawButton(1)){
         climbSubsystem.closeHand();
