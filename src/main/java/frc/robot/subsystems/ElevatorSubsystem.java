@@ -12,7 +12,7 @@ import au.grapplerobotics.LaserCan;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ElevatorSubsystem {
-  private LaserCan lc;
+  private LaserCan laserCannon;
   SparkMax leftEl = new SparkMax(5, MotorType.kBrushless);
   SparkMax rightEl = new SparkMax(6, MotorType.kBrushless); //right follows Left
   SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
@@ -32,7 +32,7 @@ public class ElevatorSubsystem {
   public void init(){
 
     leftelEncoder = leftEl.getEncoder();
-    // laserInit();
+    laserInit();
     // sparkMaxConfig.closedLoop
     //   .p(kP)
     //   .i(kI)
@@ -44,21 +44,21 @@ public class ElevatorSubsystem {
   }
   //lasercan
   public void laserInit() {
-    lc = new LaserCan(199);
+    laserCannon = new LaserCan(25);
     // Optionally initialise the settings of the LaserCAN, if you haven't already done so in GrappleHook
     try {
-      lc.setRangingMode(LaserCan.RangingMode.SHORT);
-      lc.setRegionOfInterest(new LaserCan.RegionOfInterest(8, 8, 16, 16));
-      lc.setTimingBudget(LaserCan.TimingBudget.TIMING_BUDGET_33MS);
+      laserCannon.setRangingMode(LaserCan.RangingMode.SHORT);
+      laserCannon.setRegionOfInterest(new LaserCan.RegionOfInterest(8, 8, 4, 4));
+      laserCannon.setTimingBudget(LaserCan.TimingBudget.TIMING_BUDGET_33MS);
     } catch (ConfigurationFailedException e) {
-      System.out.println("Configuration failed! " + e);
+      System.out.println("Configuration failed!" + e);
     }
   }
 
   public void laserPeriodic() {
-    LaserCan.Measurement measurement = lc.getMeasurement();
+    LaserCan.Measurement measurement = laserCannon.getMeasurement();
     if (measurement != null && measurement.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT) {
-      System.out.println("The target is " + measurement.distance_mm + "mm away!");
+      System.out.println("The target is" + measurement.distance_mm + "mm away!");
     } else {
       //System.out.println("Oh no! The target is out of range, or we can't get a reliable measurement!");
       // You can still use distance_mm in here, if you're ok tolerating a clamped value or an unreliable measurement.
@@ -70,7 +70,7 @@ public class ElevatorSubsystem {
   SmartDashboard.putNumber("ElEncoder", elencoderPos);
   elPIDToLevel();
 
-  // laserPeriodic();
+  laserPeriodic();
   }
 
   public void goElevate(){
@@ -109,22 +109,26 @@ public class ElevatorSubsystem {
   // }
 
   public void elPIDToLevel(){
-    if(level == 1){
+
+    if(level == 0){
       counts = 10;
+    }
+    if(level == 1){
+      counts = 108;
     }
     
     if(level == 2){
-      counts = 20;
+      counts = 276;
     }
     
     if(level == 3){
-      counts = 30;
+      counts = 605;
     }
 
     if(level == 4){
-      counts  = 50;
+      counts  = 727;
     }
 
-    elPID.setReference(counts, ControlType.kPosition);
+    // elPID.setReference(counts, ControlType.kPosition);
   }
 }

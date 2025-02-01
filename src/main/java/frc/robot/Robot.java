@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import au.grapplerobotics.CanBridge;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -58,10 +59,10 @@ public class Robot extends TimedRobot{
   // public RelativeEncoder backleftTurnRelativeEncoder;
 
   
-  // public LaserCan laserCan;
+
   
   public Robot(){
-    // CanBridge.runTCP();
+    CanBridge.runTCP();
     instance = this;
   }
 
@@ -111,15 +112,7 @@ public class Robot extends TimedRobot{
       
   
 
-    // laserCan = new LaserCan(0);
-    // Optionally initialise the settings of the LaserCAN, if you haven't already done so in GrappleHook
-    // try {
-    //   laserCan.setRangingMode(LaserCan.RangingMode.SHORT);
-    //   laserCan.setRegionOfInterest(new LaserCan.RegionOfInterest(8, 8, 16, 16));
-    //   laserCan.setTimingBudget(LaserCan.TimingBudget.TIMING_BUDGET_33MS);
-    // } catch (ConfigurationFailedException e) {
-    //   System.out.println("Configuration failed! " + e);
-    // }
+
 
   }
 
