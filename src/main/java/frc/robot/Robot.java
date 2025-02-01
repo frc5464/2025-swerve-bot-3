@@ -48,11 +48,6 @@ public class Robot extends TimedRobot{
 
     // auto_chooser.addOption("Pos1", kPos1);
   
-
-
-
-
-
   // public RelativeEncoder frontRightDriveRelativeEncoder;
   // public RelativeEncoder frontRightTurnRelativeEncoder;
   // public RelativeEncoder frontLeftDriveRelativeEncoder;
@@ -284,13 +279,13 @@ public class Robot extends TimedRobot{
   }
   
   if(driverController.getRawButton(1)){
-    elevatorSubsystem.elPIDToLevel(1);
+    elevatorSubsystem.level = 1;
   } else if(driverController.getRawButton(3)){
-    elevatorSubsystem.elPIDToLevel(2);
+    elevatorSubsystem.level = 2;
   } else if(driverController.getRawButton(3)){
-    elevatorSubsystem.elPIDToLevel(3);
+    elevatorSubsystem.level = 3;
   } else if(driverController.getRawButton(4)){
-    elevatorSubsystem.elPIDToLevel(4);
+    elevatorSubsystem.level = 4;
   }
 
   
