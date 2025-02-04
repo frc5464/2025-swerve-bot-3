@@ -58,7 +58,7 @@ public class ElevatorSubsystem {
   public void laserPeriodic() {
     LaserCan.Measurement measurement = laserCannon.getMeasurement();
     if (measurement != null && measurement.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT) {
-      System.out.println("The target is" + measurement.distance_mm + "mm away!");
+      // System.out.println("The target is" + measurement.distance_mm + "mm away!");
     } else {
       System.out.println("Oh no! The target is out of range, or we can't get a reliable measurement!");
       // You can still use distance_mm in here, if you're ok tolerating a clamped value or an unreliable measurement.
