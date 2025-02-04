@@ -53,7 +53,7 @@ public class Vision
   * April Tag Field Layout of the year.
   */
  public static final AprilTagFieldLayout fieldLayout = AprilTagFieldLayout.loadField(
-   AprilTagFields.k2024Crescendo);
+   AprilTagFields.k2025Reefscape);
  /**
   * Ambiguity defined as a value between (0,1). Used in {@link Vision#filterPose}.
   */
@@ -190,7 +190,7 @@ public class Vision
   * @param pose Estimated robot pose.
   * @return Could be empty if there isn't a good reading.
   */
- @Deprecated(since = "2024", forRemoval = true)
+ @Deprecated(since = "2025", forRemoval = true)
  private Optional<EstimatedRobotPose> filterPose(Optional<EstimatedRobotPose> pose)
  {
   if (pose.isPresent())
