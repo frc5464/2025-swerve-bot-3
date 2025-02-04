@@ -256,10 +256,10 @@ public class Robot extends TimedRobot{
     // }
 
   // Processor Rotation
-  if(mineController.getRawButton(5)){
+  if(mineController.getRawButtonPressed(5)){
     if(processorArmSubsystem.procrotEncoderPos > 5){
     processorArmSubsystem.downrot_procarm();}
-  } else if(mineController.getRawButton(6)){
+  } else if(mineController.getRawButtonPressed(6)){
     if(processorArmSubsystem.procrotEncoderPos < 559){
     processorArmSubsystem.rot_procarm();}
   } else{
