@@ -16,7 +16,11 @@ public class ArmSubsystem {
   SparkMax armWrist = new SparkMax(7, MotorType.kBrushless);
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   SparkMax armCoral = new SparkMax(8, MotorType.kBrushless);
+=======
+  SparkMax armIntake = new SparkMax(8, MotorType.kBrushless);
+>>>>>>> Stashed changes
 =======
   SparkMax armIntake = new SparkMax(8, MotorType.kBrushless);
 >>>>>>> Stashed changes
@@ -99,8 +103,11 @@ public class ArmSubsystem {
   }
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
   public void stopIntake(){
@@ -119,6 +126,9 @@ public class ArmSubsystem {
   }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
