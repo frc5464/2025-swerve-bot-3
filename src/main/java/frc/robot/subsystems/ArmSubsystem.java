@@ -15,12 +15,6 @@ public class ArmSubsystem {
 
   SparkMax armWrist = new SparkMax(7, MotorType.kBrushless);
 
-  SparkMax armCoral = new SparkMax(8, MotorType.kBrushless);
-
-  SparkMax armIntake = new SparkMax(8, MotorType.kBrushless);
-
-  SparkMax armIntake = new SparkMax(8, MotorType.kBrushless);
-
   SparkMax armIntake = new SparkMax(8, MotorType.kBrushless);
 
   //SparkMax armRot = new SparkMax(34, MotorType.kBrushless);
@@ -87,8 +81,6 @@ public class ArmSubsystem {
   // encoderPos = armEncoder.getPosition();
   SmartDashboard.putNumber("Encoder", encoderPos);
   }
-
-  
 
   //Drop Coral
   public void dropCoral(double axi2){
