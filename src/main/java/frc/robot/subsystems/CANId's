@@ -1,0 +1,21 @@
+CANId 2: ClimbSubsystem.climb  Moves the Climber forward and backward
+CANId 3: ProcessorArmSubsystem.processorRotator  Rotates the processor arm
+CANId 4: ProcessorArmSubsystem.processorint_out  Spins the processor to take in Algae or spit out an Algae
+CANId 5: ElevatorSubsystem.leftEl  The left elevator motor
+CANId 6: ElevatorSubsystem.rightEl  The right elevator motor
+CANId 7: ArmSubsystem.armWrist  Controls the arms "Wrist"
+CANId 8: ArmSubsystem.armCoral Controls the Coral intake  and out-take, acts as a shooter too
+CANId 9: ArmSubsystem.armRot  Rotates the whole arm from the elevator
+CANId 10: FrontLeftTurn
+CANId 11: FrontLeftDrive
+CANId 12: FrontRightTurn
+CANId 13: FrontRightDrive
+CANId 14: BackLeftTurn
+CANId 15: BackLeftDrive
+CANId 16: BackRightTurn
+CANId 17: BackRightDrive
+
+CANId 20: FrontLeft CANCoder
+CANId 21: FrontRight CANCoder
+CANId 22: BackLeft CANCoder
+CANId 23: BackRight CANCoder
