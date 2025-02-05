@@ -30,7 +30,7 @@ import swervelib.SwerveInputStream;
 public class RobotContainer{
 
  // Replace with CommandPS4Controller or CommandJoystick if needed
- private final CommandXboxController driverXbox = new CommandXboxController(0);
+ private final CommandXboxController driverXbox = new CommandXboxController(2);
  // The robot's subsystems and commands are defined here...
  private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                         "swerve"));

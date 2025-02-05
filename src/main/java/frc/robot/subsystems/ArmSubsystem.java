@@ -14,7 +14,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class ArmSubsystem {
   
   SparkMax armWrist = new SparkMax(7, MotorType.kBrushless);
+<<<<<<< Updated upstream
   SparkMax armCoral = new SparkMax(8, MotorType.kBrushless);
+=======
+  SparkMax armIntake = new SparkMax(8, MotorType.kBrushless);
+>>>>>>> Stashed changes
   //SparkMax armRot = new SparkMax(34, MotorType.kBrushless);
   TalonFX armRot = new TalonFX(9);
   SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
@@ -84,12 +88,30 @@ public class ArmSubsystem {
 
   //Drop Coral
   public void dropCoral(double axi2){
-    armCoral.set(axi2);
+    armIntake.set(axi2);
   }
   public void retrieveCoral(double axi3){
-    armCoral.set(-axi3);
+    armIntake.set(-axi3);
   }
+<<<<<<< Updated upstream
   
+=======
+  public void stopIntake(){
+    armIntake.set(0);
+  }
+
+  //Flick of da wrist
+  public void windUp(){
+    armWrist.set(0.2);
+  }
+  public void windDown(){
+    armWrist.set(-0.2);
+  }
+  public void windStop(){
+    armWrist.set(0);
+  }
+
+>>>>>>> Stashed changes
   //Rotate arm
   public void rotArm(){
   armRot.set(0.3);
