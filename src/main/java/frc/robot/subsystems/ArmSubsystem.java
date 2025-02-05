@@ -12,21 +12,17 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ArmSubsystem {
-  
+
   SparkMax armWrist = new SparkMax(7, MotorType.kBrushless);
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+
   SparkMax armCoral = new SparkMax(8, MotorType.kBrushless);
-=======
+
   SparkMax armIntake = new SparkMax(8, MotorType.kBrushless);
->>>>>>> Stashed changes
-=======
+
   SparkMax armIntake = new SparkMax(8, MotorType.kBrushless);
->>>>>>> Stashed changes
-=======
+
   SparkMax armIntake = new SparkMax(8, MotorType.kBrushless);
->>>>>>> Stashed changes
+
   //SparkMax armRot = new SparkMax(34, MotorType.kBrushless);
   TalonFX armRot = new TalonFX(9);
   SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
@@ -101,15 +97,7 @@ public class ArmSubsystem {
   public void retrieveCoral(double axi3){
     armIntake.set(-axi3);
   }
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-  
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+
   public void stopIntake(){
     armIntake.set(0);
   }
@@ -125,13 +113,7 @@ public class ArmSubsystem {
     armWrist.set(0);
   }
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+
   //Rotate arm
   public void rotArm(){
   armRot.set(0.3);
