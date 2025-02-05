@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ArmSubsystem {
   
-  SparkMax armAlgae = new SparkMax(7, MotorType.kBrushless);
+  SparkMax armWrist = new SparkMax(7, MotorType.kBrushless);
   SparkMax armCoral = new SparkMax(8, MotorType.kBrushless);
   //SparkMax armRot = new SparkMax(34, MotorType.kBrushless);
   TalonFX armRot = new TalonFX(9);
@@ -89,10 +89,7 @@ public class ArmSubsystem {
   public void retrieveCoral(double axi3){
     armCoral.set(-axi3);
   }
-  //Kick Algea
-  public void windUp(){
-    armAlgae.set(0.2);
-  }
+  
   //Rotate arm
   public void rotArm(){
   armRot.set(0.3);
