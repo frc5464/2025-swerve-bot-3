@@ -15,7 +15,11 @@ public class ArmSubsystem {
   
   SparkMax armWrist = new SparkMax(7, MotorType.kBrushless);
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   SparkMax armCoral = new SparkMax(8, MotorType.kBrushless);
+=======
+  SparkMax armIntake = new SparkMax(8, MotorType.kBrushless);
+>>>>>>> Stashed changes
 =======
   SparkMax armIntake = new SparkMax(8, MotorType.kBrushless);
 >>>>>>> Stashed changes
@@ -94,8 +98,11 @@ public class ArmSubsystem {
     armIntake.set(-axi3);
   }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   
 =======
+=======
+>>>>>>> Stashed changes
   public void stopIntake(){
     armIntake.set(0);
   }
@@ -111,6 +118,9 @@ public class ArmSubsystem {
     armWrist.set(0);
   }
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
   //Rotate arm
   public void rotArm(){
