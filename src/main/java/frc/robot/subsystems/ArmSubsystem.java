@@ -8,9 +8,6 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
-import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 public class ArmSubsystem {
 
   SparkMax armWrist = new SparkMax(7, MotorType.kBrushless);
@@ -24,18 +21,20 @@ public class ArmSubsystem {
   double kD = 0;
   double kIz = 0;
   double kFF = 0;
+  double requestPosition = 0;
   double extMaxOutput = 0;
   double extMinOutput = 0;
+  PositionVoltage m_request;
   
   RelativeEncoder armEncoder;
   public double armEncoderPos;
 
   public void init(){
     
-    // var slot0Configs = new Slot0Configs();
-  //   // slot0Configs.kP = 2.4;
-  //   // slot0Configs.kI = 0;
-  //   // slot0Configs.kD = 0.1;
+    var slot0Configs = new Slot0Configs();
+    slot0Configs.kP = 2.4;
+    slot0Configs.kI = 0;
+    slot0Configs.kD = 0.1;
 
   //   // slot0Configs.kS = 0.25; // Add 0.25 V output to overcome static friction
   //   // slot0Configs.kV = 0.12; // A velocity target of 1 rps results in 0.12 V output
@@ -43,7 +42,11 @@ public class ArmSubsystem {
   //   // slot0Configs.kI = 0; // no output for integrated error
   //   // slot0Configs.kD = 0.1; // A velocity error of 1 rps results in 0.1 V output
 
-  //   // armRot.getConfigurator().apply(slot0Configs);
+    armRot.getConfigurator().apply(slot0Configs);
+
+    // // create a position closed-loop request, voltage output, slot 0 configs
+    m_request = new PositionVoltage(0).withSlot(0);
+
 
   //   // Trapezoid profile with max velocity 80 rps, max accel 160 rps/s
   // final TrapezoidProfile m_profile = new TrapezoidProfile(
@@ -53,8 +56,7 @@ public class ArmSubsystem {
   // TrapezoidProfile.State m_goal = new TrapezoidProfile.State(200, 0);
   // TrapezoidProfile.State m_setpoint = new TrapezoidProfile.State();
 
-  // // create a position closed-loop request, voltage output, slot 0 configs
-  // final PositionVoltage m_request = new PositionVoltage(0).withSlot(0);
+
 
   // // calculate the next profile setpoint
   // m_setpoint = m_profile.calculate(0.020, m_setpoint, m_goal);
@@ -64,7 +66,7 @@ public class ArmSubsystem {
   // m_request.Velocity = m_setpoint.velocity;
   // armRot.setControl(m_request);
 
-  armEncoder = armRot.get
+  // armEncoder = armRot.getclosedloop
   //Encoderstuff
   // sparkMaxConfig.closedLoop
   //   .p(kP)
@@ -77,10 +79,14 @@ public class ArmSubsystem {
   }
 
   public void periodic(){
-  armEncoderPos = armEncoder.getPosition();
-  SmartDashboard.putNumber("Encoder", armEncoderPos);
-}
+    // set position to 10 rotation
+    armRot.setControl(m_request.withPosition(requestPosition));
 
+  // armEncoderPos = armEncoder.getPosition();
+  // SmartDashboard.putNumber("Encoder", armEncoderPos);
+
+}
+//0, 20, 40
   //Drop Coral
   public void dropCoral(double axi2){
     armIntake.set(axi2);
@@ -117,32 +123,24 @@ public class ArmSubsystem {
   armRot.set(0);
   }
 
-  //Get arm to the 1st stage
-  // public void lvl1Arm(){
+  // Get arm to Coral pickup position
+  public void armPickup(){
 
-  //   loopController1.setReference(333, ControlType.kPosition);
+    requestPosition = 20;
 
-  // }
+  }
   
-  // //Get arm to the 2nd stage
-  // public void lvl2Arm(){
+  //Get arm to Coral scoring position
+  public void armScore(){
 
-  //   loopController1.setReference(444, ControlType.kPosition);
-
-  // }
+    requestPosition = 40;
+  }
   
-  // //Get arm to the 3rd stage
-  // public void lvl3Arm(){
+  //Get arm to starting position
+  public void armStart(){
 
-  //   loopController1.setReference(666, ControlType.kPosition);
+    requestPosition = 1;
 
-  // }  
-  
-  // //Get arm to the 4th stage
-  // public void lvl4Arm(){
-  
-  //   loopController1.setReference(999, ControlType.kPosition);
-
-  // }
+  }  
 
   }

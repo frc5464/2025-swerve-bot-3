@@ -27,7 +27,7 @@ public class Robot extends TimedRobot{
 
   private Command m_autonomousCommand;
 
-  private RobotContainer m_robotContainer;
+  // private RobotContainer m_robotContainer;
 
   private ArmSubsystem armSubsystem;
 
@@ -79,7 +79,7 @@ public class Robot extends TimedRobot{
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
+    // m_robotContainer = new RobotContainer();
     climbSubsystem = new ClimbSubsystem();
     elevatorSubsystem = new ElevatorSubsystem();
     processorArmSubsystem = new ProcessorArmSubsystem();
@@ -175,8 +175,8 @@ public class Robot extends TimedRobot{
   @Override
   public void autonomousInit()
   {
-    m_robotContainer.setMotorBrake(true);
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    // m_robotContainer.setMotorBrake(true);
+    // m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null)
@@ -207,7 +207,7 @@ public class Robot extends TimedRobot{
     {
       CommandScheduler.getInstance().cancelAll();
     }
-    m_robotContainer.setDriveMode();
+    // m_robotContainer.setDriveMode();
   }
 
   /**
@@ -224,15 +224,16 @@ public class Robot extends TimedRobot{
     double rightTriggerVal2 = mineController.getRawAxis(3);
 
       if(driverController.getRawButton(6)){
-        armSubsystem.rotArm();
+        // armSubsystem.rotArm();
+        armSubsystem.armPickup();
       } else if(driverController.getRawButton(5)){
-        armSubsystem.revrotArm();
-      } else {
-        armSubsystem.stopArm();
+        // armSubsystem.revrotArm();
+        armSubsystem.armPickup();
+      } else if(driverController.getRawButton(8)){
+        // armSubsystem.stopArm();
+        armSubsystem.armStart();
       }
 
-      // if(drivercontroller.getRawButton)
-      
       if(mineController.getRawButton(1)){
         climbSubsystem.closeHand();
       } else if(mineController.getRawButton(4)){
@@ -306,7 +307,7 @@ public class Robot extends TimedRobot{
   {
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
-    m_robotContainer.setDriveMode();
+    // m_robotContainer.setDriveMode();
     
   }
 
