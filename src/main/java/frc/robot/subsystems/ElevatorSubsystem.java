@@ -68,7 +68,7 @@ public class ElevatorSubsystem {
   public void periodic(){
   elencoderPos = leftelEncoder.getPosition();
   SmartDashboard.putNumber("ElEncoder", elencoderPos);
-  elPIDToLevel();
+  // elPIDToLevel();
 
   laserPeriodic();
   }
@@ -108,27 +108,27 @@ public class ElevatorSubsystem {
   //   elPid.setReference(50, ControlType.kPosition);
   // }
 
-  public void elPIDToLevel(){
+  // public void elPIDToLevel(){
 
-    if(level == 0){
-      counts = 10;
-    }
-    if(level == 1){
-      counts = 108;
-    }
+  //   if(level == 0){
+  //     counts = 10;
+  //   }
+  //   if(level == 1){
+  //     counts = 108;
+  //   }
     
-    if(level == 2){
-      counts = 276;
-    }
+  //   if(level == 2){
+  //     counts = 276;
+  //   }
     
-    if(level == 3){
-      counts = 605;
-    }
+  //   if(level == 3){
+  //     counts = 605;
+  //   }
 
-    if(level == 4){
-      counts  = 727;
-    }
+  //   if(level == 4){
+  //     counts  = 727;
+  //   }
 
     // elPID.setReference(counts, ControlType.kPosition);
-  }
+  // }
 }

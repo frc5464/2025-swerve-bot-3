@@ -229,7 +229,9 @@ public class Robot extends TimedRobot{
         armSubsystem.revrotArm();
       } else {
         armSubsystem.stopArm();
-      } 
+      }
+
+      // if(drivercontroller.getRawButton)
       
       if(mineController.getRawButton(1)){
         climbSubsystem.closeHand();

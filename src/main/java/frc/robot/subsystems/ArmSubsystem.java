@@ -14,9 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class ArmSubsystem {
 
   SparkMax armWrist = new SparkMax(7, MotorType.kBrushless);
-
   SparkMax armIntake = new SparkMax(8, MotorType.kBrushless);
-
   //SparkMax armRot = new SparkMax(34, MotorType.kBrushless);
   TalonFX armRot = new TalonFX(9);
   SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
@@ -28,12 +26,13 @@ public class ArmSubsystem {
   double kFF = 0;
   double extMaxOutput = 0;
   double extMinOutput = 0;
+  
   RelativeEncoder armEncoder;
-  public double encoderPos;
+  public double armEncoderPos;
 
   public void init(){
     
-    var slot0Configs = new Slot0Configs();
+    // var slot0Configs = new Slot0Configs();
   //   // slot0Configs.kP = 2.4;
   //   // slot0Configs.kI = 0;
   //   // slot0Configs.kD = 0.1;
@@ -65,7 +64,7 @@ public class ArmSubsystem {
   // m_request.Velocity = m_setpoint.velocity;
   // armRot.setControl(m_request);
 
-  //armEncoder = armRot.getEncoder();
+  armEncoder = armRot.get
   //Encoderstuff
   // sparkMaxConfig.closedLoop
   //   .p(kP)
@@ -78,9 +77,9 @@ public class ArmSubsystem {
   }
 
   public void periodic(){
-  // encoderPos = armEncoder.getPosition();
-  SmartDashboard.putNumber("Encoder", encoderPos);
-  }
+  armEncoderPos = armEncoder.getPosition();
+  SmartDashboard.putNumber("Encoder", armEncoderPos);
+}
 
   //Drop Coral
   public void dropCoral(double axi2){
