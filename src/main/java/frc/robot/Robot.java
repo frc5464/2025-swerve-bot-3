@@ -6,15 +6,15 @@ package frc.robot;
 
 import au.grapplerobotics.CanBridge;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Joystick;
+//import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Timer;
+//import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.ClimbSubsystem;
-import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.ProcessorArmSubsystem;
+//import frc.robot.subsystems.ArmSubsystem;
+//import frc.robot.subsystems.ClimbSubsystem;
+//import frc.robot.subsystems.ElevatorSubsystem;
+//import frc.robot.subsystems.ProcessorArmSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to each mode, as
@@ -29,17 +29,17 @@ public class Robot extends TimedRobot{
 
   private RobotContainer m_robotContainer;
 
-  private ArmSubsystem armSubsystem;
+  //private ArmSubsystem armSubsystem;
 
-  private ClimbSubsystem climbSubsystem;
+  //private ClimbSubsystem climbSubsystem;
   
-  private ElevatorSubsystem elevatorSubsystem;
+  //private ElevatorSubsystem elevatorSubsystem;
 
-  private ProcessorArmSubsystem processorArmSubsystem;
+  //private ProcessorArmSubsystem processorArmSubsystem;
 
-  private Constants constants;
+  //private Constants constants;
 
-  private Timer disabledTimer;
+  //private Timer disabledTimer;
 
 
 
@@ -80,19 +80,19 @@ public class Robot extends TimedRobot{
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    climbSubsystem = new ClimbSubsystem();
-    elevatorSubsystem = new ElevatorSubsystem();
-    processorArmSubsystem = new ProcessorArmSubsystem();
-    constants = new Constants();
-    armSubsystem = new ArmSubsystem();
+    //climbSubsystem = new ClimbSubsystem();
+    //elevatorSubsystem = new ElevatorSubsystem();
+    //processorArmSubsystem = new ProcessorArmSubsystem();
+    //constants = new Constants();
+    //armSubsystem = new ArmSubsystem();
     // Create a timer to disable motor brake a few seconds after disable.  This will let the robot stop
     // immediately when disabled, but then also let it be pushed more 
-    disabledTimer = new Timer();
+    //disabledTimer = new Timer();
     
-    armSubsystem.init();
-    elevatorSubsystem.init();
-    processorArmSubsystem.init();
-    climbSubsystem.init();
+    //armSubsystem.init();
+    //elevatorSubsystem.init();
+    //processorArmSubsystem.init();
+    //climbSubsystem.init();
 
     if (isSimulation())
     {
@@ -117,8 +117,8 @@ public class Robot extends TimedRobot{
 
   }
 
-  Joystick driverController = new Joystick(0);
-  Joystick mineController = new Joystick(1);
+  //Joystick driverController = new Joystick(0);
+  //Joystick mineController = new Joystick(1);
   /**
    * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics that you want ran
    * during disabled, autonomous, teleoperated and test.
@@ -134,10 +134,10 @@ public class Robot extends TimedRobot{
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 
-    elevatorSubsystem.periodic();
-    processorArmSubsystem.periodic();
-    armSubsystem.periodic();
-    climbSubsystem.periodic();
+    //elevatorSubsystem.periodic();
+    //processorArmSubsystem.periodic();
+    //armSubsystem.periodic();
+    //climbSubsystem.periodic();
     // SmartDashboard.putNumber("FRdEncoder", frontRightDriveRelativeEncoder.getPosition());
     // SmartDashboard.putNumber("FRtEncoder", frontRightTurnRelativeEncoder.getPosition());
     // SmartDashboard.putNumber("FLdEncoder", frontLeftDriveRelativeEncoder.getPosition());
@@ -216,14 +216,14 @@ public class Robot extends TimedRobot{
   @Override
   public void teleopPeriodic(){
 
-    double leftstickval = driverController.getRawAxis(0);
-    double rightstickval = driverController.getRawAxis(0);
-    double leftTriggerVal = driverController.getRawAxis(2);
-    double rightTriggerVal = driverController.getRawAxis(3);
-    double leftTriggerVal2 = mineController.getRawAxis(2);
-    double rightTriggerVal2 = mineController.getRawAxis(3);
+    //double leftstickval = driverController.getRawAxis(0);
+    //double rightstickval = driverController.getRawAxis(0);
+    //double leftTriggerVal = driverController.getRawAxis(2);
+    //double rightTriggerVal = driverController.getRawAxis(3);
+    //double leftTriggerVal2 = mineController.getRawAxis(2);
+    //double rightTriggerVal2 = mineController.getRawAxis(3);
 
-      if(driverController.getRawButton(6)){
+      /*if(driverController.getRawButton(6)){
         armSubsystem.rotArm();
       } else if(driverController.getRawButton(5)){
         armSubsystem.revrotArm();
@@ -298,7 +298,7 @@ public class Robot extends TimedRobot{
     elevatorSubsystem.stopElevate();
   }
 
- //  im programming im haker man i do haks yeahahahahahahahahhh im in the mainframe babyyyyyyyyyyyyyy
+ //  im programming im haker man i do haks yeahahahahahahahahhh im in the mainframe babyyyyyyyyyyyyyy*/
 }
 
   @Override
