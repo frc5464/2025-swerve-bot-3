@@ -15,6 +15,7 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.ProcessorArmSubsystem;
+import frc.robot.subsystems.WristSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to each mode, as
@@ -36,6 +37,8 @@ public class Robot extends TimedRobot{
   private ElevatorSubsystem elevatorSubsystem;
 
   private ProcessorArmSubsystem processorArmSubsystem;
+
+  private WristSubsystem wristSubsystem;
 
   private Constants constants;
 
@@ -85,6 +88,7 @@ public class Robot extends TimedRobot{
     processorArmSubsystem = new ProcessorArmSubsystem();
     constants = new Constants();
     armSubsystem = new ArmSubsystem();
+    wristSubsystem = new WristSubsystem();
     // Create a timer to disable motor brake a few seconds after disable.  This will let the robot stop
     // immediately when disabled, but then also let it be pushed more 
     disabledTimer = new Timer();
@@ -93,6 +97,7 @@ public class Robot extends TimedRobot{
     elevatorSubsystem.init();
     processorArmSubsystem.init();
     climbSubsystem.init();
+    wristSubsystem.init();
 
     if (isSimulation())
     {
@@ -138,6 +143,8 @@ public class Robot extends TimedRobot{
     processorArmSubsystem.periodic();
     armSubsystem.periodic();
     climbSubsystem.periodic();
+    wristSubsystem.periodic();
+
     // SmartDashboard.putNumber("FRdEncoder", frontRightDriveRelativeEncoder.getPosition());
     // SmartDashboard.putNumber("FRtEncoder", frontRightTurnRelativeEncoder.getPosition());
     // SmartDashboard.putNumber("FLdEncoder", frontLeftDriveRelativeEncoder.getPosition());
@@ -232,6 +239,17 @@ public class Robot extends TimedRobot{
       } else if(driverController.getRawButton(8)){
         // armSubsystem.stopArm();
         armSubsystem.armStart();
+      }
+
+      if(driverController.getPOV() == 90){
+        wristSubsystem.windDown();
+
+      } else if(driverController.getPOV() == 270){
+        wristSubsystem.windUp();
+
+      } else{
+        wristSubsystem.windStop();
+        
       }
 
       if(mineController.getRawButton(1)){

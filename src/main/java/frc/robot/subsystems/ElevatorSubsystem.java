@@ -16,7 +16,7 @@ public class ElevatorSubsystem {
   SparkMax leftEl = new SparkMax(5, MotorType.kBrushless);
   SparkMax rightEl = new SparkMax(6, MotorType.kBrushless); //right follows Left
   SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
-  SparkClosedLoopController elPID = leftEl.getClosedLoopController();
+  // SparkClosedLoopController elPID = leftEl.getClosedLoopController();
   double kP = 0;
   double kI = 0;
   double kD = 0;

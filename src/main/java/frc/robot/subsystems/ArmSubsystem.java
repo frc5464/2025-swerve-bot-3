@@ -10,12 +10,10 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 
 public class ArmSubsystem {
 
-  SparkMax armWrist = new SparkMax(7, MotorType.kBrushless);
   SparkMax armIntake = new SparkMax(8, MotorType.kBrushless);
   //SparkMax armRot = new SparkMax(34, MotorType.kBrushless);
   TalonFX armRot = new TalonFX(9);
   SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
-  
   double kP = 0;
   double kI = 0;
   double kD = 0;
@@ -25,7 +23,6 @@ public class ArmSubsystem {
   double extMaxOutput = 0;
   double extMinOutput = 0;
   PositionVoltage m_request;
-  
   RelativeEncoder armEncoder;
   public double armEncoderPos;
 
@@ -98,16 +95,7 @@ public class ArmSubsystem {
     armIntake.set(0);
   }
 
-  //Flick of da wrist
-  public void windUp(){
-    armWrist.set(0.2);
-  }
-  public void windDown(){
-    armWrist.set(-0.2);
-  }
-  public void windStop(){
-    armWrist.set(0);
-  }
+
 
 
   //Rotate arm
@@ -124,22 +112,17 @@ public class ArmSubsystem {
 
   // Get arm to Coral pickup position
   public void armPickup(){
-
     requestPosition = 20;
-
   }
   
   //Get arm to Coral scoring position
   public void armScore(){
-
     requestPosition = 40;
   }
   
   //Get arm to starting position
   public void armStart(){
-
     requestPosition = 2;
-
-  }  
+  }
 
   }

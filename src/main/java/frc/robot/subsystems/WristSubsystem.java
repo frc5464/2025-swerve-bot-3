@@ -7,6 +7,8 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class WristSubsystem {
 
   SparkMax armWrist = new SparkMax(7, MotorType.kBrushless);
@@ -18,14 +20,13 @@ public class WristSubsystem {
   double kFF = 0;
   double extMaxOutput = -0.2;
   double extMinOutput = 0.2;
-  RelativeEncoder leftelEncoder;
-  public double elencoderPos;
+  PositionVoltage m_request;
+  RelativeEncoder wristEncoder;
+  public double wristencoderPos;
   public double counts;
   public int level = 0;
 
   double requestPosition = 0;
-  
-  PositionVoltage m_request;
 
   public void init(){
 
@@ -43,8 +44,11 @@ public class WristSubsystem {
   }
 
   public void periodic(){
-  elencoderPos = leftelEncoder.getPosition();
+  wristencoderPos = wristEncoder.getPosition();
+  SmartDashboard.putNumber("WristEncoder", wristencoderPos);
+
   }
+
   //Flick of da wrist
   public void windUp(){
     armWrist.set(0.2);
@@ -71,7 +75,7 @@ public class WristSubsystem {
     requestPosition = 2;
   }
 
-  //
+
 
 
 
