@@ -32,7 +32,7 @@ public class ArmSubsystem {
   public void init(){
     
     var slot0Configs = new Slot0Configs();
-    slot0Configs.kP = 2.4;
+    slot0Configs.kP = 0.24;
     slot0Configs.kI = 0;
     slot0Configs.kD = 0.1;
 
@@ -94,7 +94,6 @@ public class ArmSubsystem {
   public void retrieveCoral(double axi3){
     armIntake.set(-axi3);
   }
-
   public void stopIntake(){
     armIntake.set(0);
   }
@@ -139,7 +138,7 @@ public class ArmSubsystem {
   //Get arm to starting position
   public void armStart(){
 
-    requestPosition = 1;
+    requestPosition = 2;
 
   }  
 

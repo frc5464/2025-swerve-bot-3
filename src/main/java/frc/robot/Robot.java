@@ -223,12 +223,12 @@ public class Robot extends TimedRobot{
     double leftTriggerVal2 = mineController.getRawAxis(2);
     double rightTriggerVal2 = mineController.getRawAxis(3);
 
-      if(driverController.getRawButton(6)){
+      if(driverController.getRawButton(5)){
         // armSubsystem.rotArm();
         armSubsystem.armPickup();
-      } else if(driverController.getRawButton(5)){
+      } else if(driverController.getRawButton(6)){
         // armSubsystem.revrotArm();
-        armSubsystem.armPickup();
+        armSubsystem.armScore();
       } else if(driverController.getRawButton(8)){
         // armSubsystem.stopArm();
         armSubsystem.armStart();
