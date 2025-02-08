@@ -19,7 +19,7 @@ public class ArmSubsystem {
   double kD = 0;
   double kIz = 0;
   double kFF = 0;
-  double requestPosition = 0;
+  double requestPosition = -6;
   double extMaxOutput = 0;
   double extMinOutput = 0;
   PositionVoltage m_request;
@@ -112,17 +112,18 @@ public class ArmSubsystem {
 
   // Get arm to Coral pickup position
   public void armPickup(){
-    requestPosition = 20;
+    requestPosition = -4;
   }
   
+
   //Get arm to Coral scoring position
   public void armScore(){
-    requestPosition = 40;
+    requestPosition = -17;
   }
   
   //Get arm to starting position
   public void armStart(){
-    requestPosition = 2;
+    requestPosition = -4;
   }
 
   }

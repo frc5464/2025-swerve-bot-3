@@ -9,6 +9,7 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 
 import au.grapplerobotics.ConfigurationFailedException;
 import au.grapplerobotics.LaserCan;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ElevatorSubsystem {
@@ -26,20 +27,17 @@ public class ElevatorSubsystem {
   double extMinOutput = 0.2;
   RelativeEncoder leftelEncoder;
   public double elencoderPos;
-  public double counts;
+  public double targetPosition;
   public int level = 0;
+  public double lasercanMeasurement;
+  boolean laserOk = false;
+  PIDController elevatorPid;
+  double maxElevatorPower = 0.2;
 
   public void init(){
-
+    elevatorPid = new PIDController(0.01, 0, 0);
     leftelEncoder = leftEl.getEncoder();
     laserInit();
-    // sparkMaxConfig.closedLoop
-    //   .p(kP)
-    //   .i(kI)
-    //   .d(kD)
-    //   .outputRange(extMinOutput, extMaxOutput);
-    
-    // leftEl.configure(sparkMaxConfig, null, null);
 
   }
   //lasercan
@@ -50,25 +48,32 @@ public class ElevatorSubsystem {
       laserCannon.setRangingMode(LaserCan.RangingMode.SHORT);
       laserCannon.setRegionOfInterest(new LaserCan.RegionOfInterest(8, 8, 4, 4));
       laserCannon.setTimingBudget(LaserCan.TimingBudget.TIMING_BUDGET_33MS);
+      laserOk = true;
     } catch (ConfigurationFailedException e) {
       System.out.println("Configuration failed!" + e);
+      laserOk = false;
     }
   }
 
   public void laserPeriodic() {
     LaserCan.Measurement measurement = laserCannon.getMeasurement();
     if (measurement != null && measurement.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT) {
-      // System.out.println("The target is" + measurement.distance_mm + "mm away!");
+      
+      lasercanMeasurement = measurement.distance_mm;
+      // System.out.println("The target is" + lasercanMeasurement+ "mm away!");
+      laserOk = true;
     } else {
-      System.out.println("Oh no! The target is out of range, or we can't get a reliable measurement!");
-      // You can still use distance_mm in here, if you're ok tolerating a clamped value or an unreliable measurement.
+      // System.out.println("Oh no! The target is out of range, or we can't get a reliable measurement!");
+      laserOk = false;
     }
   }
 
   public void periodic(){
   elencoderPos = leftelEncoder.getPosition();
   SmartDashboard.putNumber("ElEncoder", elencoderPos);
-  // elPIDToLevel();
+  SmartDashboard.putNumber("ElLaser", lasercanMeasurement);
+  SmartDashboard.putNumber("ElTarget", targetPosition);
+  elPIDToLevel();
 
   laserPeriodic();
   }
@@ -87,48 +92,30 @@ public class ElevatorSubsystem {
     leftEl.set(0);
     // rightEl.set(0);
   }
-
-  // //Get arm to the 1st stage
-  // public void lvl1El(){
-  //   elPid.setReference(10, ControlType.kPosition);
-  // }
-  
-  // //Get arm to the 2nd stage
-  // public void lvl2El(){
-  //   elPid.setReference(20, ControlType.kPosition);
-  // }
-  
-  // //Get arm to the 3rd stage
-  // public void lvl3El(){
-  //   elPid.setReference(30, ControlType.kPosition);
-  // }  
-  
-  // //Get arm to the 4th stage
-  // public void lvl4El(){
-  //   elPid.setReference(50, ControlType.kPosition);
-  // }
-
-  // public void elPIDToLevel(){
-
-  //   if(level == 0){
-  //     counts = 10;
-  //   }
-  //   if(level == 1){
-  //     counts = 108;
-  //   }
+  public void elPIDToLevel(){
+    if(level == 0){
+      targetPosition = 10;
+    }
+    if(level == 1){
+      targetPosition = 108;
+    }
     
-  //   if(level == 2){
-  //     counts = 276;
-  //   }
+    if(level == 2){
+      targetPosition = 276;
+    }
     
-  //   if(level == 3){
-  //     counts = 605;
-  //   }
+    if(level == 3){
+      targetPosition = 605;
+    }
 
-  //   if(level == 4){
-  //     counts  = 727;
-  //   }
-
-    // elPID.setReference(counts, ControlType.kPosition);
-  // }
+    if(level == 4){
+      targetPosition  = 650;
+    }
+    if(laserOk){
+      leftEl.set(elevatorPid.calculate(lasercanMeasurement,targetPosition) * maxElevatorPower);
+    }
+    else{
+      leftEl.set(0);
+    }
+  }
 }

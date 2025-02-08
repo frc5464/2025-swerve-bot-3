@@ -2,77 +2,118 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.controls.PositionVoltage;
+
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase.ControlType;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
-
+import com.revrobotics.spark.ClosedLoopSlot;
+import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class WristSubsystem {
 
-  SparkMax armWrist = new SparkMax(7, MotorType.kBrushless);
-  SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
-  double kP = 0;
-  double kI = 0;
-  double kD = 0;
-  double kIz = 0;
-  double kFF = 0;
-  double extMaxOutput = -0.2;
-  double extMinOutput = 0.2;
-  PositionVoltage m_request;
-  RelativeEncoder wristEncoder;
-  public double wristencoderPos;
-  public double counts;
+  // SparkMax armWrist = new SparkMax(7, MotorType.kBrushless);
+  // SparkMaxConfig sparkMaxConfig;
+  // double kP = 0;
+  // double kI = 0;
+  // double kD = 0;
+  // double kIz = 0;
+  // double kFF = 0;
+  // double extMaxOutput = -0.2;
+  // double extMinOutput = 0.2;
+  // RelativeEncoder wristEncoder;
+  // public double wristencoderPos;
+  // public double counts;
   public int level = 0;
 
-  double requestPosition = 0;
+  double targetPosition = 2;
+
+  // private SparkMaxConfig motorConfig;
+  // private SparkClosedLoopController closedLoopController;
+
+  private SparkMax motor;
+  private SparkMaxConfig motorConfig;
+  private SparkClosedLoopController closedLoopController;
+  private RelativeEncoder encoder;
+
+  public WristSubsystem(){
+    motor = new SparkMax(7, MotorType.kBrushless);
+    closedLoopController = motor.getClosedLoopController();
+    encoder = motor.getEncoder();
+
+    /*
+     * Create a new SPARK MAX configuration object. This will store the
+     * configuration parameters for the SPARK MAX that we will set below.
+     */
+    motorConfig = new SparkMaxConfig();
+
+    /*
+     * Configure the closed loop controller. We want to make sure we set the
+     * feedback sensor as the primary encoder.
+     */
+    motorConfig.closedLoop
+        .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+        // Set PID values for position control. We don't need to pass a closed loop
+        // slot, as it will default to slot 0.
+        .p(0.02)
+        .i(1e-6)
+        .d(0.0000)
+        .outputRange(-0.7, 0.7);
+
+    /*
+     * Apply the configuration to the SPARK MAX.
+     *
+     * kResetSafeParameters is used to get the SPARK MAX to a known state. This
+     * is useful in case the SPARK MAX is replaced.
+     *
+     * kPersistParameters is used to ensure the configuration is not lost when
+     * the SPARK MAX loses power. This is useful for power cycles that may occur
+     * mid-operation.
+     */
+    motor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+
+  }
+
+// used https://github.com/REVrobotics/REVLib-Examples/blob/main/Java/SPARK/Closed%20Loop%20Control/src/main/java/frc/robot/Robot.java as example
 
   public void init(){
-
-    sparkMaxConfig.closedLoop
-      .p(kP)
-      .i(kI)
-      .d(kD)
-      .outputRange(extMinOutput, extMaxOutput);
-    
-    armWrist.configure(sparkMaxConfig, null, null);
-
-
-    m_request = new PositionVoltage(0).withSlot(0);
 
   }
 
   public void periodic(){
-  wristencoderPos = wristEncoder.getPosition();
-  SmartDashboard.putNumber("WristEncoder", wristencoderPos);
-
+  SmartDashboard.putNumber("WristEncoder", encoder.getPosition());
+  closedLoopController.setReference(targetPosition, ControlType.kPosition, ClosedLoopSlot.kSlot0);
   }
 
   //Flick of da wrist
   public void windUp(){
-    armWrist.set(0.2);
+    motor.set(0.2);
   }
   public void windDown(){
-    armWrist.set(-0.2);
+    motor.set(-0.2);
   }
   public void windStop(){
-    armWrist.set(0);
+    motor.set(0);
   }
 
     // Get arm to Coral pickup position
   public void armPickup(){
-    requestPosition = 20;
+    targetPosition = 6.5;
   }
   
   //Get arm to Coral scoring position
   public void armScore(){
-    requestPosition = 40;
+    targetPosition = 16;
   }
   
   //Get arm to starting position
   public void armStart(){
-    requestPosition = 2;
+    targetPosition = 2;
   }
 
 
