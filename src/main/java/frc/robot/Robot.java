@@ -16,18 +16,30 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 //import frc.robot.subsystems.ElevatorSubsystem;
 //import frc.robot.subsystems.ProcessorArmSubsystem;
 
+import edu.wpi.first.util.sendable.SendableRegistry;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Filesystem;
+import swervelib.parser.SwerveParser;
+import swervelib.SwerveDrive;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.util.Units;
+import java.io.File;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to each mode, as
  * described in the TimedRobot documentation. If you change the name of this class or the package after creating this
  * project, you must also update the build.gradle file in the project.
  */
 public class Robot extends TimedRobot{
-
-  private static Robot instance;
+  private SwerveDrive m_robotDrive;
+  private final Joystick driveController;
+  // private final Joystick m_rightStick;
 
   private Command m_autonomousCommand;
 
-  private RobotContainer m_robotContainer;
+  // private RobotContainer m_robotContainer;
 
   //private ArmSubsystem armSubsystem;
 
@@ -62,14 +74,33 @@ public class Robot extends TimedRobot{
 
   
   public Robot(){
-    CanBridge.runTCP();
-    instance = this;
-  }
+    // CanBridge.runTCP();
+    // instance = this;
+    double maxSpeed = Units.feetToMeters(4);
+    File directory = new File(Filesystem.getDeployDirectory(), "swerve");
+    
+    try {
+      m_robotDrive = new SwerveParser(directory).createSwerveDrive(
+        maxSpeed,
+        new Pose2d(
+          new Translation2d(1, 4),
+          Rotation2d.fromDegrees(0)
+        )
+      );
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
 
-  public static Robot getInstance()
-  {
-    return instance;
+    driveController = new Joystick(0);
   }
+  
+
+
+  
+  // public static Robot getInstance()
+  // {
+  //   return instance;
+  // }
 
 
   /**
@@ -79,7 +110,7 @@ public class Robot extends TimedRobot{
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
+    // m_robotContainer = new RobotContainer();
     //climbSubsystem = new ClimbSubsystem();
     //elevatorSubsystem = new ElevatorSubsystem();
     //processorArmSubsystem = new ProcessorArmSubsystem();
@@ -175,8 +206,8 @@ public class Robot extends TimedRobot{
   @Override
   public void autonomousInit()
   {
-    m_robotContainer.setMotorBrake(true);
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    // m_robotContainer.setMotorBrake(true);
+    // m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null)
@@ -207,7 +238,7 @@ public class Robot extends TimedRobot{
     {
       CommandScheduler.getInstance().cancelAll();
     }
-    m_robotContainer.setDriveMode();
+    // m_robotContainer.setDriveMode();
   }
 
   /**
@@ -215,7 +246,7 @@ public class Robot extends TimedRobot{
    */
   @Override
   public void teleopPeriodic(){
-
+    m_robotDrive.drive(new Translation2d(0.0, 0.0), 0.7, true, false);
     //double leftstickval = driverController.getRawAxis(0);
     //double rightstickval = driverController.getRawAxis(0);
     //double leftTriggerVal = driverController.getRawAxis(2);
@@ -306,7 +337,7 @@ public class Robot extends TimedRobot{
   {
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
-    m_robotContainer.setDriveMode();
+    // m_robotContainer.setDriveMode();
     
   }
 
