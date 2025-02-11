@@ -109,7 +109,7 @@ public class ElevatorSubsystem {
     }
 
     if(level == 4){
-      targetPosition  = 650;
+      targetPosition  = 700;
     }
     if(laserOk){
       leftEl.set(elevatorPid.calculate(lasercanMeasurement,targetPosition) * maxElevatorPower);
