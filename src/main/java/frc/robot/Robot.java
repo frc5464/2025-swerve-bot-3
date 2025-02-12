@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 //import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 //import frc.robot.subsystems.ElevatorSubsystem;
-//import frc.robot.subsystems.ProcessorArmSubsystem;
+import frc.robot.subsystems.ProcessorArmSubsystem;
 
 import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.Joystick;
@@ -47,7 +47,7 @@ public class Robot extends TimedRobot{
   
   //private ElevatorSubsystem elevatorSubsystem;
 
-  //private ProcessorArmSubsystem processorArmSubsystem;
+  private ProcessorArmSubsystem processorArmSubsystem;
 
   //private Constants constants;
 
@@ -113,7 +113,7 @@ public class Robot extends TimedRobot{
     // m_robotContainer = new RobotContainer();
     climbSubsystem = new ClimbSubsystem();
     //elevatorSubsystem = new ElevatorSubsystem();
-    //processorArmSubsystem = new ProcessorArmSubsystem();
+    processorArmSubsystem = new ProcessorArmSubsystem();
     //constants = new Constants();
     //armSubsystem = new ArmSubsystem();
     // Create a timer to disable motor brake a few seconds after disable.  This will let the robot stop
@@ -122,7 +122,7 @@ public class Robot extends TimedRobot{
     
     //armSubsystem.init();
     //elevatorSubsystem.init();
-    //processorArmSubsystem.init();
+    processorArmSubsystem.init();
     climbSubsystem.init();
 
     if (isSimulation())
@@ -166,7 +166,7 @@ public class Robot extends TimedRobot{
     CommandScheduler.getInstance().run();
 
     //elevatorSubsystem.periodic();
-    //processorArmSubsystem.periodic();
+    processorArmSubsystem.periodic();
     //armSubsystem.periodic();
     climbSubsystem.periodic();
     // SmartDashboard.putNumber("FRdEncoder", frontRightDriveRelativeEncoder.getPosition());
@@ -265,10 +265,12 @@ public class Robot extends TimedRobot{
       // if(drivercontroller.getRawButton)
       
       if(mineController.getRawButton(1)){
-        climbSubsystem.closeHand();
-      } else if(mineController.getRawButton(4)){
         climbSubsystem.openHand();
-      } else{
+      } else if(mineController.getRawButton(4)){
+        if(climbSubsystem.climbEncoderPos < 1000){
+          climbSubsystem.closeHand();
+        }
+      } else {
         climbSubsystem.stopHand();
       }
     // if(driverController.getRawButton(1)){
@@ -288,16 +290,16 @@ public class Robot extends TimedRobot{
     //   elevatorSubsystem.stopElevate();
     // }
 
-  // Processor Rotation
-  // if(mineController.getRawButtonPressed(5)){
-  //   if(processorArmSubsystem.procrotEncoderPos > 5){
-  //   processorArmSubsystem.downrot_procarm();}
-  // } else if(mineController.getRawButtonPressed(6)){
-  //   if(processorArmSubsystem.procrotEncoderPos < 559){
-  //   processorArmSubsystem.rot_procarm();}
-  // } else{
-  //   processorArmSubsystem.stoprot_procarm();
-  // }
+  //Processor Rotation
+  if(mineController.getRawButton(6)){
+    if(processorArmSubsystem.procrotEncoderPos < 45){
+    processorArmSubsystem.downrot_procarm();}
+  } else if(mineController.getRawButton(5)){
+    if(processorArmSubsystem.procrotEncoderPos > 5){
+    processorArmSubsystem.rot_procarm();}
+  } else {
+    processorArmSubsystem.stoprot_procarm();
+  }
   // // Processor Roll (Int_Out)
   // if(mineController.getRawAxis(2) > 0.05){
   //   processorArmSubsystem.intake(leftTriggerVal2);
