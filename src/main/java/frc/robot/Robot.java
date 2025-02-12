@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 //import frc.robot.subsystems.ArmSubsystem;
-//import frc.robot.subsystems.ClimbSubsystem;
+import frc.robot.subsystems.ClimbSubsystem;
 //import frc.robot.subsystems.ElevatorSubsystem;
 //import frc.robot.subsystems.ProcessorArmSubsystem;
 
@@ -43,7 +43,7 @@ public class Robot extends TimedRobot{
 
   //private ArmSubsystem armSubsystem;
 
-  //private ClimbSubsystem climbSubsystem;
+  private ClimbSubsystem climbSubsystem;
   
   //private ElevatorSubsystem elevatorSubsystem;
 
@@ -111,7 +111,7 @@ public class Robot extends TimedRobot{
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     // m_robotContainer = new RobotContainer();
-    //climbSubsystem = new ClimbSubsystem();
+    climbSubsystem = new ClimbSubsystem();
     //elevatorSubsystem = new ElevatorSubsystem();
     //processorArmSubsystem = new ProcessorArmSubsystem();
     //constants = new Constants();
@@ -123,7 +123,7 @@ public class Robot extends TimedRobot{
     //armSubsystem.init();
     //elevatorSubsystem.init();
     //processorArmSubsystem.init();
-    //climbSubsystem.init();
+    climbSubsystem.init();
 
     if (isSimulation())
     {
@@ -149,7 +149,7 @@ public class Robot extends TimedRobot{
   }
 
   //Joystick driverController = new Joystick(0);
-  //Joystick mineController = new Joystick(1);
+  Joystick mineController = new Joystick(1);
   /**
    * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics that you want ran
    * during disabled, autonomous, teleoperated and test.
@@ -168,7 +168,7 @@ public class Robot extends TimedRobot{
     //elevatorSubsystem.periodic();
     //processorArmSubsystem.periodic();
     //armSubsystem.periodic();
-    //climbSubsystem.periodic();
+    climbSubsystem.periodic();
     // SmartDashboard.putNumber("FRdEncoder", frontRightDriveRelativeEncoder.getPosition());
     // SmartDashboard.putNumber("FRtEncoder", frontRightTurnRelativeEncoder.getPosition());
     // SmartDashboard.putNumber("FLdEncoder", frontLeftDriveRelativeEncoder.getPosition());
@@ -246,7 +246,7 @@ public class Robot extends TimedRobot{
    */
   @Override
   public void teleopPeriodic(){
-    m_robotDrive.drive(new Translation2d(0.0, 0.0), 0.7, true, false);
+    m_robotDrive.drive(new Translation2d(driveController.getRawAxis(1), driveController.getRawAxis(0)), driveController.getRawAxis(4), false, false);
     //double leftstickval = driverController.getRawAxis(0);
     //double rightstickval = driverController.getRawAxis(0);
     //double leftTriggerVal = driverController.getRawAxis(2);
@@ -254,13 +254,13 @@ public class Robot extends TimedRobot{
     //double leftTriggerVal2 = mineController.getRawAxis(2);
     //double rightTriggerVal2 = mineController.getRawAxis(3);
 
-      /*if(driverController.getRawButton(6)){
-        armSubsystem.rotArm();
-      } else if(driverController.getRawButton(5)){
-        armSubsystem.revrotArm();
-      } else {
-        armSubsystem.stopArm();
-      }
+      // if(driverController.getRawButton(6)){
+      //   armSubsystem.rotArm();
+      // } else if(driverController.getRawButton(5)){
+      //   armSubsystem.revrotArm();
+      // } else {
+      //   armSubsystem.stopArm();
+      // }
 
       // if(drivercontroller.getRawButton)
       
@@ -289,23 +289,23 @@ public class Robot extends TimedRobot{
     // }
 
   // Processor Rotation
-  if(mineController.getRawButtonPressed(5)){
-    if(processorArmSubsystem.procrotEncoderPos > 5){
-    processorArmSubsystem.downrot_procarm();}
-  } else if(mineController.getRawButtonPressed(6)){
-    if(processorArmSubsystem.procrotEncoderPos < 559){
-    processorArmSubsystem.rot_procarm();}
-  } else{
-    processorArmSubsystem.stoprot_procarm();
-  }
-  // Processor Roll (Int_Out)
-  if(mineController.getRawAxis(2) > 0.05){
-    processorArmSubsystem.intake(leftTriggerVal2);
-  } else if(mineController.getRawAxis(3) > 0.05){
-    processorArmSubsystem.outake(rightTriggerVal2);
-  } else {
-    processorArmSubsystem.stoprot();
-  }
+  // if(mineController.getRawButtonPressed(5)){
+  //   if(processorArmSubsystem.procrotEncoderPos > 5){
+  //   processorArmSubsystem.downrot_procarm();}
+  // } else if(mineController.getRawButtonPressed(6)){
+  //   if(processorArmSubsystem.procrotEncoderPos < 559){
+  //   processorArmSubsystem.rot_procarm();}
+  // } else{
+  //   processorArmSubsystem.stoprot_procarm();
+  // }
+  // // Processor Roll (Int_Out)
+  // if(mineController.getRawAxis(2) > 0.05){
+  //   processorArmSubsystem.intake(leftTriggerVal2);
+  // } else if(mineController.getRawAxis(3) > 0.05){
+  //   processorArmSubsystem.outake(rightTriggerVal2);
+  // } else {
+  //   processorArmSubsystem.stoprot();
+  // }
   
   // if(driverController.getRawButton(1)){
   //   elevatorSubsystem.level = 1;
@@ -319,15 +319,15 @@ public class Robot extends TimedRobot{
 
   
   // Elevator
-  if(driverController.getPOV() == 0){
-    if(elevatorSubsystem.elencoderPos < 59){
-      elevatorSubsystem.goElevate();}
-  } else if(driverController.getPOV() == 180){
-    if(elevatorSubsystem.elencoderPos > 1){
-      elevatorSubsystem.reverseElevate();}
-  } else{
-    elevatorSubsystem.stopElevate();
-  }
+  // if(driverController.getPOV() == 0){
+  //   if(elevatorSubsystem.elencoderPos < 59){
+  //     elevatorSubsystem.goElevate();}
+  // } else if(driverController.getPOV() == 180){
+  //   if(elevatorSubsystem.elencoderPos > 1){
+  //     elevatorSubsystem.reverseElevate();}
+  // } else{
+  //   elevatorSubsystem.stopElevate();
+  // }
 
  //  im programming im haker man i do haks yeahahahahahahahahhh im in the mainframe babyyyyyyyyyyyyyy*/
 }
