@@ -4,7 +4,10 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -12,12 +15,15 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
+import frc.robot.subsystems.exampleSubsystem;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 import swervelib.SwerveInputStream;
@@ -28,12 +34,12 @@ import swervelib.SwerveInputStream;
  * Instead, the structure of the robot (including subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer{
-
+ private final SendableChooser<Command> autoChooser;
  // Replace with CommandPS4Controller or CommandJoystick if needed
- private final CommandXboxController driverXbox = new CommandXboxController(2);
+ //private final CommandXboxController driverXbox = new CommandXboxController(2);
  // The robot's subsystems and commands are defined here...
- //private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
- //                                       "swerve"));
+ private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
+                                        "swerve"));
  // Applies deadbands and inverts controls because joysticks
  // are back-right positive while robot
  // controls are front-left positive
@@ -115,10 +121,23 @@ public class RobotContainer{
   */
  public RobotContainer()
  {
+  
+
+  //NamedCommands.registerCommand("autoBalance", drivebase.getAutonomousCommand());
   // Configure the trigger bindings
+  autoChooser = AutoBuilder.buildAutoChooser();
   configureBindings();
   DriverStation.silenceJoystickConnectionWarning(true);
+  
   NamedCommands.registerCommand("test", Commands.print("I EXIST"));
+  SmartDashboard.putData("Auto Chooser", autoChooser);
+
+
+
+
+
+
+
  }
 
  /**
@@ -172,11 +191,13 @@ public class RobotContainer{
   *
   * @return the command to run in autonomous
   */
- /*public Command getAutonomousCommand()
+ public Command getAutonomousCommand()
  {
   // An example command will be run in autonomous
-  //return drivebase.getAutonomousCommand("New Auto");
- }*/
+  //return autoChooser.getSelected();
+  return drivebase.getAutonomousCommand("New Auto");
+
+ }
 
  public void setDriveMode()
  {
