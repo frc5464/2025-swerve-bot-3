@@ -44,12 +44,12 @@ public class ArmSubsystem {
 }
 //0, 20, 40
   //Drop Coral
-  public void dropCoral(double axi2){
-    armIntake.set(axi2);
+  public void dropCoral(){
+    armIntake.set(0.3);
   }
-  public void retrieveCoral(double axi3){
+  public void retrieveCoral(){
 
-    armIntake.set(-axi3);
+    armIntake.set(-0.3);
   }
   public void stopIntake(){
     armIntake.set(0);
