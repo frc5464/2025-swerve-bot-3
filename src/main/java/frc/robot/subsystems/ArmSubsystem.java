@@ -29,55 +29,17 @@ public class ArmSubsystem {
     slot0Configs.kP = 0.24;
     slot0Configs.kI = 0;
     slot0Configs.kD = 0.1;
-  //   // slot0Configs.kS = 0.25; // Add 0.25 V output to overcome static friction
-  //   // slot0Configs.kV = 0.12; // A velocity target of 1 rps results in 0.12 V output
-  //   // slot0Configs.kP = 4.8; // A position error of 2.5 rotations results in 12 V output
-  //   // slot0Configs.kI = 0; // no output for integrated error
-  //   // slot0Configs.kD = 0.1; // A velocity error of 1 rps results in 0.1 V output
 
     armRot.getConfigurator().apply(slot0Configs);
 
     // // create a position closed-loop request, voltage output, slot 0 configs
     m_request = new PositionVoltage(0).withSlot(0);
-
-
-  //   // Trapezoid profile with max velocity 80 rps, max accel 160 rps/s
-  // final TrapezoidProfile m_profile = new TrapezoidProfile(
-  //  new TrapezoidProfile.Constraints(80, 160)
-  // );
-  // // Final target of 200 rot, 0 rps
-  // TrapezoidProfile.State m_goal = new TrapezoidProfile.State(200, 0);
-  // TrapezoidProfile.State m_setpoint = new TrapezoidProfile.State();
-
-
-
-  // // calculate the next profile setpoint
-  // m_setpoint = m_profile.calculate(0.020, m_setpoint, m_goal);
-
-  // // send the request to the device
-  // m_request.Position = m_setpoint.position;
-  // m_request.Velocity = m_setpoint.velocity;
-  // armRot.setControl(m_request);
-
-  //Encoderstuff
-  // sparkMaxConfig.closedLoop
-  //   .p(kP)
-  //   .i(kI)
-  //   .d(kD)
-  //   .outputRange(extMinOutput, extMaxOutput);
-  
-  // armRot.configure(sparkMaxConfig, null, null);
   
   }
 
   public void periodic(){
-
     // set position to 10 rotation
     armRot.setControl(m_request.withPosition(requestPosition));
-
-
-  // armEncoderPos = armEncoder.getPosition();
-  // SmartDashboard.putNumber("Encoder", armEncoderPos);
 
 }
 //0, 20, 40
