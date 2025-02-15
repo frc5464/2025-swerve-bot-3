@@ -83,7 +83,7 @@ public class ArmSubsystem {
 //0, 20, 40
   //Drop Coral
   public void dropCoral(double axi2){
-    armCoral.set(axi2);
+    armIntake.set(axi2);
   }
   public void retrieveCoral(double axi3){
 

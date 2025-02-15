@@ -11,8 +11,10 @@ import edu.wpi.first.wpilibj.TimedRobot;
 //import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.ArmSubsystem;
 //import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 //import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.ProcessorArmSubsystem;
 import frc.robot.subsystems.WristSubsystem;
@@ -36,17 +38,17 @@ import java.io.File;
 public class Robot extends TimedRobot{
   private SwerveDrive m_robotDrive;
   private final Joystick driveController;
-  // private final Joystick m_rightStick;
+  private final Joystick mineController;
 
   private Command m_autonomousCommand;
 
   // private RobotContainer m_robotContainer;
 
-  //private ArmSubsystem armSubsystem;
+  private ArmSubsystem armSubsystem;
 
   private ClimbSubsystem climbSubsystem;
   
-  //private ElevatorSubsystem elevatorSubsystem;
+  private ElevatorSubsystem elevatorSubsystem;
 
   private ProcessorArmSubsystem processorArmSubsystem;
 
@@ -54,29 +56,6 @@ public class Robot extends TimedRobot{
 
   private Constants constants;
 
-
-  //private Timer disabledTimer;
-
-
-
-  // private String auto_selected;
-  //   private final SendableChooser<String> auto_chooser = new SendableChooser<>();
-  //   public static final String kPos1 = "Pos1";
-
-    // auto_chooser.addOption("Pos1", kPos1);
-  
-  // public RelativeEncoder frontRightDriveRelativeEncoder;
-  // public RelativeEncoder frontRightTurnRelativeEncoder;
-  // public RelativeEncoder frontLeftDriveRelativeEncoder;
-  // public RelativeEncoder frontLeftTurnRelativeEncoder;
-  // public RelativeEncoder backRightDriveRelativeEncoder;
-  // public RelativeEncoder backRightTurnRelativeEncoder;
-  // public RelativeEncoder backleftDriveRelativeEncoder;
-  // public RelativeEncoder backleftTurnRelativeEncoder;
-
-  
-
-  
   public Robot(){
     // CanBridge.runTCP();
     // instance = this;
@@ -96,6 +75,7 @@ public class Robot extends TimedRobot{
     }
 
     driveController = new Joystick(0);
+    mineController = new Joystick(1);
   }
   
 
@@ -125,8 +105,8 @@ public class Robot extends TimedRobot{
     // immediately when disabled, but then also let it be pushed more 
     //disabledTimer = new Timer();
     
-    //armSubsystem.init();
-    //elevatorSubsystem.init();
+    armSubsystem.init();
+    elevatorSubsystem.init();
     processorArmSubsystem.init();
     climbSubsystem.init();
     wristSubsystem.init();
@@ -136,26 +116,8 @@ public class Robot extends TimedRobot{
       DriverStation.silenceJoystickConnectionWarning(true);
     }
 
-    // frontRightDriveRelativeEncoder = frontRightDrive.getEncoder();
-    // frontRightTurnRelativeEncoder = frontRightTurn.getEncoder();
-    // frontLeftDriveRelativeEncoder = frontLeftDrive.getEncoder();
-    // frontLeftTurnRelativeEncoder = frontLeftTurn.getEncoder();
-    // backRightDriveRelativeEncoder = backRightDrive.getEncoder();
-    // backRightTurnRelativeEncoder = backRightTurn.getEncoder();
-    // backleftDriveRelativeEncoder = backLeftDrive.getEncoder();
-    // backleftTurnRelativeEncoder = backLeftTurn.getEncoder();
-
-    //For Debugging
-    // while (true);
-      
-  
-
-
-
   }
-
-  //Joystick driverController = new Joystick(0);
-  Joystick mineController = new Joystick(1);
+  
   /**
    * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics that you want ran
    * during disabled, autonomous, teleoperated and test.
@@ -171,120 +133,11 @@ public class Robot extends TimedRobot{
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 
-    //elevatorSubsystem.periodic();
+    elevatorSubsystem.periodic();
     processorArmSubsystem.periodic();
-    //armSubsystem.periodic();
+    armSubsystem.periodic();
     climbSubsystem.periodic();
     wristSubsystem.periodic();
-
-    // SmartDashboard.putNumber("FRdEncoder", frontRightDriveRelativeEncoder.getPosition());
-    // SmartDashboard.putNumber("FRtEncoder", frontRightTurnRelativeEncoder.getPosition());
-    // SmartDashboard.putNumber("FLdEncoder", frontLeftDriveRelativeEncoder.getPosition());
-    // SmartDashboard.putNumber("FLtEncoder", frontLeftTurnRelativeEncoder.getPosition());
-    // SmartDashboard.putNumber("BRdEncoder", backRightDriveRelativeEncoder.getPosition());
-    // SmartDashboard.putNumber("BRtEncoder", backRightTurnRelativeEncoder.getPosition());
-    // SmartDashboard.putNumber("BLdEncoder", backleftDriveRelativeEncoder.getPosition());
-    // SmartDashboard.putNumber("BLtEncoder", backleftTurnRelativeEncoder.getPosition());
- 
-    double leftstickval = driverController.getRawAxis(0);
-    double rightstickval = driverController.getRawAxis(0);
-    double leftTriggerVal = driverController.getRawAxis(2);
-    double rightTriggerVal = driverController.getRawAxis(3);
-    double leftTriggerVal2 = mineController.getRawAxis(2);
-    double rightTriggerVal2 = mineController.getRawAxis(3);
-
-
-      // 6.5 wrist, -9 arm for intake (lb)
-      // 16 wrist -17 arm for scoring (rb)
-      if(driverController.getRawButton(5)){
-        // armSubsystem.rotArm();
-        armSubsystem.armPickup();
-        wristSubsystem.armPickup();
-      } else if(driverController.getRawButton(6)){
-        // armSubsystem.revrotArm();
-        armSubsystem.armScore();
-        wristSubsystem.armScore();
-      } else if(driverController.getRawButton(8)){
-        // armSubsystem.stopArm();
-        armSubsystem.armStart();
-        wristSubsystem.armStart();
-      }
-
-      // if(driverController.getPOV() == 90){
-      //   wristSubsystem.windDown();
-
-      // } else if(driverController.getPOV() == 270){
-      //   wristSubsystem.windUp();
-
-      // } else{
-      //   wristSubsystem.windStop();
-        
-      // }
-
-      if(mineController.getRawButton(1)){
-        climbSubsystem.closeHand();
-      } else if(mineController.getRawButton(4)){
-        climbSubsystem.openHand();
-      } else{
-        climbSubsystem.stopHand();
-      }
-    // if(driverController.getRawButton(1)){
-    //   // armSubsystem.lvl1Arm();
-    //   elevatorSubsystem.lvl1El();
-    // } else if(driverController.getRawButton(2)){
-    //   // armSubsystem.lvl3Arm();
-    //   elevatorSubsystem.lvl3El();
-    // } else if(driverController.getRawButton(3)){
-    //   // armSubsystem.lvl2Arm();
-    //   elevatorSubsystem.lvl2El();
-    // } else if(driverController.getRawButton(4)){
-    //   // armSubsystem.lvl4Arm();
-    //   elevatorSubsystem.lvl4El();
-    // } else{
-    //   // armSubsystem.stopArm();
-    //   elevatorSubsystem.stopElevate();
-    // }
-
-  // Processor Rotation
-  if(mineController.getRawButtonPressed(5)){
-    if(processorArmSubsystem.procrotEncoderPos > 5){
-    processorArmSubsystem.downrot_procarm();}
-  } else if(mineController.getRawButtonPressed(6)){
-    if(processorArmSubsystem.procrotEncoderPos < 559){
-    processorArmSubsystem.rot_procarm();}
-  } else{
-    processorArmSubsystem.stoprot_procarm();
-  }
-  // Processor Roll (Int_Out)
-  if(mineController.getRawAxis(2) > 0.05){
-    processorArmSubsystem.intake(leftTriggerVal2);
-  } else if(mineController.getRawAxis(3) > 0.05){
-    processorArmSubsystem.outake(rightTriggerVal2);
-  } else {
-    processorArmSubsystem.stoprot();
-  }
-  
-  if(driverController.getRawButton(1)){
-    elevatorSubsystem.level = 1;
-  } else if(driverController.getRawButton(2)){
-    elevatorSubsystem.level = 2;
-  } else if(driverController.getRawButton(3)){
-    elevatorSubsystem.level = 3;
-  } else if(driverController.getRawButton(4)){
-    elevatorSubsystem.level = 4;
-  }
-
-  
-  // Elevator (MANUAL MODE)
-  // if(driverController.getPOV() == 0){
-  //   if(elevatorSubsystem.elencoderPos < 59){
-  //     elevatorSubsystem.goElevate();}
-  // } else if(driverController.getPOV() == 180){
-  //   if(elevatorSubsystem.elencoderPos > 1){
-  //     elevatorSubsystem.reverseElevate();}
-  // } else{
-  //   elevatorSubsystem.stopElevate();
-  // }
   }
 
   /**
@@ -354,27 +207,69 @@ public class Robot extends TimedRobot{
    */
   @Override
   public void teleopPeriodic(){
-    m_robotDrive.drive(new Translation2d(driveController.getRawAxis(1), driveController.getRawAxis(0)), driveController.getRawAxis(4), false, false);
-      
-      if(mineController.getRawButton(1)){
-        climbSubsystem.openHand();
-      } else if(mineController.getRawButton(4)){
-        if(climbSubsystem.climbEncoderPos < 1000){
-          climbSubsystem.closeHand();
-        }
-      } else {
-        climbSubsystem.stopHand();
-      }
 
-  //Processor Rotation
-  if(mineController.getRawButton(6)){
-    if(processorArmSubsystem.procrotEncoderPos < 45){
-    processorArmSubsystem.downrot_procarm();}
-  } else if(mineController.getRawButton(5)){
+    double leftstickval = driveController.getRawAxis(0);
+    double rightstickval = driveController.getRawAxis(0);
+    double leftTriggerVal = driveController.getRawAxis(2);
+    double rightTriggerVal = driveController.getRawAxis(3);
+    double leftTriggerVal2 = mineController.getRawAxis(2);
+    double rightTriggerVal2 = mineController.getRawAxis(3);
+
+    m_robotDrive.drive(new Translation2d(driveController.getRawAxis(1), driveController.getRawAxis(0)), driveController.getRawAxis(4), false, false);
+
+  // Presets for arm/wrist
+  if(driveController.getRawButton(5)){
+    // armSubsystem.rotArm();
+    armSubsystem.armPickup();
+    wristSubsystem.armPickup();
+  } else if(driveController.getRawButton(6)){
+    // armSubsystem.revrotArm();
+    armSubsystem.armScore();
+    wristSubsystem.armScore();
+  } else if(driveController.getRawButton(8)){
+    // armSubsystem.stopArm();
+    armSubsystem.armStart();
+    wristSubsystem.armStart();
+  }
+
+  // climber
+  if(mineController.getRawButton(1)){
+    climbSubsystem.closeHand();
+  } else if(mineController.getRawButton(4)){
+    climbSubsystem.openHand();
+  } else{
+    climbSubsystem.stopHand();
+  }
+
+  // Processor Rotation
+  if(mineController.getRawButtonPressed(5)){
     if(processorArmSubsystem.procrotEncoderPos > 5){
+    processorArmSubsystem.downrot_procarm();}
+  } else if(mineController.getRawButtonPressed(6)){
+    if(processorArmSubsystem.procrotEncoderPos < 559){
     processorArmSubsystem.rot_procarm();}
-  } else {
+  } else{
     processorArmSubsystem.stoprot_procarm();
+  }
+  
+  // Processor Roll (Int_Out)
+  if(mineController.getRawAxis(2) > 0.05){
+    processorArmSubsystem.intake(leftTriggerVal2);
+  } else if(mineController.getRawAxis(3) > 0.05){
+    processorArmSubsystem.outake(rightTriggerVal2);
+  } else {
+    processorArmSubsystem.stoprot();
+  }
+
+  // Elevator level selector
+  if(mineController.getRawButton(1)){
+    elevatorSubsystem.level = 1;
+  } else if(mineController.getRawButton(2)){
+    elevatorSubsystem.level = 2;
+  } else if(mineController.getRawButton(3)){
+    elevatorSubsystem.level = 3;
+  } else if(mineController.getRawButton(4)){
+    elevatorSubsystem.level = 4;
   }
 
  //  im programming im haker man i do haks yeahahahahahahahahhh im in the mainframe babyyyyyyyyyyyyyy*/
