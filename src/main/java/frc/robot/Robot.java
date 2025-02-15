@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 //import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
-//import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.ProcessorArmSubsystem;
 
 import edu.wpi.first.util.sendable.SendableRegistry;
@@ -46,7 +46,7 @@ public class Robot extends TimedRobot{
 
   private ClimbSubsystem climbSubsystem;
   
-  //private ElevatorSubsystem elevatorSubsystem;
+  private ElevatorSubsystem elevatorSubsystem;
 
   private ProcessorArmSubsystem processorArmSubsystem;
 
@@ -113,7 +113,7 @@ public class Robot extends TimedRobot{
     // autonomous chooser on the dashboard.
     // m_robotContainer = new RobotContainer();
     climbSubsystem = new ClimbSubsystem();
-    //elevatorSubsystem = new ElevatorSubsystem();
+    elevatorSubsystem = new ElevatorSubsystem();
     processorArmSubsystem = new ProcessorArmSubsystem();
     //constants = new Constants();
     //armSubsystem = new ArmSubsystem();
@@ -122,7 +122,7 @@ public class Robot extends TimedRobot{
     //disabledTimer = new Timer();
     
     //armSubsystem.init();
-    //elevatorSubsystem.init();
+    elevatorSubsystem.init();
     processorArmSubsystem.init();
     climbSubsystem.init();
 
@@ -166,7 +166,7 @@ public class Robot extends TimedRobot{
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 
-    //elevatorSubsystem.periodic();
+    elevatorSubsystem.periodic();
     processorArmSubsystem.periodic();
     //armSubsystem.periodic();
     climbSubsystem.periodic();
@@ -278,7 +278,18 @@ public class Robot extends TimedRobot{
   else {
     processorArmSubsystem.stoprot_procarm();
   }
+
+  if(driveController.getRawButton(1)){
+    elevatorSubsystem.level = 1;
+  } else if(driveController.getRawButton(2)){
+    elevatorSubsystem.level = 2;
+  } else if(driveController.getRawButton(3)){
+    elevatorSubsystem.level = 3;
+  } else if(driveController.getRawButton(4)){
+    elevatorSubsystem.level = 4;
+  }
 }
+
 
   @Override
   public void testInit()
