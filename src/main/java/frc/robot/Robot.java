@@ -217,35 +217,23 @@ public class Robot extends TimedRobot{
 
     m_robotDrive.drive(new Translation2d(driveController.getRawAxis(1), driveController.getRawAxis(0)), driveController.getRawAxis(4), false, false);
 
-  // Presets for arm/wrist
-  if(driveController.getRawButton(5)){
-    // armSubsystem.rotArm();
-    armSubsystem.armPickup();
-    wristSubsystem.armPickup();
-  } else if(driveController.getRawButton(6)){
-    // armSubsystem.revrotArm();
-    armSubsystem.armScore();
-    wristSubsystem.armScore();
-  } else if(driveController.getRawButton(8)){
-    // armSubsystem.stopArm();
-    armSubsystem.armStart();
-    wristSubsystem.armStart();
-  }
+ 
+  
 
   // climber
-  if(mineController.getRawButton(1)){
+  if(mineController.getRawAxis(5) < -0.5){
     climbSubsystem.closeHand();
-  } else if(mineController.getRawButton(4)){
+  } else if(mineController.getRawAxis(5) > 0.5){
     climbSubsystem.openHand();
   } else{
     climbSubsystem.stopHand();
   }
 
   // Processor Rotation
-  if(mineController.getRawButtonPressed(5)){
+  if(mineController.getRawAxis(1) < -0.5){
     if(processorArmSubsystem.procrotEncoderPos > 5){
     processorArmSubsystem.downrot_procarm();}
-  } else if(mineController.getRawButtonPressed(6)){
+  } else if(mineController.getRawAxis(1) > 0.5 ){
     if(processorArmSubsystem.procrotEncoderPos < 559){
     processorArmSubsystem.rot_procarm();}
   } else{
@@ -262,14 +250,27 @@ public class Robot extends TimedRobot{
   }
 
   // Elevator level selector
-  if(mineController.getRawButton(1)){
+  if(driveController.getRawButton(1)){
     elevatorSubsystem.level = 1;
-  } else if(mineController.getRawButton(2)){
+    armSubsystem.armScore();
+    wristSubsystem.armScore();
+  } else if(driveController.getRawButton(2)){
     elevatorSubsystem.level = 2;
-  } else if(mineController.getRawButton(3)){
+    armSubsystem.armScore();
+    wristSubsystem.armScore();
+  } else if(driveController.getRawButton(3)){
     elevatorSubsystem.level = 3;
-  } else if(mineController.getRawButton(4)){
+    armSubsystem.armScore();
+    wristSubsystem.armScore();
+  } else if(driveController.getRawButton(4)){
     elevatorSubsystem.level = 4;
+    armSubsystem.armScore();
+    wristSubsystem.armScore();
+  }else if(driveController.getRawAxis(2) > 0.5){
+    elevatorSubsystem.level = 1;
+    armSubsystem.armPickup();
+    wristSubsystem.armPickup();
+    armSubsystem.retrieveCoral(0.5);
   }
 
  //  im programming im haker man i do haks yeahahahahahahahahhh im in the mainframe babyyyyyyyyyyyyyy*/
