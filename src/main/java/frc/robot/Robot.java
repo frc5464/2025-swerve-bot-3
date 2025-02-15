@@ -15,7 +15,7 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.ProcessorArmSubsystem;
-
+import frc.robot.subsystems.WristSubsystem;
 import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -49,6 +49,8 @@ public class Robot extends TimedRobot{
   private ElevatorSubsystem elevatorSubsystem;
 
   private ProcessorArmSubsystem processorArmSubsystem;
+
+  private WristSubsystem wristSubsystem;
 
   //private Constants constants;
 
@@ -116,6 +118,7 @@ public class Robot extends TimedRobot{
     climbSubsystem = new ClimbSubsystem();
     elevatorSubsystem = new ElevatorSubsystem();
     processorArmSubsystem = new ProcessorArmSubsystem();
+    wristSubsystem = new WristSubsystem();
     //constants = new Constants();
     armSubsystem = new ArmSubsystem();
     // Create a timer to disable motor brake a few seconds after disable.  This will let the robot stop
@@ -171,6 +174,7 @@ public class Robot extends TimedRobot{
     processorArmSubsystem.periodic();
     armSubsystem.periodic();
     climbSubsystem.periodic();
+    wristSubsystem.periodic();
     // SmartDashboard.putNumber("FRdEncoder", frontRightDriveRelativeEncoder.getPosition());
     // SmartDashboard.putNumber("FRtEncoder", frontRightTurnRelativeEncoder.getPosition());
     // SmartDashboard.putNumber("FLdEncoder", frontLeftDriveRelativeEncoder.getPosition());
@@ -284,15 +288,25 @@ public class Robot extends TimedRobot{
   if(driveController.getRawButton(1)){
     elevatorSubsystem.level = 1;
     armSubsystem.armScore();
+    wristSubsystem.armScore();
   } else if(driveController.getRawButton(2)){
     elevatorSubsystem.level = 2;
     armSubsystem.armScore();
+    wristSubsystem.armScore();
   } else if(driveController.getRawButton(3)){
     elevatorSubsystem.level = 3;
     armSubsystem.armScore();
+    wristSubsystem.armScore();
   } else if(driveController.getRawButton(4)){
     elevatorSubsystem.level = 4;
     armSubsystem.armScore();
+    wristSubsystem.armScore();
+  }
+
+  if(driveController.getRawButton(5)){
+    armSubsystem.armPickup();
+    wristSubsystem.armPickup();
+    armSubsystem.retrieveCoral();
   }
 }
 
