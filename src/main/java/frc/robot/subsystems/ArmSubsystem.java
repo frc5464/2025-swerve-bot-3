@@ -29,7 +29,8 @@ public class ArmSubsystem {
   public double encoderPos;
 
   public void init(){
-    
+    //Wrist Intake 17.1
+    //Wrist Score 29.5
     var slot0Configs = new Slot0Configs();
   //   // slot0Configs.kP = 2.4;
   //   // slot0Configs.kI = 0;
