@@ -93,6 +93,7 @@ public class Robot extends TimedRobot{
     }
     mineController = new Joystick(1);
     driveController = new Joystick(0);
+    
   }
   
 
@@ -207,6 +208,7 @@ public class Robot extends TimedRobot{
   @Override
   public void autonomousInit()
   {
+    m_robotDrive.zeroGyro();
     // m_robotContainer.setMotorBrake(true);
     // m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
