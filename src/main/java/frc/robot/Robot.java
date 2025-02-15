@@ -6,35 +6,47 @@ package frc.robot;
 
 import au.grapplerobotics.CanBridge;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Joystick;
+//import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Timer;
+//import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.ArmSubsystem;
+//import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
-import frc.robot.subsystems.ElevatorSubsystem;
+//import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.ProcessorArmSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 
+import edu.wpi.first.util.sendable.SendableRegistry;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Filesystem;
+import swervelib.parser.SwerveParser;
+import swervelib.SwerveDrive;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.util.Units;
+import java.io.File;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to each mode, as
  * described in the TimedRobot documentation. If you change the name of this class or the package after creating this
  * project, you must also update the build.gradle file in the project.
  */
 public class Robot extends TimedRobot{
-
-  private static Robot instance;
+  private SwerveDrive m_robotDrive;
+  private final Joystick driveController;
+  // private final Joystick m_rightStick;
 
   private Command m_autonomousCommand;
 
   // private RobotContainer m_robotContainer;
 
-  private ArmSubsystem armSubsystem;
+  //private ArmSubsystem armSubsystem;
 
   private ClimbSubsystem climbSubsystem;
   
-  private ElevatorSubsystem elevatorSubsystem;
+  //private ElevatorSubsystem elevatorSubsystem;
 
   private ProcessorArmSubsystem processorArmSubsystem;
 
@@ -42,7 +54,8 @@ public class Robot extends TimedRobot{
 
   private Constants constants;
 
-  private Timer disabledTimer;
+
+  //private Timer disabledTimer;
 
 
 
@@ -65,14 +78,33 @@ public class Robot extends TimedRobot{
 
   
   public Robot(){
-    CanBridge.runTCP();
-    instance = this;
-  }
+    // CanBridge.runTCP();
+    // instance = this;
+    double maxSpeed = Units.feetToMeters(4);
+    File directory = new File(Filesystem.getDeployDirectory(), "swerve");
+    
+    try {
+      m_robotDrive = new SwerveParser(directory).createSwerveDrive(
+        maxSpeed,
+        new Pose2d(
+          new Translation2d(1, 4),
+          Rotation2d.fromDegrees(0)
+        )
+      );
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
 
-  public static Robot getInstance()
-  {
-    return instance;
+    driveController = new Joystick(0);
   }
+  
+
+
+  
+  // public static Robot getInstance()
+  // {
+  //   return instance;
+  // }
 
 
   /**
@@ -84,17 +116,17 @@ public class Robot extends TimedRobot{
     // autonomous chooser on the dashboard.
     // m_robotContainer = new RobotContainer();
     climbSubsystem = new ClimbSubsystem();
-    elevatorSubsystem = new ElevatorSubsystem();
+    //elevatorSubsystem = new ElevatorSubsystem();
     processorArmSubsystem = new ProcessorArmSubsystem();
     constants = new Constants();
     armSubsystem = new ArmSubsystem();
     wristSubsystem = new WristSubsystem();
     // Create a timer to disable motor brake a few seconds after disable.  This will let the robot stop
     // immediately when disabled, but then also let it be pushed more 
-    disabledTimer = new Timer();
+    //disabledTimer = new Timer();
     
-    armSubsystem.init();
-    elevatorSubsystem.init();
+    //armSubsystem.init();
+    //elevatorSubsystem.init();
     processorArmSubsystem.init();
     climbSubsystem.init();
     wristSubsystem.init();
@@ -122,7 +154,7 @@ public class Robot extends TimedRobot{
 
   }
 
-  Joystick driverController = new Joystick(0);
+  //Joystick driverController = new Joystick(0);
   Joystick mineController = new Joystick(1);
   /**
    * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics that you want ran
@@ -139,9 +171,9 @@ public class Robot extends TimedRobot{
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 
-    elevatorSubsystem.periodic();
+    //elevatorSubsystem.periodic();
     processorArmSubsystem.periodic();
-    armSubsystem.periodic();
+    //armSubsystem.periodic();
     climbSubsystem.periodic();
     wristSubsystem.periodic();
 
@@ -322,9 +354,30 @@ public class Robot extends TimedRobot{
    */
   @Override
   public void teleopPeriodic(){
+    m_robotDrive.drive(new Translation2d(driveController.getRawAxis(1), driveController.getRawAxis(0)), driveController.getRawAxis(4), false, false);
+      
+      if(mineController.getRawButton(1)){
+        climbSubsystem.openHand();
+      } else if(mineController.getRawButton(4)){
+        if(climbSubsystem.climbEncoderPos < 1000){
+          climbSubsystem.closeHand();
+        }
+      } else {
+        climbSubsystem.stopHand();
+      }
 
+  //Processor Rotation
+  if(mineController.getRawButton(6)){
+    if(processorArmSubsystem.procrotEncoderPos < 45){
+    processorArmSubsystem.downrot_procarm();}
+  } else if(mineController.getRawButton(5)){
+    if(processorArmSubsystem.procrotEncoderPos > 5){
+    processorArmSubsystem.rot_procarm();}
+  } else {
+    processorArmSubsystem.stoprot_procarm();
+  }
 
- //  im programming im haker man i do haks yeahahahahahahahahhh im in the mainframe babyyyyyyyyyyyyyy
+ //  im programming im haker man i do haks yeahahahahahahahahhh im in the mainframe babyyyyyyyyyyyyyy*/
 }
 
   @Override

@@ -44,7 +44,7 @@ public class ClimbSubsystem {
     public void periodic(){
     climbEncoderPos = climbEncoder.getPosition();
     SmartDashboard.putNumber("ClimbEncoder", climbEncoderPos);
-    ClimbToLevel(0);
+    //ClimbToLevel(0);
         //loopController.setReference(400, ControlType.kPosition );
         
     } 

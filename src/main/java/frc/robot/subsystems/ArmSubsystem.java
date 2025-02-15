@@ -9,9 +9,7 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 public class ArmSubsystem {
-
   SparkMax armIntake = new SparkMax(8, MotorType.kBrushless);
-  //SparkMax armRot = new SparkMax(34, MotorType.kBrushless);
   TalonFX armRot = new TalonFX(9);
   SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
   double kP = 0;
@@ -24,15 +22,13 @@ public class ArmSubsystem {
   double extMinOutput = 0;
   PositionVoltage m_request;
   RelativeEncoder armEncoder;
-  public double armEncoderPos;
+  public double encoderPos;
 
-  public void init(){
-    
+  public void init(){   
     var slot0Configs = new Slot0Configs();
     slot0Configs.kP = 0.24;
     slot0Configs.kI = 0;
     slot0Configs.kD = 0.1;
-
   //   // slot0Configs.kS = 0.25; // Add 0.25 V output to overcome static friction
   //   // slot0Configs.kV = 0.12; // A velocity target of 1 rps results in 0.12 V output
   //   // slot0Configs.kP = 4.8; // A position error of 2.5 rotations results in 12 V output
@@ -63,7 +59,6 @@ public class ArmSubsystem {
   // m_request.Velocity = m_setpoint.velocity;
   // armRot.setControl(m_request);
 
-  // armEncoder = armRot.getclosedloop
   //Encoderstuff
   // sparkMaxConfig.closedLoop
   //   .p(kP)
@@ -76,8 +71,10 @@ public class ArmSubsystem {
   }
 
   public void periodic(){
+
     // set position to 10 rotation
     armRot.setControl(m_request.withPosition(requestPosition));
+
 
   // armEncoderPos = armEncoder.getPosition();
   // SmartDashboard.putNumber("Encoder", armEncoderPos);
@@ -86,17 +83,15 @@ public class ArmSubsystem {
 //0, 20, 40
   //Drop Coral
   public void dropCoral(double axi2){
-    armIntake.set(axi2);
+    armCoral.set(axi2);
   }
   public void retrieveCoral(double axi3){
+
     armIntake.set(-axi3);
   }
   public void stopIntake(){
     armIntake.set(0);
   }
-
-
-
 
   //Rotate arm
   public void rotArm(){

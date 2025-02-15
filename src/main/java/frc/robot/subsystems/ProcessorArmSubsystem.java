@@ -44,7 +44,7 @@ public class ProcessorArmSubsystem {
   public void periodic(){
   procrotEncoderPos = procrotEncoder.getPosition();
   SmartDashboard.putNumber("ProcRotEncoder", procrotEncoderPos);
-  procArmToLevel(0);
+  //procArmToLevel(0);
   }
   
   // Roll the intake/vomit
@@ -60,34 +60,34 @@ public class ProcessorArmSubsystem {
 
   // Rotate the processor arm (whole thing/up and down)
   public void rot_procarm(){
-    processorRotater.set(0.3);
+    processorRotater.set(-0.3);
   }
   public void downrot_procarm(){
-    processorRotater.set(-0.1);
+    processorRotater.set(0.1);
   }
   public void stoprot_procarm(){
     processorRotater.set(0);
   }
-
-  public void procArmToLevel(int level){
-    if(level == 1){
-      counts = 1;
-    }
+//1072.5
+  // public void procArmToLevel(int level){
+  //   if(level == 1){
+  //     counts = 1;
+  //   }
     
-    if(level == 2){
-      counts = 2;
-    }
+  //   if(level == 2){
+  //     counts = 2;
+  //   }
     
-    if(level == 3){
-      counts = 3;
-    }
+  //   if(level == 3){
+  //     counts = 3;
+  //   }
 
-    if(level == 4){
-      counts  = 4;
-    }
+  //   if(level == 4){
+  //     counts  = 4;
+  //   }
 
-    procRotPID.setReference(counts, ControlType.kPosition);
-  }
+  //   procRotPID.setReference(counts, ControlType.kPosition);
+  // }
 }
 
 
