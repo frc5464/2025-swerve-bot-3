@@ -35,6 +35,7 @@ import java.io.File;
 public class Robot extends TimedRobot{
   private SwerveDrive m_robotDrive;
   private final Joystick driveController;
+  private final Joystick mineController;
   // private final Joystick m_rightStick;
 
   private Command m_autonomousCommand;
@@ -90,7 +91,7 @@ public class Robot extends TimedRobot{
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
-
+    mineController = new Joystick(1);
     driveController = new Joystick(0);
   }
   
@@ -149,7 +150,7 @@ public class Robot extends TimedRobot{
   }
 
   //Joystick driverController = new Joystick(0);
-  Joystick mineController = new Joystick(1);
+  //Joystick mineController = new Joystick(1);
   /**
    * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics that you want ran
    * during disabled, autonomous, teleoperated and test.
@@ -246,92 +247,37 @@ public class Robot extends TimedRobot{
    */
   @Override
   public void teleopPeriodic(){
-    m_robotDrive.drive(new Translation2d(driveController.getRawAxis(1), driveController.getRawAxis(0)), driveController.getRawAxis(4), false, false);
-    //double leftstickval = driverController.getRawAxis(0);
-    //double rightstickval = driverController.getRawAxis(0);
-    //double leftTriggerVal = driverController.getRawAxis(2);
-    //double rightTriggerVal = driverController.getRawAxis(3);
-    //double leftTriggerVal2 = mineController.getRawAxis(2);
-    //double rightTriggerVal2 = mineController.getRawAxis(3);
-
-      // if(driverController.getRawButton(6)){
-      //   armSubsystem.rotArm();
-      // } else if(driverController.getRawButton(5)){
-      //   armSubsystem.revrotArm();
-      // } else {
-      //   armSubsystem.stopArm();
-      // }
-
-      // if(drivercontroller.getRawButton)
+    double drx = driveController.getRawAxis(1);
+    double dry = driveController.getRawAxis(0);
+    double drr = driveController.getRawAxis(4);
+    if(Math.abs(drx) < 0.1){drx = 0;}
+    if(Math.abs(dry) < 0.1){dry = 0;}
+    if(Math.abs(drr) < 0.1){drr = 0;}
+    m_robotDrive.drive(new Translation2d(drx, dry), -drr, false, false);
       
       if(mineController.getRawButton(1)){
         climbSubsystem.openHand();
-      } else if(mineController.getRawButton(4)){
-        if(climbSubsystem.climbEncoderPos < 1000){
+      } 
+      else if(mineController.getRawButton(4)){
+        // if(climbSubsystem.climbEncoderPos < 1000){
           climbSubsystem.closeHand();
-        }
+        // }
       } else {
         climbSubsystem.stopHand();
       }
-    // if(driverController.getRawButton(1)){
-    //   // armSubsystem.lvl1Arm();
-    //   elevatorSubsystem.lvl1El();
-    // } else if(driverController.getRawButton(2)){
-    //   // armSubsystem.lvl3Arm();
-    //   elevatorSubsystem.lvl3El();
-    // } else if(driverController.getRawButton(3)){
-    //   // armSubsystem.lvl2Arm();
-    //   elevatorSubsystem.lvl2El();
-    // } else if(driverController.getRawButton(4)){
-    //   // armSubsystem.lvl4Arm();
-    //   elevatorSubsystem.lvl4El();
-    // } else{
-    //   // armSubsystem.stopArm();
-    //   elevatorSubsystem.stopElevate();
-    // }
 
   //Processor Rotation
   if(mineController.getRawButton(6)){
-    if(processorArmSubsystem.procrotEncoderPos < 45){
-    processorArmSubsystem.downrot_procarm();}
+    // if(processorArmSubsystem.procrotEncoderPos < 45){
+    processorArmSubsystem.downrot_procarm();
+  // }
   } else if(mineController.getRawButton(5)){
-    if(processorArmSubsystem.procrotEncoderPos > 5){
+    // if(processorArmSubsystem.procrotEncoderPos > 5){
     processorArmSubsystem.rot_procarm();}
-  } else {
+  // } 
+  else {
     processorArmSubsystem.stoprot_procarm();
   }
-  // // Processor Roll (Int_Out)
-  // if(mineController.getRawAxis(2) > 0.05){
-  //   processorArmSubsystem.intake(leftTriggerVal2);
-  // } else if(mineController.getRawAxis(3) > 0.05){
-  //   processorArmSubsystem.outake(rightTriggerVal2);
-  // } else {
-  //   processorArmSubsystem.stoprot();
-  // }
-  
-  // if(driverController.getRawButton(1)){
-  //   elevatorSubsystem.level = 1;
-  // } else if(driverController.getRawButton(3)){
-  //   elevatorSubsystem.level = 2;
-  // } else if(driverController.getRawButton(3)){
-  //   elevatorSubsystem.level = 3;
-  // } else if(driverController.getRawButton(4)){
-  //   elevatorSubsystem.level = 4;
-  // }
-
-  
-  // Elevator
-  // if(driverController.getPOV() == 0){
-  //   if(elevatorSubsystem.elencoderPos < 59){
-  //     elevatorSubsystem.goElevate();}
-  // } else if(driverController.getPOV() == 180){
-  //   if(elevatorSubsystem.elencoderPos > 1){
-  //     elevatorSubsystem.reverseElevate();}
-  // } else{
-  //   elevatorSubsystem.stopElevate();
-  // }
-
- //  im programming im haker man i do haks yeahahahahahahahahhh im in the mainframe babyyyyyyyyyyyyyy*/
 }
 
   @Override

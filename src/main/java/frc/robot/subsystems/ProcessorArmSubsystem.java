@@ -15,21 +15,21 @@ public class ProcessorArmSubsystem {
   SparkMax processorRotater = new SparkMax(3, MotorType.kBrushless);
   SparkFlex processorint_out = new SparkFlex(4, MotorType.kBrushless);
   SparkMaxConfig sparkMaxConfig2 = new SparkMaxConfig();
-  SparkClosedLoopController procRotPID = processorRotater.getClosedLoopController();
-  double kP = 0;
-  double kI = 0;
-  double kD = 0;
-  double kIz = 0;
-  double kFF = 0;
-  double extMaxOutput = 0.2;
-  double extMinOutput = 0.2;
+  // SparkClosedLoopController procRotPID = processorRotater.getClosedLoopController();
+  // double kP = 0;
+  // double kI = 0;
+  // double kD = 0;
+  // double kIz = 0;
+  // double kFF = 0;
+  // double extMaxOutput = 0.2;
+  // double extMinOutput = 0.2;
   RelativeEncoder procrotEncoder;
   public double procrotEncoderPos;
   public double counts;
   
   public void init(){
 
-      procrotEncoder = processorRotater.getEncoder();
+    procrotEncoder = processorRotater.getEncoder();
 
     // sparkMaxConfig.closedLoop
     //   .p(kP)
@@ -60,12 +60,15 @@ public class ProcessorArmSubsystem {
 
   // Rotate the processor arm (whole thing/up and down)
   public void rot_procarm(){
+    System.out.println("PROC UP!");
     processorRotater.set(-0.3);
   }
   public void downrot_procarm(){
+    System.out.println("PROC DOWN!");
     processorRotater.set(0.1);
   }
   public void stoprot_procarm(){
+    System.out.println("PROC STOP");
     processorRotater.set(0);
   }
 //1072.5
