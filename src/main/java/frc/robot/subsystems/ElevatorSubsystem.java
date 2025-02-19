@@ -32,10 +32,10 @@ public class ElevatorSubsystem {
   public double lasercanMeasurement;
   boolean laserOk = false;
   PIDController elevatorPid;
-  double maxElevatorPower = 0.2;
+  double maxElevatorPower = 0.1;
 
   public void init(){
-    elevatorPid = new PIDController(0.01, 0, 0);
+    elevatorPid = new PIDController(0.03, 10e-4, 0);
     leftelEncoder = leftEl.getEncoder();
     laserInit();
 

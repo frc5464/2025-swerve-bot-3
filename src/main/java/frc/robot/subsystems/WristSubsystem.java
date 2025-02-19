@@ -112,7 +112,7 @@ public class WristSubsystem {
   }
 
   public void lvl4WristScore(){
-    targetPosition = 30;
+    targetPosition = 28;
   }
   
   //Get arm to starting position
