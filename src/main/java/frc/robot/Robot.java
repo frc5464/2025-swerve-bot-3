@@ -96,7 +96,7 @@ public class Robot extends TimedRobot{
     // autonomous chooser on the dashboard.
     // m_robotContainer = new RobotContainer();
     climbSubsystem = new ClimbSubsystem();
-    //elevatorSubsystem = new ElevatorSubsystem();
+    elevatorSubsystem = new ElevatorSubsystem();
     processorArmSubsystem = new ProcessorArmSubsystem();
     constants = new Constants();
     armSubsystem = new ArmSubsystem();
@@ -138,6 +138,11 @@ public class Robot extends TimedRobot{
     armSubsystem.periodic();
     climbSubsystem.periodic();
     wristSubsystem.periodic();
+    if(driveController.getRawButtonPressed(8)){
+      wristSubsystem.reBoot();
+      armSubsystem.reBoot();
+
+    }
   }
 
   /**
@@ -215,7 +220,15 @@ public class Robot extends TimedRobot{
     double leftTriggerVal2 = mineController.getRawAxis(2);
     double rightTriggerVal2 = mineController.getRawAxis(3);
 
-    m_robotDrive.drive(new Translation2d(driveController.getRawAxis(1), driveController.getRawAxis(0)), driveController.getRawAxis(4), false, false);
+    // introduce deadband to keep controller drift from causing issues
+    double driveX = driveController.getRawAxis(1);
+    double driveY = driveController.getRawAxis(0);
+    double driveRot =  driveController.getRawAxis(4);
+    if(Math.abs(driveX) < 0.1){ driveX = 0;}
+    if(Math.abs(driveY) < 0.1){ driveY = 0;}
+    if(Math.abs(driveRot) < 0.1){ driveRot = 0;}
+    
+    m_robotDrive.drive(new Translation2d(driveX,driveY),driveRot, false, false);
 
  
   
@@ -230,14 +243,15 @@ public class Robot extends TimedRobot{
   }
 
   // Processor Rotation
-  if(mineController.getRawAxis(1) < -0.5){
+  if(mineController.getRawButton(5)){
     if(processorArmSubsystem.procrotEncoderPos > 5){
     processorArmSubsystem.downrot_procarm();}
-  } else if(mineController.getRawAxis(1) > 0.5 ){
+  } else if(mineController.getRawButton(6)){
     if(processorArmSubsystem.procrotEncoderPos < 559){
-    processorArmSubsystem.rot_procarm();}
-  } else{
-    processorArmSubsystem.stoprot_procarm();
+      processorArmSubsystem.rot_procarm();
+    }
+  } else {
+    
   }
   
   // Processor Roll (Int_Out)
@@ -251,28 +265,34 @@ public class Robot extends TimedRobot{
 
   // Elevator level selector
   if(driveController.getRawButton(1)){
-    elevatorSubsystem.level = 1;
+    elevatorSubsystem.level = 1.0;
     armSubsystem.armScore();
-    wristSubsystem.armScore();
+    wristSubsystem.wristScore();
   } else if(driveController.getRawButton(2)){
-    elevatorSubsystem.level = 2;
+    elevatorSubsystem.level = 2.0;
     armSubsystem.armScore();
-    wristSubsystem.armScore();
+    wristSubsystem.wristScore();
   } else if(driveController.getRawButton(3)){
-    elevatorSubsystem.level = 3;
+    elevatorSubsystem.level = 3.0;
     armSubsystem.armScore();
-    wristSubsystem.armScore();
+    wristSubsystem.wristScore();
   } else if(driveController.getRawButton(4)){
-    elevatorSubsystem.level = 4;
+    elevatorSubsystem.level = 4.0;
     armSubsystem.armScore();
-    wristSubsystem.armScore();
-  }else if(driveController.getRawAxis(2) > 0.5){
-    elevatorSubsystem.level = 1;
+    wristSubsystem.lvl4WristScore();
+  }
+  
+  //Intake
+  if(driveController.getRawAxis(2) > 0.5){
+    elevatorSubsystem.level = 2.5;
     armSubsystem.armPickup();
-    wristSubsystem.armPickup();
+    wristSubsystem.wristPickup();
     armSubsystem.retrieveCoral(0.5);
+  } else {
+    armSubsystem.stopIntake();
   }
 
+  
  //  im programming im haker man i do haks yeahahahahahahahahhh im in the mainframe babyyyyyyyyyyyyyy*/
 }
 

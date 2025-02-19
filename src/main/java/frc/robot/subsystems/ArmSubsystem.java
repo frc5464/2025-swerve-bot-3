@@ -8,6 +8,8 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class ArmSubsystem {
   SparkMax armIntake = new SparkMax(8, MotorType.kBrushless);
   TalonFX armRot = new TalonFX(9);
@@ -17,7 +19,7 @@ public class ArmSubsystem {
   double kD = 0;
   double kIz = 0;
   double kFF = 0;
-  double requestPosition = -6;
+  double requestPosition = 0;
   double extMaxOutput = 0;
   double extMinOutput = 0;
   PositionVoltage m_request;
@@ -26,7 +28,7 @@ public class ArmSubsystem {
 
   public void init(){   
     var slot0Configs = new Slot0Configs();
-    slot0Configs.kP = 0.24;
+    slot0Configs.kP = 0.4;
     slot0Configs.kI = 0;
     slot0Configs.kD = 0.1;
   //   // slot0Configs.kS = 0.25; // Add 0.25 V output to overcome static friction
@@ -71,23 +73,23 @@ public class ArmSubsystem {
   }
 
   public void periodic(){
-
+    
     // set position to 10 rotation
     armRot.setControl(m_request.withPosition(requestPosition));
 
 
-  // armEncoderPos = armEncoder.getPosition();
-  // SmartDashboard.putNumber("Encoder", armEncoderPos);
+  double armEncoderPos = armRot.getPosition().getValueAsDouble();
+   SmartDashboard.putNumber("ArmEncoder", armEncoderPos);
 
 }
 //0, 20, 40
   //Drop Coral
   public void dropCoral(double axi2){
-    armIntake.set(axi2);
+    armIntake.set(-axi2);
   }
   public void retrieveCoral(double axi3){
 
-    armIntake.set(-axi3);
+    armIntake.set(axi3);
   }
   public void stopIntake(){
     armIntake.set(0);
@@ -107,18 +109,24 @@ public class ArmSubsystem {
 
   // Get arm to Coral pickup position
   public void armPickup(){
-    requestPosition = -4;
+    requestPosition = -66;
   }
   
 
   //Get arm to Coral scoring position
   public void armScore(){
-    requestPosition = -17;
+    requestPosition = 16;
   }
   
+  public void lvl4ArmScore(){
+    requestPosition = 12;
+  }
   //Get arm to starting position
   public void armStart(){
-    requestPosition = -4;
+    requestPosition = 0;
   }
 
+  public void reBoot(){
+    armRot.setPosition(0);
+  }
   }

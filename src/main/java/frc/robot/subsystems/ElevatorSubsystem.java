@@ -28,7 +28,7 @@ public class ElevatorSubsystem {
   RelativeEncoder leftelEncoder;
   public double elencoderPos;
   public double targetPosition;
-  public int level = 0;
+  public double level = 0.0;
   public double lasercanMeasurement;
   boolean laserOk = false;
   PIDController elevatorPid;
@@ -73,6 +73,7 @@ public class ElevatorSubsystem {
   SmartDashboard.putNumber("ElEncoder", elencoderPos);
   SmartDashboard.putNumber("ElLaser", lasercanMeasurement);
   SmartDashboard.putNumber("ElTarget", targetPosition);
+  SmartDashboard.putNumber("Offset", targetPosition - lasercanMeasurement);
   elPIDToLevel();
 
   laserPeriodic();
@@ -93,23 +94,25 @@ public class ElevatorSubsystem {
     // rightEl.set(0);
   }
   public void elPIDToLevel(){
-    if(level == 0){
+    if(level == 0.0){
       targetPosition = 10;
     }
-    if(level == 1){
-      targetPosition = 108;
+    if(level == 1.0){
+      targetPosition = 80;
     }
     
-    if(level == 2){
-      targetPosition = 276;
+    if(level == 2.0){
+      targetPosition = 123;
     }
-    
-    if(level == 3){
-      targetPosition = 605;
+    if(level == 2.5){
+      targetPosition = 478;
+    }
+    if(level == 3.0){
+      targetPosition = 337;
     }
 
-    if(level == 4){
-      targetPosition  = 700;
+    if(level == 4.0){
+      targetPosition  = 697;
     }
     if(laserOk){
       leftEl.set(elevatorPid.calculate(lasercanMeasurement,targetPosition) * maxElevatorPower);

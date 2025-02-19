@@ -60,10 +60,10 @@ public class WristSubsystem {
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
         // Set PID values for position control. We don't need to pass a closed loop
         // slot, as it will default to slot 0.
-        .p(0.02)
-        .i(1e-6)
-        .d(0.0000)
-        .outputRange(-0.7, 0.7);
+        .p(0.3)
+        .i(0)
+        .d(0)
+        .outputRange(-0.3, 0.3);
 
     /*
      * Apply the configuration to the SPARK MAX.
@@ -102,20 +102,27 @@ public class WristSubsystem {
   }
 
     // Get arm to Coral pickup position
-  public void armPickup(){
-    targetPosition = 6.5;
+  public void wristPickup(){
+    targetPosition = 26;
   }
   
   //Get arm to Coral scoring position
-  public void armScore(){
-    targetPosition = 16;
+  public void wristScore(){
+    targetPosition = 29;
+  }
+
+  public void lvl4WristScore(){
+    targetPosition = 30;
   }
   
   //Get arm to starting position
-  public void armStart(){
+  public void wristStart(){
     targetPosition = 2;
   }
 
+  public void reBoot(){
+    encoder.setPosition(0);
+  }
 
 
 

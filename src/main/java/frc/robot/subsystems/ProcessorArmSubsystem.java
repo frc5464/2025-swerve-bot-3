@@ -63,7 +63,7 @@ public class ProcessorArmSubsystem {
     processorRotater.set(-0.3);
   }
   public void downrot_procarm(){
-    processorRotater.set(0.1);
+    processorRotater.set(0.3);
   }
   public void stoprot_procarm(){
     processorRotater.set(0);
