@@ -138,10 +138,12 @@ public class Robot extends TimedRobot{
     armSubsystem.periodic();
     climbSubsystem.periodic();
     wristSubsystem.periodic();
+    if(driveController.getRawButtonPressed(7)){
+      m_robotDrive.zeroGyro();
+    }
     if(driveController.getRawButtonPressed(8)){
       wristSubsystem.reBoot();
       armSubsystem.reBoot();
-
     }
   }
 
@@ -223,14 +225,17 @@ public class Robot extends TimedRobot{
     // introduce deadband to keep controller drift from causing issues
     double driveX = driveController.getRawAxis(1);
     double driveY = driveController.getRawAxis(0);
-    double driveRot =  driveController.getRawAxis(4);
+    double driveRot = driveController.getRawAxis(4);
     if(Math.abs(driveX) < 0.1){ driveX = 0;}
     if(Math.abs(driveY) < 0.1){ driveY = 0;}
     if(Math.abs(driveRot) < 0.1){ driveRot = 0;}
     
     m_robotDrive.drive(new Translation2d(driveX,driveY),driveRot, false, false);
 
- 
+    
+      
+    
+    
   
 
   // climber
@@ -287,7 +292,9 @@ public class Robot extends TimedRobot{
     elevatorSubsystem.level = 2.5;
     armSubsystem.armPickup();
     wristSubsystem.wristPickup();
-    armSubsystem.retrieveCoral(0.5);
+    armSubsystem.retrieveCoral(0.5);}
+    else if(driveController.getRawAxis(3) > 0.5){
+    armSubsystem.dropCoral(0.5);
   } else {
     armSubsystem.stopIntake();
   }
