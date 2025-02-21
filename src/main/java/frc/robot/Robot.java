@@ -4,7 +4,7 @@
 
 package frc.robot;
 
-import au.grapplerobotics.CanBridge;
+// import au.grapplerobotics.CanBridge;
 import edu.wpi.first.wpilibj.DriverStation;
 //import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -19,9 +19,9 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.ProcessorArmSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 
-import edu.wpi.first.util.sendable.SendableRegistry;
+// import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.TimedRobot;
+// import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Filesystem;
 import swervelib.parser.SwerveParser;
 import swervelib.SwerveDrive;
@@ -138,6 +138,12 @@ public class Robot extends TimedRobot{
     armSubsystem.periodic();
     climbSubsystem.periodic();
     wristSubsystem.periodic();
+
+    if(driveController.getRawButton(6)){
+      armSubsystem.armAlgae();
+      wristSubsystem.wristAlgae();
+    }
+    
     if(driveController.getRawButtonPressed(7)){
       m_robotDrive.zeroGyro();
     }
@@ -145,6 +151,7 @@ public class Robot extends TimedRobot{
       wristSubsystem.reBoot();
       armSubsystem.reBoot();
     }
+    // m_robotDrive.
   }
 
   /**
@@ -215,17 +222,14 @@ public class Robot extends TimedRobot{
   @Override
   public void teleopPeriodic(){
 
-    double leftstickval = driveController.getRawAxis(0);
-    double rightstickval = driveController.getRawAxis(0);
-    double leftTriggerVal = driveController.getRawAxis(2);
-    double rightTriggerVal = driveController.getRawAxis(3);
+    
     double leftTriggerVal2 = mineController.getRawAxis(2);
     double rightTriggerVal2 = mineController.getRawAxis(3);
 
     // introduce deadband to keep controller drift from causing issues
     double driveX = driveController.getRawAxis(1);
     double driveY = driveController.getRawAxis(0);
-    double driveRot = driveController.getRawAxis(4);
+    double driveRot = -driveController.getRawAxis(4);
     if(Math.abs(driveX) < 0.1){ driveX = 0;}
     if(Math.abs(driveY) < 0.1){ driveY = 0;}
     if(Math.abs(driveRot) < 0.1){ driveRot = 0;}
@@ -286,12 +290,15 @@ public class Robot extends TimedRobot{
     armSubsystem.armScore();
     wristSubsystem.lvl4WristScore();
   }
-  
-  //Intake
-  if(driveController.getRawAxis(2) > 0.5){
+
+  if(driveController.getRawButton(5)){
     elevatorSubsystem.level = 2.5;
     armSubsystem.armPickup();
     wristSubsystem.wristPickup();
+  }
+  
+  //Intake
+  if(driveController.getRawAxis(2) > 0.5){
     armSubsystem.retrieveCoral(0.5);}
     else if(driveController.getRawAxis(3) > 0.5){
     armSubsystem.dropCoral(0.5);

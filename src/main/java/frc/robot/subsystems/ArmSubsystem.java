@@ -126,6 +126,10 @@ public class ArmSubsystem {
     requestPosition = 0;
   }
 
+  public void armAlgae(){
+    requestPosition = 48;
+  }
+
   public void reBoot(){
     armRot.setPosition(0);
   }

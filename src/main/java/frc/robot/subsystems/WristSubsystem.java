@@ -1,7 +1,7 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix6.configs.Slot0Configs;
-import com.ctre.phoenix6.controls.PositionVoltage;
+// import com.ctre.phoenix6.configs.Slot0Configs;
+// import com.ctre.phoenix6.controls.PositionVoltage;
 
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -113,6 +113,10 @@ public class WristSubsystem {
 
   public void lvl4WristScore(){
     targetPosition = 28;
+  }
+
+  public void wristAlgae(){
+    targetPosition = 14;
   }
   
   //Get arm to starting position
