@@ -116,7 +116,7 @@ public class WristSubsystem {
   }
 
   public void wristAlgae(){
-    targetPosition = 14;
+    targetPosition = 25;
   }
   
   //Get arm to starting position

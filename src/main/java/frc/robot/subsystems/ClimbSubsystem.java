@@ -32,7 +32,7 @@ public class ClimbSubsystem {
     climbEncoder = climb.getEncoder();
 
                                               
-    
+
     // sparkMaxConfig.closedLoop
     //   .p(kP)
     //   .i(kI)
@@ -50,26 +50,31 @@ public class ClimbSubsystem {
         
     } 
     
-    public void openHand(){
+    public void ascend(){
+
       climb.set(1);
     }
-    public void closeHand(){
+    public void descend(){
       climb.set(-1);
     }
-    public void stopHand(){
+    public void stop(){
       climb.set(0);
     }
 
-    public void ClimbToLevel(int level){
-      if(level == 1){
-        counts = 1;
-      }
-      
-      if(level == 2){
-        counts = 2;
-      }
-
-      climbPID.setReference(counts, ControlType.kPosition);
+    public void reBoot(){
+      climbEncoder.setPosition(0);
     }
+
+    // public void ClimbToLevel(int level){
+    //   if(level == 1){
+    //     counts = 1;
+    //   }
+      
+    //   if(level == 2){
+    //     counts = 2;
+    //   }
+
+    //   climbPID.setReference(counts, ControlType.kPosition);
+    // }
 }
 

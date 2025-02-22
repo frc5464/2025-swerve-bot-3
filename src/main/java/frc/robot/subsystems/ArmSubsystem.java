@@ -127,7 +127,7 @@ public class ArmSubsystem {
   }
 
   public void armAlgae(){
-    requestPosition = 48;
+    requestPosition = 16;
   }
 
   public void reBoot(){

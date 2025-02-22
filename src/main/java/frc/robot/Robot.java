@@ -8,6 +8,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.DriverStation;
 //import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -143,15 +144,17 @@ public class Robot extends TimedRobot{
       armSubsystem.armAlgae();
       wristSubsystem.wristAlgae();
     }
-    
+
     if(driveController.getRawButtonPressed(7)){
       m_robotDrive.zeroGyro();
     }
     if(driveController.getRawButtonPressed(8)){
       wristSubsystem.reBoot();
       armSubsystem.reBoot();
+      climbSubsystem.reBoot();
     }
     // m_robotDrive.
+    SmartDashboard.putNumber("Yaw", m_robotDrive.getYaw().getDegrees());
   }
 
   /**
@@ -234,7 +237,7 @@ public class Robot extends TimedRobot{
     if(Math.abs(driveY) < 0.1){ driveY = 0;}
     if(Math.abs(driveRot) < 0.1){ driveRot = 0;}
     
-    m_robotDrive.drive(new Translation2d(driveX,driveY),driveRot, false, false);
+    m_robotDrive.drive(new Translation2d(driveX,driveY),driveRot, true, false);
 
     
       
@@ -244,24 +247,29 @@ public class Robot extends TimedRobot{
 
   // climber
   if(mineController.getRawAxis(5) < -0.5){
-    climbSubsystem.closeHand();
+    if(climbSubsystem.climbEncoderPos > -100){
+      climbSubsystem.ascend();
+    }
   } else if(mineController.getRawAxis(5) > 0.5){
-    climbSubsystem.openHand();
+    // climbSubsystem.openHand();
+    if(climbSubsystem.climbEncoderPos < 589){
+      climbSubsystem.descend();
+    }
   } else{
-    climbSubsystem.stopHand();
+    climbSubsystem.stop();
   }
 
   // Processor Rotation
-  if(mineController.getRawButton(5)){
-    if(processorArmSubsystem.procrotEncoderPos > 5){
-    processorArmSubsystem.downrot_procarm();}
-  } else if(mineController.getRawButton(6)){
-    if(processorArmSubsystem.procrotEncoderPos < 559){
-      processorArmSubsystem.rot_procarm();
-    }
-  } else {
+  // if(mineController.getRawButton(5)){
+  //   if(processorArmSubsystem.procrotEncoderPos > 5){
+  //   processorArmSubsystem.downrot_procarm();}
+  // } else if(mineController.getRawButton(6)){
+  //   if(processorArmSubsystem.procrotEncoderPos < 559){
+  //     processorArmSubsystem.rot_procarm();
+  //   }
+  // } else {
     
-  }
+  // }
   
   // Processor Roll (Int_Out)
   if(mineController.getRawAxis(2) > 0.05){
@@ -272,19 +280,21 @@ public class Robot extends TimedRobot{
     processorArmSubsystem.stoprot();
   }
 
+  if(driveController.getPOV() == 0){
+    armSubsystem.armScore();
+    wristSubsystem.wristScore();
+    
+  }
   // Elevator level selector
   if(driveController.getRawButton(1)){
     elevatorSubsystem.level = 1.0;
-    armSubsystem.armScore();
-    wristSubsystem.wristScore();
+
   } else if(driveController.getRawButton(2)){
     elevatorSubsystem.level = 2.0;
-    armSubsystem.armScore();
-    wristSubsystem.wristScore();
+
   } else if(driveController.getRawButton(3)){
     elevatorSubsystem.level = 3.0;
-    armSubsystem.armScore();
-    wristSubsystem.wristScore();
+
   } else if(driveController.getRawButton(4)){
     elevatorSubsystem.level = 4.0;
     armSubsystem.armScore();
@@ -301,7 +311,7 @@ public class Robot extends TimedRobot{
   if(driveController.getRawAxis(2) > 0.5){
     armSubsystem.retrieveCoral(0.5);}
     else if(driveController.getRawAxis(3) > 0.5){
-    armSubsystem.dropCoral(0.5);
+    armSubsystem.dropCoral(0.75);
   } else {
     armSubsystem.stopIntake();
   }

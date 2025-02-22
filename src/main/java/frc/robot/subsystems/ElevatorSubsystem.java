@@ -28,7 +28,7 @@ public class ElevatorSubsystem {
   RelativeEncoder leftelEncoder;
   public double elencoderPos;
   public double targetPosition;
-  public double level = 0.0;
+  public double level = 1.0;
   public double lasercanMeasurement;
   boolean laserOk = false;
   PIDController elevatorPid;
@@ -37,6 +37,7 @@ public class ElevatorSubsystem {
   public void init(){
     elevatorPid = new PIDController(0.03, 10e-4, 0);
     leftelEncoder = leftEl.getEncoder();
+    
     laserInit();
 
   }
