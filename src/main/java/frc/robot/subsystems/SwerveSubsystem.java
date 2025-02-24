@@ -4,6 +4,8 @@ import swervelib.parser.SwerveParser;
 
 import java.io.File;
 
+import com.ctre.phoenix6.swerve.SwerveModule;
+
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Filesystem;
@@ -28,6 +30,10 @@ public class SwerveSubsystem {
     public void periodic(){
         SmartDashboard.putNumber("Yaw", m_robotDrive.getYaw().getDegrees());
         SmartDashboard.putNumber("IMU angle", m_robotDrive.getGyro().getRawRotation3d().getAngle());
+        
+        // swervelib.SwerveModule[] modules = m_robotDrive.getModules();
+        // SmartDashboard.putNumber("FL Enc", modules[0].getAbsolutePosition());
+
     }
 
     public void drive(double x, double y, double z){
