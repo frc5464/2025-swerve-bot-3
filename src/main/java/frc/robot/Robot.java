@@ -64,13 +64,12 @@ public class Robot extends TimedRobot{
     File directory = new File(Filesystem.getDeployDirectory(), "swerve");
     
     try {
-      m_robotDrive = new SwerveParser(directory).createSwerveDrive(
-        maxSpeed,
-        new Pose2d(
-          new Translation2d(1, 4),
-          Rotation2d.fromDegrees(0)
-        )
-      );
+     
+       m_robotDrive=new SwerveParser(
+        new File(Filesystem.getDeployDirectory(),"swerve"
+          )).createSwerveDrive(
+            Units.feetToMeters(14.5));
+
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -140,10 +139,9 @@ public class Robot extends TimedRobot{
     climbSubsystem.periodic();
     wristSubsystem.periodic();
 
-    if(driveController.getRawButton(6)){
-      armSubsystem.armAlgae();
-      wristSubsystem.wristAlgae();
-    }
+    // if(driveController.getRawButton(6)){
+      
+    // }
 
     if(driveController.getRawButtonPressed(7)){
       m_robotDrive.zeroGyro();
@@ -155,6 +153,8 @@ public class Robot extends TimedRobot{
     }
     // m_robotDrive.
     SmartDashboard.putNumber("Yaw", m_robotDrive.getYaw().getDegrees());
+    SmartDashboard.putNumber("IMU angle", m_robotDrive.getGyro().getRawRotation3d().getAngle());
+    //SmartDashboard.putNumber("null", m_robotDrive.imuReadingCache);
   }
 
   /**
@@ -246,15 +246,19 @@ public class Robot extends TimedRobot{
   
 
   // climber
-  if(mineController.getRawAxis(5) < -0.5){
-    if(climbSubsystem.climbEncoderPos > -100){
-      climbSubsystem.ascend();
-    }
-  } else if(mineController.getRawAxis(5) > 0.5){
+  if(mineController.getRawButton(1)){
+    
+      climbSubsystem.bringOut();
+    // 
+  } else if(mineController.getRawButton(4)){
     // climbSubsystem.openHand();
-    if(climbSubsystem.climbEncoderPos < 589){
-      climbSubsystem.descend();
-    }
+    // if(climbSubsystem.climbEncoderPos < 589){
+      if(climbSubsystem.climbEncoderPos > 0){
+        climbSubsystem.bringIn();
+      }
+      else{
+        climbSubsystem.stop();
+      }
   } else{
     climbSubsystem.stop();
   }
@@ -271,30 +275,39 @@ public class Robot extends TimedRobot{
     
   // }
   
-  // Processor Roll (Int_Out)
-  if(mineController.getRawAxis(2) > 0.05){
-    processorArmSubsystem.intake(leftTriggerVal2);
-  } else if(mineController.getRawAxis(3) > 0.05){
-    processorArmSubsystem.outake(rightTriggerVal2);
-  } else {
-    processorArmSubsystem.stoprot();
-  }
+  // // Processor Roll (Int_Out)
+  // if(mineController.getRawAxis(2) > 0.05){
+  //   processorArmSubsystem.intake(leftTriggerVal2);
+  // } else if(mineController.getRawAxis(3) > 0.05){
+  //   processorArmSubsystem.outake(rightTriggerVal2);
+  // } else {
+  //   processorArmSubsystem.stoprot();
+  // }
 
+  
   if(driveController.getPOV() == 0){
     armSubsystem.armScore();
     wristSubsystem.wristScore();
-    
   }
+
+  if(driveController.getRawButton(6)){
+    armSubsystem.armAlgae();
+    wristSubsystem.wristAlgae();
+  }
+
   // Elevator level selector
   if(driveController.getRawButton(1)){
     elevatorSubsystem.level = 1.0;
-
+    armSubsystem.armScore();
+    wristSubsystem.wristScore();
   } else if(driveController.getRawButton(2)){
     elevatorSubsystem.level = 2.0;
-
+    armSubsystem.armAlgae();
+    wristSubsystem.wristAlgae();
   } else if(driveController.getRawButton(3)){
     elevatorSubsystem.level = 3.0;
-
+    armSubsystem.armScore();
+    wristSubsystem.wristScore();
   } else if(driveController.getRawButton(4)){
     elevatorSubsystem.level = 4.0;
     armSubsystem.armScore();
@@ -309,7 +322,7 @@ public class Robot extends TimedRobot{
   
   //Intake
   if(driveController.getRawAxis(2) > 0.5){
-    armSubsystem.retrieveCoral(0.5);}
+    armSubsystem.retrieveCoral(0.6);}
     else if(driveController.getRawAxis(3) > 0.5){
     armSubsystem.dropCoral(0.75);
   } else {

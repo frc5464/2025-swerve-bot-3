@@ -109,7 +109,7 @@ public class ArmSubsystem {
 
   // Get arm to Coral pickup position
   public void armPickup(){
-    requestPosition = -66;
+    requestPosition = -55;
   }
   
 

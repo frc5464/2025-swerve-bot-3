@@ -50,11 +50,11 @@ public class ClimbSubsystem {
         
     } 
     
-    public void ascend(){
+    public void bringOut(){
 
       climb.set(1);
     }
-    public void descend(){
+    public void bringIn(){
       climb.set(-1);
     }
     public void stop(){

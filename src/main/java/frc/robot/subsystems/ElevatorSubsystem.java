@@ -35,7 +35,7 @@ public class ElevatorSubsystem {
   double maxElevatorPower = 0.1;
 
   public void init(){
-    elevatorPid = new PIDController(0.03, 10e-4, 0);
+    elevatorPid = new PIDController(0.035, 10e-4, 0);
     leftelEncoder = leftEl.getEncoder();
     
     laserInit();

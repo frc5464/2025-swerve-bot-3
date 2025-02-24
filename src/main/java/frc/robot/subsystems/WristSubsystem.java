@@ -103,12 +103,12 @@ public class WristSubsystem {
 
     // Get arm to Coral pickup position
   public void wristPickup(){
-    targetPosition = 26;
+    targetPosition = 28;
   }
   
   //Get arm to Coral scoring position
   public void wristScore(){
-    targetPosition = 29;
+    targetPosition = 27;
   }
 
   public void lvl4WristScore(){
