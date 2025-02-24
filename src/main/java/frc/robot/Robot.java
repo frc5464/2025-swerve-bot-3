@@ -18,14 +18,13 @@ import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 //import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.ProcessorArmSubsystem;
+import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 
 // import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.Joystick;
 // import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Filesystem;
-import swervelib.parser.SwerveParser;
-import swervelib.SwerveDrive;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -37,13 +36,15 @@ import java.io.File;
  * project, you must also update the build.gradle file in the project.
  */
 public class Robot extends TimedRobot{
-  private SwerveDrive m_robotDrive;
+  
   private final Joystick driveController;
   private final Joystick mineController;
 
   private Command m_autonomousCommand;
 
   // private RobotContainer m_robotContainer;
+
+  private SwerveSubsystem swerveSubsystem;
 
   private ArmSubsystem armSubsystem;
 
@@ -60,19 +61,6 @@ public class Robot extends TimedRobot{
   public Robot(){
     // CanBridge.runTCP();
     // instance = this;
-    double maxSpeed = Units.feetToMeters(4);
-    File directory = new File(Filesystem.getDeployDirectory(), "swerve");
-    
-    try {
-     
-       m_robotDrive=new SwerveParser(
-        new File(Filesystem.getDeployDirectory(),"swerve"
-          )).createSwerveDrive(
-            Units.feetToMeters(14.5));
-
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
 
     driveController = new Joystick(0);
     mineController = new Joystick(1);
@@ -144,16 +132,14 @@ public class Robot extends TimedRobot{
     // }
 
     if(driveController.getRawButtonPressed(7)){
-      m_robotDrive.zeroGyro();
+      swerveSubsystem.zeroGyro();
     }
     if(driveController.getRawButtonPressed(8)){
       wristSubsystem.reBoot();
       armSubsystem.reBoot();
       climbSubsystem.reBoot();
     }
-    // m_robotDrive.
-    SmartDashboard.putNumber("Yaw", m_robotDrive.getYaw().getDegrees());
-    SmartDashboard.putNumber("IMU angle", m_robotDrive.getGyro().getRawRotation3d().getAngle());
+
     //SmartDashboard.putNumber("null", m_robotDrive.imuReadingCache);
   }
 
@@ -224,8 +210,7 @@ public class Robot extends TimedRobot{
    */
   @Override
   public void teleopPeriodic(){
-
-    
+  
     double leftTriggerVal2 = mineController.getRawAxis(2);
     double rightTriggerVal2 = mineController.getRawAxis(3);
 
@@ -237,13 +222,7 @@ public class Robot extends TimedRobot{
     if(Math.abs(driveY) < 0.1){ driveY = 0;}
     if(Math.abs(driveRot) < 0.1){ driveRot = 0;}
     
-    m_robotDrive.drive(new Translation2d(driveX,driveY),driveRot, true, false);
-
-    
-      
-    
-    
-  
+    swerveSubsystem.drive(driveX, driveY, driveRot);
 
   // climber
   if(mineController.getRawButton(1)){
