@@ -31,8 +31,11 @@ public class SwerveSubsystem {
         SmartDashboard.putNumber("Yaw", m_robotDrive.getYaw().getDegrees());
         SmartDashboard.putNumber("IMU angle", m_robotDrive.getGyro().getRawRotation3d().getAngle());
         
-        // swervelib.SwerveModule[] modules = m_robotDrive.getModules();
-        // SmartDashboard.putNumber("FL Enc", modules[0].getAbsolutePosition());
+         swervelib.SwerveModule[] modules = m_robotDrive.getModules();
+         SmartDashboard.putNumber("FL Enc", modules[0].getAbsolutePosition());
+         SmartDashboard.putNumber("FR Enc", modules[1].getAbsolutePosition());
+         SmartDashboard.putNumber("BL Enc", modules[2].getAbsolutePosition());
+         SmartDashboard.putNumber("BR Enc", modules[3].getAbsolutePosition());
 
     }
 

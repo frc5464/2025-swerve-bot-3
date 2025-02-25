@@ -12,14 +12,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.ArmSubsystem;
+//import frc.robot.subsystems.ArmSubsystem;
 //import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 //import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.ProcessorArmSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
-import frc.robot.subsystems.WristSubsystem;
+//import frc.robot.subsystems.WristSubsystem;
 
 // import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.Joystick;
@@ -46,15 +46,15 @@ public class Robot extends TimedRobot{
 
   private SwerveSubsystem swerveSubsystem;
 
-  private ArmSubsystem armSubsystem;
+  //private ArmSubsystem armSubsystem;
 
   private ClimbSubsystem climbSubsystem;
   
   private ElevatorSubsystem elevatorSubsystem;
 
-  private ProcessorArmSubsystem processorArmSubsystem;
+  //private ProcessorArmSubsystem processorArmSubsystem;
 
-  private WristSubsystem wristSubsystem;
+  //private WristSubsystem wristSubsystem;
 
   private Constants constants;
 
@@ -85,19 +85,20 @@ public class Robot extends TimedRobot{
     // m_robotContainer = new RobotContainer();
     climbSubsystem = new ClimbSubsystem();
     elevatorSubsystem = new ElevatorSubsystem();
-    processorArmSubsystem = new ProcessorArmSubsystem();
+    //processorArmSubsystem = new ProcessorArmSubsystem();
     constants = new Constants();
-    armSubsystem = new ArmSubsystem();
-    wristSubsystem = new WristSubsystem();
+    // armSubsystem = new ArmSubsystem();
+    // wristSubsystem = new WristSubsystem();
     // Create a timer to disable motor brake a few seconds after disable.  This will let the robot stop
     // immediately when disabled, but then also let it be pushed more 
     //disabledTimer = new Timer();
+    swerveSubsystem = new SwerveSubsystem();
     
-    armSubsystem.init();
+    //armSubsystem.init();
     elevatorSubsystem.init();
-    processorArmSubsystem.init();
+    //processorArmSubsystem.init();
     climbSubsystem.init();
-    wristSubsystem.init();
+    //wristSubsystem.init();
 
     if (isSimulation())
     {
@@ -122,10 +123,10 @@ public class Robot extends TimedRobot{
     CommandScheduler.getInstance().run();
 
     elevatorSubsystem.periodic();
-    processorArmSubsystem.periodic();
-    armSubsystem.periodic();
+    //processorArmSubsystem.periodic();
+    //armSubsystem.periodic();
     climbSubsystem.periodic();
-    wristSubsystem.periodic();
+    //wristSubsystem.periodic();
 
     // if(driveController.getRawButton(6)){
       
@@ -135,8 +136,8 @@ public class Robot extends TimedRobot{
       swerveSubsystem.zeroGyro();
     }
     if(driveController.getRawButtonPressed(8)){
-      wristSubsystem.reBoot();
-      armSubsystem.reBoot();
+      // wristSubsystem.reBoot();
+      // armSubsystem.reBoot();
       climbSubsystem.reBoot();
     }
 
@@ -264,49 +265,49 @@ public class Robot extends TimedRobot{
   // }
 
   
-  if(driveController.getPOV() == 0){
-    armSubsystem.armScore();
-    wristSubsystem.wristScore();
-  }
+  // if(driveController.getPOV() == 0){
+  //   armSubsystem.armScore();
+  //   wristSubsystem.wristScore();
+  // }
 
-  if(driveController.getRawButton(6)){
-    armSubsystem.armAlgae();
-    wristSubsystem.wristAlgae();
-  }
+  // if(driveController.getRawButton(6)){
+  //   armSubsystem.armAlgae();
+  //   wristSubsystem.wristAlgae();
+  // }
 
   // Elevator level selector
-  if(driveController.getRawButton(1)){
-    elevatorSubsystem.level = 1.0;
-    armSubsystem.armScore();
-    wristSubsystem.wristScore();
-  } else if(driveController.getRawButton(2)){
-    elevatorSubsystem.level = 2.0;
-    armSubsystem.armAlgae();
-    wristSubsystem.wristAlgae();
-  } else if(driveController.getRawButton(3)){
-    elevatorSubsystem.level = 3.0;
-    armSubsystem.armScore();
-    wristSubsystem.wristScore();
-  } else if(driveController.getRawButton(4)){
-    elevatorSubsystem.level = 4.0;
-    armSubsystem.armScore();
-    wristSubsystem.lvl4WristScore();
-  }
+  // if(driveController.getRawButton(1)){
+  //   elevatorSubsystem.level = 1.0;
+  //   armSubsystem.armScore();
+  //   wristSubsystem.wristScore();
+  // } else if(driveController.getRawButton(2)){
+  //   elevatorSubsystem.level = 2.0;
+  //   armSubsystem.armAlgae();
+  //   wristSubsystem.wristAlgae();
+  // } else if(driveController.getRawButton(3)){
+  //   elevatorSubsystem.level = 3.0;
+  //   armSubsystem.armScore();
+  //   wristSubsystem.wristScore();
+  // } else if(driveController.getRawButton(4)){
+  //   elevatorSubsystem.level = 4.0;
+  //   armSubsystem.armScore();
+  //   wristSubsystem.lvl4WristScore();
+  // }
 
-  if(driveController.getRawButton(5)){
-    elevatorSubsystem.level = 2.5;
-    armSubsystem.armPickup();
-    wristSubsystem.wristPickup();
-  }
+  // if(driveController.getRawButton(5)){
+  //   elevatorSubsystem.level = 2.5;
+  //   armSubsystem.armPickup();
+  //   wristSubsystem.wristPickup();
+  // }
   
   //Intake
-  if(driveController.getRawAxis(2) > 0.5){
-    armSubsystem.retrieveCoral(0.6);}
-    else if(driveController.getRawAxis(3) > 0.5){
-    armSubsystem.dropCoral(0.75);
-  } else {
-    armSubsystem.stopIntake();
-  }
+  // if(driveController.getRawAxis(2) > 0.5){
+  //   armSubsystem.retrieveCoral(0.6);}
+  //   else if(driveController.getRawAxis(3) > 0.5){
+  //   armSubsystem.dropCoral(0.75);
+  // } else {
+  //   armSubsystem.stopIntake();
+  // }
 
   
  //  im programming im haker man i do haks yeahahahahahahahahhh im in the mainframe babyyyyyyyyyyyyyy*/
