@@ -27,7 +27,7 @@ public class ProcessorArmSubsystem {
   public double procrotEncoderPos;
   public double counts;
   
-  public void init(){
+  public ProcessorArmSubsystem(){
 
       procrotEncoder = processorRotater.getEncoder();
 

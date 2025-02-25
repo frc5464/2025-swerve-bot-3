@@ -27,7 +27,7 @@ public class ClimbSubsystem {
   public double counts;
   
 
-  public void init(){
+  public ClimbSubsystem(){
 
     climbEncoder = climb.getEncoder();
 

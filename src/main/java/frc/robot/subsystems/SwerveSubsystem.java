@@ -14,17 +14,16 @@ import swervelib.SwerveDrive;
 
 public class SwerveSubsystem {
     private SwerveDrive m_robotDrive;
-    
+
     public SwerveSubsystem(){
         try {
-        m_robotDrive=new SwerveParser(
-            new File(Filesystem.getDeployDirectory(),"swerve"
-            )).createSwerveDrive(
-                Units.feetToMeters(14.5));
-
-        } catch (Exception e) {
-        throw new RuntimeException(e);
-        }
+            m_robotDrive=new SwerveParser(
+                new File(Filesystem.getDeployDirectory(),"swerve"
+                )).createSwerveDrive(Units.feetToMeters(14.5));
+    
+            } catch (Exception e) {
+            throw new RuntimeException(e);
+            }
     }
 
     public void periodic(){
@@ -40,7 +39,7 @@ public class SwerveSubsystem {
     }
 
     public void drive(double x, double y, double z){
-        m_robotDrive.drive(new Translation2d(x,y),z, true, false);
+        m_robotDrive.drive(new Translation2d(x * 2,y * 2),z * 3, true, false);
     }
 
     public void zeroGyro(){

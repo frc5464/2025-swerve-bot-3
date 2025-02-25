@@ -5,6 +5,7 @@ import com.revrobotics.RelativeEncoder;
 // import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 import au.grapplerobotics.ConfigurationFailedException;
@@ -32,15 +33,18 @@ public class ElevatorSubsystem {
   public double lasercanMeasurement;
   boolean laserOk = false;
   PIDController elevatorPid;
-  double maxElevatorPower = 0.1;
+  double maxElevatorPower = 0.05;
 
-  public void init(){
-    elevatorPid = new PIDController(0.035, 10e-4, 0);
+  public ElevatorSubsystem(){
+    elevatorPid = new PIDController(0.04, 10e-4, 0);
     leftelEncoder = leftEl.getEncoder();
-    
     laserInit();
+    SparkBaseConfig conf = new SparkMaxConfig();
+    conf.openLoopRampRate(0.5);
+    leftEl.configure(conf, null, null);
 
   }
+
   //lasercan
   public void laserInit() {
     laserCannon = new LaserCan(25);
@@ -116,7 +120,7 @@ public class ElevatorSubsystem {
       targetPosition  = 697;
     }
     if(laserOk){
-      leftEl.set(elevatorPid.calculate(lasercanMeasurement,targetPosition) * maxElevatorPower);
+      leftEl.set((elevatorPid.calculate(lasercanMeasurement,targetPosition) * maxElevatorPower));
     }
     else{
       leftEl.set(0);

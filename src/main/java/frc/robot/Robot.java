@@ -93,12 +93,7 @@ public class Robot extends TimedRobot{
     // immediately when disabled, but then also let it be pushed more 
     //disabledTimer = new Timer();
     swerveSubsystem = new SwerveSubsystem();
-    
-    //armSubsystem.init();
-    elevatorSubsystem.init();
-    //processorArmSubsystem.init();
-    climbSubsystem.init();
-    //wristSubsystem.init();
+  
 
     if (isSimulation())
     {
@@ -237,7 +232,7 @@ public class Robot extends TimedRobot{
         climbSubsystem.bringIn();
       }
       else{
-        climbSubsystem.stop();
+        
       }
   } else{
     climbSubsystem.stop();
@@ -275,24 +270,24 @@ public class Robot extends TimedRobot{
   //   wristSubsystem.wristAlgae();
   // }
 
-  // Elevator level selector
-  // if(driveController.getRawButton(1)){
-  //   elevatorSubsystem.level = 1.0;
-  //   armSubsystem.armScore();
-  //   wristSubsystem.wristScore();
-  // } else if(driveController.getRawButton(2)){
-  //   elevatorSubsystem.level = 2.0;
-  //   armSubsystem.armAlgae();
-  //   wristSubsystem.wristAlgae();
-  // } else if(driveController.getRawButton(3)){
-  //   elevatorSubsystem.level = 3.0;
-  //   armSubsystem.armScore();
-  //   wristSubsystem.wristScore();
-  // } else if(driveController.getRawButton(4)){
-  //   elevatorSubsystem.level = 4.0;
-  //   armSubsystem.armScore();
-  //   wristSubsystem.lvl4WristScore();
-  // }
+  //Elevator level selector
+  if(driveController.getRawButton(1)){
+    elevatorSubsystem.level = 1.0;
+    // armSubsystem.armScore();
+    // wristSubsystem.wristScore();
+  } else if(driveController.getRawButton(2)){
+    elevatorSubsystem.level = 2.0;
+    // armSubsystem.armAlgae();
+    // wristSubsystem.wristAlgae();
+  } else if(driveController.getRawButton(3)){
+    elevatorSubsystem.level = 3.0;
+    // armSubsystem.armScore();
+    // wristSubsystem.wristScore();
+  } else if(driveController.getRawButton(4)){
+    elevatorSubsystem.level = 4.0;
+    // armSubsystem.armScore();
+    // wristSubsystem.lvl4WristScore();
+  }
 
   // if(driveController.getRawButton(5)){
   //   elevatorSubsystem.level = 2.5;

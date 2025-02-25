@@ -26,7 +26,8 @@ public class ArmSubsystem {
   RelativeEncoder armEncoder;
   public double encoderPos;
 
-  public void init(){   
+
+  public ArmSubsystem(){   
     var slot0Configs = new Slot0Configs();
     slot0Configs.kP = 0.4;
     slot0Configs.kI = 0;

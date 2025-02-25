@@ -81,9 +81,6 @@ public class WristSubsystem {
 
 // used https://github.com/REVrobotics/REVLib-Examples/blob/main/Java/SPARK/Closed%20Loop%20Control/src/main/java/frc/robot/Robot.java as example
 
-  public void init(){
-
-  }
 
   public void periodic(){
   SmartDashboard.putNumber("WristEncoder", encoder.getPosition());
