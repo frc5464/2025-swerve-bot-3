@@ -95,16 +95,16 @@ public class VisionSubsystem
 
     public void periodic(){
 
-                // Get a list of currently tracked targets.
-                List<PhotonTrackedTarget> targets = result.getTargets();
+        // Get a list of currently tracked targets.
+        List<PhotonTrackedTarget> targets = result.getTargets();
 
                 // Query the latest result from PhotonVision
         var result = intakeCamera.getLatestResult();
 
-                    // Calculate robot's field relative pose
-                    if (fieldLayout.getTagPose(target.getFiducialId()).isPresent()) {
-                        Pose3d robotPose = PhotonUtils.estimateFieldToRobotAprilTag(target.getBestCameraToTarget(), fieldLayout.getTagPose(target.getFiducialId()).get(), robotToCamTransform);
-            
+                // Calculate robot's field relative pose
+                if (fieldLayout.getTagPose(target.getFiducialId()).isPresent()) {
+                    Pose3d robotPose = PhotonUtils.estimateFieldToRobotAprilTag(target.getBestCameraToTarget(), fieldLayout.getTagPose(target.getFiducialId()).get(), robotToCamTransform);
+        
         Rotation2d targetYaw = PhotonUtils.getYawToPose(robotpose, result);
 
 
