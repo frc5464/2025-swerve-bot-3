@@ -39,7 +39,7 @@ public class SwerveSubsystem {
     }
 
     public void drive(double x, double y, double z){
-        m_robotDrive.drive(new Translation2d(x * 2,y * 2),z * 3, true, false);
+        m_robotDrive.drive(new Translation2d(x * 1.5,y * 1.5),z * 3, true, false);
     }
 
     public void zeroGyro(){
