@@ -64,9 +64,10 @@ public class Robot extends TimedRobot{
 
     driveController = new Joystick(0);
     mineController = new Joystick(1);
+    
   }
   
-
+  boolean manualMode = false;
 
   
   // public static Robot getInstance()
@@ -137,6 +138,7 @@ public class Robot extends TimedRobot{
     }
 
     //SmartDashboard.putNumber("null", m_robotDrive.imuReadingCache);
+    SmartDashboard.putBoolean("manualMode", manualMode);
   }
 
   /**
@@ -206,7 +208,7 @@ public class Robot extends TimedRobot{
    */
   @Override
   public void teleopPeriodic(){
-  
+    
     double leftTriggerVal2 = mineController.getRawAxis(2);
     double rightTriggerVal2 = mineController.getRawAxis(3);
 
@@ -288,6 +290,24 @@ public class Robot extends TimedRobot{
     // armSubsystem.armScore();
     // wristSubsystem.lvl4WristScore();
   }
+
+  if(driveController.getRawButtonPressed(10) & manualMode == false){
+    manualMode = true;
+  } else if(driveController.getRawButtonPressed(10) & manualMode == true){
+    manualMode = false;
+  }
+  
+  if(manualMode == true){
+    if(driveController.getRawButton(1)){
+      elevatorSubsystem.reverseElevate();
+    } else if(driveController.getRawButton(4)){
+      elevatorSubsystem.goElevate();
+    } else{
+      elevatorSubsystem.stopElevate();
+    }
+  }
+
+  
 
   // if(driveController.getRawButton(5)){
   //   elevatorSubsystem.level = 2.5;
