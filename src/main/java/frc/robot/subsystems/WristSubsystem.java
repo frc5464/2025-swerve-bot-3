@@ -37,12 +37,14 @@ public class WristSubsystem {
   // private SparkClosedLoopController closedLoopController;
 
   private SparkMax motor;
+  private SparkMax motor2;
   private SparkMaxConfig motorConfig;
   private SparkClosedLoopController closedLoopController;
   private RelativeEncoder encoder;
 
   public WristSubsystem(){
     motor = new SparkMax(7, MotorType.kBrushless);
+    motor2 = new SparkMax(8, MotorType.kBrushless);
     closedLoopController = motor.getClosedLoopController();
     encoder = motor.getEncoder();
 
@@ -100,25 +102,35 @@ public class WristSubsystem {
 
     // Get arm to Coral pickup position
   public void wristPickup(){
-    targetPosition = 28;
+    targetPosition = 0;
   }
   
   //Get arm to Coral scoring position
   public void wristScore(){
-    targetPosition = 27;
+    targetPosition = 20;
   }
 
   public void lvl4WristScore(){
-    targetPosition = 28;
+    targetPosition = 20;
   }
 
   public void wristAlgae(){
     targetPosition = 25;
   }
   
+  public void intake(double something){
+    motor2.set(something * 0.5);
+  }
+  public void outake(double something){
+    motor2.set(something * 0.5);
+  }
   //Get arm to starting position
   public void wristStart(){
     targetPosition = 2;
+  }
+
+  public void stop(){
+    motor2.set(0);
   }
 
   public void reBoot(){

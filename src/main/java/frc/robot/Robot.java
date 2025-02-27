@@ -19,7 +19,7 @@ import frc.robot.subsystems.ElevatorSubsystem;
 //import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.ProcessorArmSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
-//import frc.robot.subsystems.WristSubsystem;
+import frc.robot.subsystems.WristSubsystem;
 
 // import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.Joystick;
@@ -54,7 +54,7 @@ public class Robot extends TimedRobot{
 
   //private ProcessorArmSubsystem processorArmSubsystem;
 
-  //private WristSubsystem wristSubsystem;
+  private WristSubsystem wristSubsystem;
 
   private Constants constants;
 
@@ -89,7 +89,7 @@ public class Robot extends TimedRobot{
     //processorArmSubsystem = new ProcessorArmSubsystem();
     constants = new Constants();
     // armSubsystem = new ArmSubsystem();
-    // wristSubsystem = new WristSubsystem();
+    wristSubsystem = new WristSubsystem();
     // Create a timer to disable motor brake a few seconds after disable.  This will let the robot stop
     // immediately when disabled, but then also let it be pushed more 
     //disabledTimer = new Timer();
@@ -122,7 +122,7 @@ public class Robot extends TimedRobot{
     //processorArmSubsystem.periodic();
     //armSubsystem.periodic();
     climbSubsystem.periodic();
-    //wristSubsystem.periodic();
+    wristSubsystem.periodic();
 
     // if(driveController.getRawButton(6)){
       
@@ -132,7 +132,7 @@ public class Robot extends TimedRobot{
       swerveSubsystem.zeroGyro();
     }
     if(driveController.getRawButtonPressed(8)){
-      // wristSubsystem.reBoot();
+      wristSubsystem.reBoot();
       // armSubsystem.reBoot();
       climbSubsystem.reBoot();
     }
@@ -276,7 +276,7 @@ public class Robot extends TimedRobot{
   if(driveController.getRawButton(1)){
     elevatorSubsystem.level = 1.0;
     // armSubsystem.armScore();
-    // wristSubsystem.wristScore();
+    //wristSubsystem.wristScore();
   } else if(driveController.getRawButton(2)){
     elevatorSubsystem.level = 2.0;
     // armSubsystem.armAlgae();
@@ -284,19 +284,26 @@ public class Robot extends TimedRobot{
   } else if(driveController.getRawButton(3)){
     elevatorSubsystem.level = 3.0;
     // armSubsystem.armScore();
-    // wristSubsystem.wristScore();
+    wristSubsystem.wristScore();
   } else if(driveController.getRawButton(4)){
     elevatorSubsystem.level = 4.0;
     // armSubsystem.armScore();
-    // wristSubsystem.lvl4WristScore();
+    wristSubsystem.lvl4WristScore();
   }
 
-  if(driveController.getRawButtonPressed(10) & manualMode == false){
-    manualMode = true;
-  } else if(driveController.getRawButtonPressed(10) & manualMode == true){
-    manualMode = false;
-  }
+  // if(driveController.getRawButtonPressed(10) && (manualMode == false)){
+  //   manualMode = true;
+  // } else if(driveController.getRawButtonPressed(10) && (manualMode == true)){
+  //   manualMode = false;
+  // }
   
+  if(driveController.getRawButtonPressed(10)){
+    if(manualMode == true){
+      manualMode = false;
+    } else {
+      manualMode = true;
+    }
+  } 
   if(manualMode == true){
     if(driveController.getRawButton(1)){
       elevatorSubsystem.reverseElevate();
@@ -305,6 +312,8 @@ public class Robot extends TimedRobot{
     } else{
       elevatorSubsystem.stopElevate();
     }
+  } else {
+    elevatorSubsystem.elPIDToLevel();
   }
 
   
@@ -316,13 +325,13 @@ public class Robot extends TimedRobot{
   // }
   
   //Intake
-  // if(driveController.getRawAxis(2) > 0.5){
-  //   armSubsystem.retrieveCoral(0.6);}
-  //   else if(driveController.getRawAxis(3) > 0.5){
-  //   armSubsystem.dropCoral(0.75);
-  // } else {
-  //   armSubsystem.stopIntake();
-  // }
+  if(driveController.getRawAxis(2) > 0.5){
+    wristSubsystem.intake(driveController.getRawAxis(2));}
+    else if(driveController.getRawAxis(3) > 0.5){
+    wristSubsystem.outake(driveController.getRawAxis(3));
+  } else {
+    wristSubsystem.stop();
+  }
 
   
  //  im programming im haker man i do haks yeahahahahahahahahhh im in the mainframe babyyyyyyyyyyyyyy*/

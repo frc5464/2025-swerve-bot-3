@@ -79,18 +79,18 @@ public class ElevatorSubsystem {
     SmartDashboard.putNumber("ElLaser", lasercanMeasurement);
     SmartDashboard.putNumber("ElTarget", targetPosition);
     SmartDashboard.putNumber("Offset", targetPosition - lasercanMeasurement);
-    elPIDToLevel();
+
 
     laserPeriodic();
   }
 
   public void goElevate(){
-    leftEl.set(0.15);
+    leftEl.set(0.25);
     // rightEl.set(-0.075);
   }
 
   public void reverseElevate(){
-    leftEl.set(-0.15);
+    leftEl.set(-0.20);
     // rightEl.set(0.05);
   }
 
