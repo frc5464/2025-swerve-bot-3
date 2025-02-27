@@ -15,6 +15,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
@@ -79,10 +80,25 @@ public class VisionSubsystem
  private       Field2d       field2d;
 
     public PhotonCamera intakeCamera;
+    public PhotonCamera cam;
 
-    public void init(){
+    public VisionSubsystem(){
         
-        intakeCamera = new PhotonCamera("intakeCam");
+      intakeCamera = new PhotonCamera("intakeCam");
+
+      //Forward Camera
+      cam = new PhotonCamera("testCamera");
+      Transform3d robotToCam = new Transform3d(new Translation3d(0.5, 0.0, 0.5), new Rotation3d(0,0,0));
+      //Cam mounted facing forward, half a meter forward of center, half a meter up from center.
+
+      public Optional<EstimatedRobotPose> getEstimatedGlobalPose(Pose2d prevEstimatedRobotPose) {
+        photonPoseEstimator.setReferencePose(prevEstimatedRobotPose);
+        return photonPoseEstimator.update();
+    }
+    // Construct PhotonPoseEstimator
+    PhotonPoseEstimator photonPoseEstimator = new PhotonPoseEstimator(fieldLayout, PoseStrategy.CLOSEST_TO_REFERENCE_POSE, cam, robotToCam);
+        
+    
         
         // Cameras c = CENTER_CAM("center",
         // new Rotation3d(0, Units.degreesToRadians(18), 0),
@@ -95,37 +111,42 @@ public class VisionSubsystem
 
     public void periodic(){
 
+        
+        // Query the latest result from PhotonVision
+        var result = intakeCamera.getLatestResult();
+
         // Get a list of currently tracked targets.
         List<PhotonTrackedTarget> targets = result.getTargets();
 
-                // Query the latest result from PhotonVision
-        var result = intakeCamera.getLatestResult();
-
+        // Get the current best target.
+        PhotonTrackedTarget target = result.getBestTarget();
+        
                 // Calculate robot's field relative pose
                 if (fieldLayout.getTagPose(target.getFiducialId()).isPresent()) {
                     Pose3d robotPose = PhotonUtils.estimateFieldToRobotAprilTag(target.getBestCameraToTarget(), fieldLayout.getTagPose(target.getFiducialId()).get(), robotToCamTransform);
+                    double distanceToTarget = PhotonUtils.getDistanceToPose(null, null);
+        Rotation2d targetYaw = PhotonUtils.getYawToPose(null, null);
+                
+// Calculate a translation from the camera to the target.
+Translation2d translation = PhotonUtils.estimateCameraToTargetTranslation(
+  1, Rotation2d.fromDegrees(-target.getYaw()));
+
+
         
-        Rotation2d targetYaw = PhotonUtils.getYawToPose(robotpose, result);
-
-
-
-
-        // Get the current best target.
-        PhotonTrackedTarget target = result.getBestTarget();
 
         // Get information from target.
-        // double yaw = target.getYaw();
-        // double pitch = target.getPitch();
-        // double area = target.getArea();
-        // double skew = target.getSkew();
-        // Transform2d pose = target.getCameraToTarget();
-        // List<TargetCorner> corners = target.detectedCorners();
+        double yaw = target.getYaw();
+        double pitch = target.getPitch();
+        double area = target.getArea();
+        double skew = target.getSkew();
+         //Transform2d pose = target.getCameraToTarget();
+         //List<TargetCorner> corners = target.detectedCorners();
 
-        // Get information from target.
-        int targetID = target.getFiducialId();
-        double poseAmbiguity = target.getPoseAmbiguity();
-        Transform3d bestCameraToTarget = target.getBestCameraToTarget();
-        Transform3d alternateCameraToTarget = target.getAlternateCameraToTarget();
+          // Get information from target.
+          int targetID = target.getFiducialId();
+          double poseAmbiguity = target.getPoseAmbiguity();
+          Transform3d bestCameraToTarget = target.getBestCameraToTarget();
+          Transform3d alternateCameraToTarget = target.getAlternateCameraToTarget();
 
   }
     }
