@@ -118,20 +118,21 @@ public class WristSubsystem {
     targetPosition = 25;
   }
   
-  public void intake(){
-    motor2.set(0.5);
+  public void intake(double something){
+    motor2.set(something * 0.5);
   }
-  public void outake(){
-    motor2.set(0.5);
+  public void outake(double something){
+    motor2.set(-something * 0.5);
+  }
+  public void stop(){
+    motor2.set(0);
   }
   //Get arm to starting position
   public void wristStart(){
     targetPosition = 2;
   }
 
-  public void stop(){
-    motor2.set(0);
-  }
+  
 
   public void reBoot(){
     encoder.setPosition(0);
