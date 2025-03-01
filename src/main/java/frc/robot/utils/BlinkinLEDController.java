@@ -155,7 +155,7 @@ public class BlinkinLEDController {
     BlinkinPattern.STROBE_BLUE
   };
 
-  private BlinkinLEDController() {
+  public BlinkinLEDController() {
     m_blinkin = new Spark(Constants.PortConstants.BLINKIN_LED_CONTROLLER_PORT);
 
     m_allianceColors.put(Alliance.Red, RED_ALLIANCE_PATTERNS);
