@@ -3,9 +3,6 @@ package frc.robot.subsystems;
 import swervelib.parser.SwerveParser;
 
 import java.io.File;
-
-import com.ctre.phoenix6.swerve.SwerveModule;
-
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Filesystem;
