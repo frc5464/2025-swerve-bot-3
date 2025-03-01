@@ -102,7 +102,7 @@ public class WristSubsystem {
 
     // Get arm to Coral pickup position
   public void wristPickup(){
-    targetPosition = 0.5;
+    targetPosition = 0.5    ;
   }
   
   //Get arm to Coral scoring position
