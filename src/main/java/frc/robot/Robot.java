@@ -250,12 +250,6 @@ public class Robot extends TimedRobot{
   } else {
     elevatorSubsystem.elPIDToLevel();
   }
-
-  // if(driveController.getRawButton(5)){
-  //   elevatorSubsystem.level = 2.5;
-  //   armSubsystem.armPickup();
-  //   wristSubsystem.wristPickup();
-  // }
   
   //Intake
   if(driveController.getRawAxis(2) > 0.5){
@@ -265,7 +259,11 @@ public class Robot extends TimedRobot{
   }
     else if(driveController.getRawAxis(3) > 0.5){
     wristSubsystem.outake(driveController.getRawAxis(3));
-  } else {
+  } 
+  else if(driveController.getRawButton(5)){
+    wristSubsystem.intake(0.8);
+  }
+  else {
     wristSubsystem.stop();
   }
 

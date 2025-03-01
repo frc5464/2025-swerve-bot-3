@@ -119,7 +119,7 @@ public class WristSubsystem {
   }
   
   public void intake(double something){
-    motor2.set(-something * 0.25);
+    motor2.set(-something * 0.5);
   }
   public void outake(double something){
     motor2.set(something * 0.5);
