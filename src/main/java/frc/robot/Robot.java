@@ -9,8 +9,8 @@ import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.subsystems.WristSubsystem;
-// import frc.robot.utils.BlinkinLEDController;
-// import frc.robot.utils.BlinkinLEDController.BlinkinPattern;
+import frc.robot.utils.BlinkinLEDController;
+import frc.robot.utils.BlinkinLEDController.BlinkinPattern;
 import edu.wpi.first.wpilibj.Joystick;
 
 public class Robot extends TimedRobot{
@@ -22,8 +22,9 @@ public class Robot extends TimedRobot{
   private ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
   //private processorArmSubsystem processorArmSubsystem = new ProcessorArmSubsystem();
   private WristSubsystem wristSubsystem = new WristSubsystem();
-  // private BlinkinLEDController leds = new BlinkinLEDController();
+  private BlinkinLEDController leds = new BlinkinLEDController();
   // private Constants constants = new Constants();
+  
 
   public Robot(){
     // CanBridge.runTCP();
@@ -44,7 +45,7 @@ public class Robot extends TimedRobot{
     {
       DriverStation.silenceJoystickConnectionWarning(true);
     }
-    // leds.setPattern(BlinkinPattern.CONFETTI);
+    leds.setPattern(BlinkinPattern.CONFETTI);
   }
   
   @Override
@@ -201,18 +202,22 @@ public class Robot extends TimedRobot{
     elevatorSubsystem.level = 1.0;
     // armSubsystem.armScore();
     wristSubsystem.wristScore();
+    leds.setPattern(BlinkinPattern.RED);
   } else if(driveController.getRawButton(2)){
     elevatorSubsystem.level = 2.0;
     // armSubsystem.armAlgae();
     wristSubsystem.wristScore();
+    leds.setPattern(BlinkinPattern.DARK_RED);
   } else if(driveController.getRawButton(3)){
     elevatorSubsystem.level = 3.0;
     // armSubsystem.armScore();
     wristSubsystem.wristScore();
+    leds.setPattern(BlinkinPattern.AQUA);
   } else if(driveController.getRawButton(4)){
     elevatorSubsystem.level = 4.0;
     // armSubsystem.armScore();
     wristSubsystem.lvl4WristScore();
+    leds.setPattern(BlinkinPattern.HOT_PINK);
   }
 
   // if(driveController.getRawButtonPressed(10) && (manualMode == false)){
