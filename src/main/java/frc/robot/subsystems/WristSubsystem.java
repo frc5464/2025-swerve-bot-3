@@ -31,7 +31,7 @@ public class WristSubsystem {
   // public double counts;
   public int level = 0;
 
-  double targetPosition = 2;
+  double targetPosition = 0.5;
 
   // private SparkMaxConfig motorConfig;
   // private SparkClosedLoopController closedLoopController;
@@ -102,12 +102,12 @@ public class WristSubsystem {
 
     // Get arm to Coral pickup position
   public void wristPickup(){
-    targetPosition = 2;
+    targetPosition = 0.5;
   }
   
   //Get arm to Coral scoring position
   public void wristScore(){
-    targetPosition = 19;
+    targetPosition = 16;
   }
 
   public void lvl4WristScore(){

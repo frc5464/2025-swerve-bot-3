@@ -36,7 +36,7 @@ public class ElevatorSubsystem {
   double maxElevatorPower = 0.05;
 
   public ElevatorSubsystem(){
-    elevatorPid = new PIDController(0.04, 10e-4, 0);
+    elevatorPid = new PIDController(0.04, 10e-2, 0);
     leftelEncoder = leftEl.getEncoder();
     laserInit();
     SparkBaseConfig conf = new SparkMaxConfig();
@@ -51,7 +51,7 @@ public class ElevatorSubsystem {
     // Optionally initialise the settings of the LaserCAN, if you haven't already done so in GrappleHook
     try {
       laserCannon.setRangingMode(LaserCan.RangingMode.SHORT);
-      laserCannon.setRegionOfInterest(new LaserCan.RegionOfInterest(8, 8, 4, 4));
+      laserCannon.setRegionOfInterest(new LaserCan.RegionOfInterest(8, 8, 16, 16));
       laserCannon.setTimingBudget(LaserCan.TimingBudget.TIMING_BUDGET_33MS);
       laserOk = true;
     } catch (ConfigurationFailedException e) {
@@ -113,7 +113,7 @@ public class ElevatorSubsystem {
       targetPosition = 478;
     }
     if(level == 3.0){
-      targetPosition = 353;
+      targetPosition = 280;
     }
 
     if(level == 4.0){

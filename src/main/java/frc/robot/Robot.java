@@ -30,6 +30,8 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
 import java.io.File;
+
+import au.grapplerobotics.CanBridge;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to each mode, as
  * described in the TimedRobot documentation. If you change the name of this class or the package after creating this
@@ -59,7 +61,7 @@ public class Robot extends TimedRobot{
   private Constants constants;
 
   public Robot(){
-    // CanBridge.runTCP();
+    CanBridge.runTCP();
     // instance = this;
 
     driveController = new Joystick(0);
