@@ -29,7 +29,7 @@ public class ElevatorSubsystem {
   RelativeEncoder leftelEncoder;
   public double elencoderPos;
   public double targetPosition;
-  public double level = 1.0;
+  public double level = 0.0;
   public double lasercanMeasurement;
   boolean laserOk = false;
   PIDController elevatorPid;
@@ -100,7 +100,7 @@ public class ElevatorSubsystem {
   }
   public void elPIDToLevel(){
     if(level == 0.0){
-      targetPosition = 10;
+      targetPosition = 0;
     }
     if(level == 1.0){
       targetPosition = 80;
@@ -113,7 +113,7 @@ public class ElevatorSubsystem {
       targetPosition = 478;
     }
     if(level == 3.0){
-      targetPosition = 337;
+      targetPosition = 353;
     }
 
     if(level == 4.0){

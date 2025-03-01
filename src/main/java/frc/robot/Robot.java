@@ -224,9 +224,7 @@ public class Robot extends TimedRobot{
 
   // climber
   if(mineController.getRawButton(1)){
-    
       climbSubsystem.bringOut();
-    // 
   } else if(mineController.getRawButton(4)){
     // climbSubsystem.openHand();
     // if(climbSubsystem.climbEncoderPos < 589){
@@ -276,11 +274,11 @@ public class Robot extends TimedRobot{
   if(driveController.getRawButton(1)){
     elevatorSubsystem.level = 1.0;
     // armSubsystem.armScore();
-    //wristSubsystem.wristScore();
+    wristSubsystem.wristScore();
   } else if(driveController.getRawButton(2)){
     elevatorSubsystem.level = 2.0;
     // armSubsystem.armAlgae();
-    // wristSubsystem.wristAlgae();
+    wristSubsystem.wristScore();
   } else if(driveController.getRawButton(3)){
     elevatorSubsystem.level = 3.0;
     // armSubsystem.armScore();
@@ -326,7 +324,10 @@ public class Robot extends TimedRobot{
   
   //Intake
   if(driveController.getRawAxis(2) > 0.5){
-    wristSubsystem.intake(driveController.getRawAxis(2));}
+    wristSubsystem.intake(driveController.getRawAxis(2));
+    wristSubsystem.wristPickup();
+    elevatorSubsystem.level = 0.0;
+  }
     else if(driveController.getRawAxis(3) > 0.5){
     wristSubsystem.outake(driveController.getRawAxis(3));
   } else {

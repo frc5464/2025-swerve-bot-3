@@ -102,16 +102,16 @@ public class WristSubsystem {
 
     // Get arm to Coral pickup position
   public void wristPickup(){
-    targetPosition = 0;
+    targetPosition = 2;
   }
   
   //Get arm to Coral scoring position
   public void wristScore(){
-    targetPosition = 20;
+    targetPosition = 19;
   }
 
   public void lvl4WristScore(){
-    targetPosition = 20;
+    targetPosition = 19;
   }
 
   public void wristAlgae(){
@@ -119,10 +119,10 @@ public class WristSubsystem {
   }
   
   public void intake(double something){
-    motor2.set(something * 0.5);
+    motor2.set(-something * 0.25);
   }
   public void outake(double something){
-    motor2.set(-something * 0.5);
+    motor2.set(something * 0.5);
   }
   public void stop(){
     motor2.set(0);
