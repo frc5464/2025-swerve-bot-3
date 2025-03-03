@@ -7,10 +7,20 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Universals;
 
 public class ClimbSubsystem {
   
   SparkMax climb = new SparkMax(2, MotorType.kBrushless);
+
+  public RelativeEncoder climbEncoder;
+
+  public double up;
+  public double down;
+
+  private static final boolean ENABLED = true;
+
+
   SparkMaxConfig sparkMaxConfig3 = new SparkMaxConfig();
   // SparkClosedLoopController loopController = climb1.getClosedLoopController();
   SparkClosedLoopController climbPID = climb.getClosedLoopController();
@@ -21,34 +31,37 @@ public class ClimbSubsystem {
   double kFF = 0;
   double extMaxOutput = 0;
   double extMinOutput = 0;
-  RelativeEncoder climbEncoder;
+  
+
+
   public double climbEncoderPos;
   public double counts;
   
 
-  public ClimbSubsystem(){
-
+  public void initialize(){
     climbEncoder = climb.getEncoder();
 
-                                              
-
-    // sparkMaxConfig.closedLoop
-    //   .p(kP)
-    //   .i(kI)
-    //   .d(kD)
-    //   .outputRange(extMinOutput, extMaxOutput);
-  
-    //climb1.configure(sparkMaxConfig, null, null);    
+    climbEncoder.setPosition(0);
   }
 
-    public void periodic(){
-    climbEncoderPos = climbEncoder.getPosition();
+  public void periodic(){
+
     SmartDashboard.putNumber("ClimbEncoder", climbEncoderPos);
     //ClimbToLevel(0);
         //loopController.setReference(400, ControlType.kPosition );
         
+        climbEncoderPos = climbEncoder.getPosition();
     } 
     
+    // @Override
+    public boolean isEnabled() {
+      return ENABLED;
+    }
+
+    public void up(){
+      if(Universals.)
+    }
+
     public void bringOut(){
 
       climb.set(1);
