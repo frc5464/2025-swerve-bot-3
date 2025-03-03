@@ -1,7 +1,5 @@
 package frc.robot;
 
-import java.lang.annotation.ElementType;
-
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.ProcessorArmSubsystem;
@@ -14,6 +12,10 @@ public class SubsystemManager {
     private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
     private final ClimbSubsystem climbSubsystem = new ClimbSubsystem();
     private final ProcessorArmSubsystem processorArmSubsystem = new ProcessorArmSubsystem();
+
+    public SubsystemManager() {
+        // swerveSubsystem.();
+    }
 
     public SwerveSubsystem getSwerveSubsystem() {
         return swerveSubsystem;
