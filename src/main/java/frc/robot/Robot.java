@@ -14,6 +14,7 @@ import frc.robot.utils.BlinkinLEDController.BlinkinPattern;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.SubsystemManager;
 import frc.robot.Commands.PickupCommand;
+import frc.robot.OI.OperatorInterface;
 import au.grapplerobotics.CanBridge;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to each mode, as
@@ -36,6 +37,8 @@ public class Robot extends TimedRobot{
   //Commands
   private PickupCommand pickupCommand;
 
+  
+
   public Robot(){
     CanBridge.runTCP();
     // instance = this;
@@ -53,6 +56,9 @@ public class Robot extends TimedRobot{
     subsystemManager = new SubsystemManager();
 
     pickupCommand = new PickupCommand(subsystemManager.getElevatorSubsystem(), subsystemManager.getWristSubsystem());
+
+    OperatorInterface.create(subsystemManager);
+    
     if (isSimulation())
     {
       DriverStation.silenceJoystickConnectionWarning(true);

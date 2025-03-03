@@ -16,7 +16,7 @@ public class OperatorInterface {
     /**
      * Connects this to joysticks
      * 
-     * @param commandFactory
+     * 
      * @param subsystemManager
      */
     public static void create(SubsystemManager subsystemManager){
