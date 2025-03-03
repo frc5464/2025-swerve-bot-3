@@ -2,6 +2,7 @@ package frc.robot.OI;
 
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.SubsystemManager;
+import frc.robot.Commands.PickupCommand;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.ProcessorArmSubsystem;
@@ -26,6 +27,6 @@ public class OperatorInterface {
         final ProcessorArmSubsystem processor = subsystemManager.getProcessorArmSubsystem();
 
         //Drive Controller
-        driver.button(0);
+        driver.axisGreaterThan(2, 0.1).whileTrue(new PickupCommand(elevator, wrist));
     }
 }
