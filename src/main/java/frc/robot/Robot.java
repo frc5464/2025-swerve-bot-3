@@ -78,7 +78,9 @@ public class Robot extends TimedRobot{
     // //processorArmSubsystem.periodic();
     // climbSubsystem.periodic();
     // wristSubsystem.periodic();
-
+    subsystemManager.getWristSubsystem().periodic();
+    subsystemManager.getElevatorSubsystem().periodic();
+    subsystemManager.getSwerveSubsystem().periodic();
     // if(driveController.getRawButtonPressed(7)){
     //   swerveSubsystem.zeroGyro();
     // }

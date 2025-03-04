@@ -12,6 +12,7 @@ import au.grapplerobotics.ConfigurationFailedException;
 import au.grapplerobotics.LaserCan;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Universals;
 
 public class ElevatorSubsystem {
   private LaserCan laserCannon;
@@ -80,6 +81,9 @@ public class ElevatorSubsystem {
     SmartDashboard.putNumber("ElTarget", targetPosition);
     SmartDashboard.putNumber("Offset", targetPosition - lasercanMeasurement);
 
+    if(Universals.manualMode == false){
+      elPIDToLevel();
+    }
 
     laserPeriodic();
   }
