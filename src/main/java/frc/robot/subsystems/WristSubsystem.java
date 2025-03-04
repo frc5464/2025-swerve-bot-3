@@ -29,9 +29,9 @@ public class WristSubsystem {
   // RelativeEncoder wristEncoder;
   // public double wristencoderPos;
   // public double counts;
-  public int level = 0;
+  // public int level = 0;
 
-  double targetPosition = 0.5;
+  public double targetPosition = 0.5;
 
   // private SparkMaxConfig motorConfig;
   // private SparkClosedLoopController closedLoopController;

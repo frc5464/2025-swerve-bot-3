@@ -16,22 +16,21 @@ public class IntakeOutakeCommand extends Command {
 
     @Override
     public void initialize() {
-        Universals.coralIntaking = true;
-        if(RobotState.isAutonomous()){
-            Universals.homingPathtoCoral = true;
-        }
+        
     }
 
     @Override
     public void execute() {
-        if(Universals.coralIntaking){
-            wrist.intake(0.6);
+        if(m_intake == true){
+            wrist.intake(1);
+        } else{
+            wrist.outake(1);
         }
     }
 
     @Override
     public void end(boolean interrupted) {
-
+        wrist.stop();
     }
 
     @Override

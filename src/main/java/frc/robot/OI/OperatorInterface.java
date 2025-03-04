@@ -4,9 +4,11 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.SubsystemManager;
 import frc.robot.Universals;
+import frc.robot.Commands.IntakeOutakeCommand;
 import frc.robot.Commands.ManualModeCommand;
 import frc.robot.Commands.PickupCommand;
 import frc.robot.Commands.ToLevelCommand;
+import frc.robot.Commands.ZeroCommand;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.ProcessorArmSubsystem;
@@ -32,12 +34,16 @@ public class OperatorInterface {
 
         //Drive Controller
         driver.axisGreaterThan(2, 0.1).whileTrue(new PickupCommand(elevator, wrist));
+        driver.axisGreaterThan(3, 0).whileTrue(new IntakeOutakeCommand(wrist, true));
         driver.button(1).onTrue(new ToLevelCommand(elevator, 1, wrist, 16));
         driver.button(2).onTrue(new ToLevelCommand(elevator, 2, wrist, 16));
         driver.button(3).onTrue(new ToLevelCommand(elevator, 3, wrist, 16));
         driver.button(4).onTrue(new ToLevelCommand(elevator, 4, wrist, 19));
         
         driver.button(10).onTrue(new ManualModeCommand());
+
+        driver.button(8).onTrue(new ZeroCommand(wrist));
+        
     }
 
         private OperatorInterface(){
