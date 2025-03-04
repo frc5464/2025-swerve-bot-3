@@ -14,7 +14,7 @@ public class ToLevelCommand extends Command{
 
     @Override
     public void initialize() {
-
+        m_elevatorSubsystem.level = m_level;
     }
 
     @Override
