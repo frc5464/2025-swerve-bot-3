@@ -25,11 +25,11 @@ public class Robot extends TimedRobot{
   private final Joystick driveController;
   private final Joystick mineController;
   private Command m_autonomousCommand;
-  private SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
-  private ClimbSubsystem climbSubsystem = new ClimbSubsystem();
-  private ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
+  // private SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
+  //private ClimbSubsystem climbSubsystem = new ClimbSubsystem();
+  //private ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
   //private processorArmSubsystem processorArmSubsystem = new ProcessorArmSubsystem();
-  private WristSubsystem wristSubsystem = new WristSubsystem();
+  //private WristSubsystem wristSubsystem = new WristSubsystem();
   private BlinkinLEDController leds = new BlinkinLEDController();
   // private Constants constants = new Constants();
   private SubsystemManager subsystemManager;
@@ -74,19 +74,19 @@ public class Robot extends TimedRobot{
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 
-    elevatorSubsystem.periodic();
-    //processorArmSubsystem.periodic();
-    climbSubsystem.periodic();
-    wristSubsystem.periodic();
+    // elevatorSubsystem.periodic();
+    // //processorArmSubsystem.periodic();
+    // climbSubsystem.periodic();
+    // wristSubsystem.periodic();
 
-    if(driveController.getRawButtonPressed(7)){
-      swerveSubsystem.zeroGyro();
-    }
-    if(driveController.getRawButtonPressed(8)){
-      wristSubsystem.reBoot();
-      // armSubsystem.reBoot();
-      climbSubsystem.reBoot();
-    }
+    // if(driveController.getRawButtonPressed(7)){
+    //   swerveSubsystem.zeroGyro();
+    // }
+    // if(driveController.getRawButtonPressed(8)){
+    //   wristSubsystem.reBoot();
+    //   // armSubsystem.reBoot();
+    //   climbSubsystem.reBoot();
+    // }
 
     //SmartDashboard.putNumber("null", m_robotDrive.imuReadingCache);
     SmartDashboard.putBoolean("manualMode", manualMode);
@@ -158,30 +158,30 @@ public class Robot extends TimedRobot{
     // double rightTriggerVal2 = mineController.getRawAxis(3);
 
     // introduce deadband to keep controller drift from causing issues
-    double driveX = driveController.getRawAxis(1);
-    double driveY = driveController.getRawAxis(0);
-    double driveRot = -driveController.getRawAxis(4);
-    if(Math.abs(driveX) < 0.1){ driveX = 0;}
-    if(Math.abs(driveY) < 0.1){ driveY = 0;}
-    if(Math.abs(driveRot) < 0.1){ driveRot = 0;}
+    // double driveX = driveController.getRawAxis(1);
+    // double driveY = driveController.getRawAxis(0);
+    // double driveRot = -driveController.getRawAxis(4);
+    // if(Math.abs(driveX) < 0.1){ driveX = 0;}
+    // if(Math.abs(driveY) < 0.1){ driveY = 0;}
+    // if(Math.abs(driveRot) < 0.1){ driveRot = 0;}
     
-    swerveSubsystem.drive(driveX, driveY, driveRot);
+    //swerveSubsystem.drive(driveX, driveY, driveRot);
 
   // climber
-  if(mineController.getRawButton(1)){
-      climbSubsystem.bringOut();
-  } else if(mineController.getRawButton(4)){
-    // climbSubsystem.openHand();
-    // if(climbSubsystem.climbEncoderPos < 589){
-      if(climbSubsystem.climbEncoderPos > 0){
-        climbSubsystem.bringIn();
-      }
-      else{
+  // if(mineController.getRawButton(1)){
+  //     climbSubsystem.bringOut();
+  // } else if(mineController.getRawButton(4)){
+  //   // climbSubsystem.openHand();
+  //   // if(climbSubsystem.climbEncoderPos < 589){
+  //     if(climbSubsystem.climbEncoderPos > 0){
+  //       climbSubsystem.bringIn();
+  //     }
+  //     else{
         
-      }
-  } else{
-    climbSubsystem.stop();
-  }
+  //     }
+  // } else{
+  //   climbSubsystem.stop();
+  // }
 
   // Processor Rotation
   // if(mineController.getRawButton(5)){
@@ -216,27 +216,27 @@ public class Robot extends TimedRobot{
   // }
 
   //Elevator level selector
-  if(driveController.getRawButton(1)){
-    elevatorSubsystem.level = 1.0;
-    // armSubsystem.armScore();
-    wristSubsystem.wristScore();
-    leds.setPattern(BlinkinPattern.RED);
-  } else if(driveController.getRawButton(2)){
-    elevatorSubsystem.level = 2.0;
-    // armSubsystem.armAlgae();
-    wristSubsystem.wristScore();
-    leds.setPattern(BlinkinPattern.DARK_RED);
-  } else if(driveController.getRawButton(3)){
-    elevatorSubsystem.level = 3.0;
-    // armSubsystem.armScore();
-    wristSubsystem.wristScore();
-    leds.setPattern(BlinkinPattern.AQUA);
-  } else if(driveController.getRawButton(4)){
-    elevatorSubsystem.level = 4.0;
-    // armSubsystem.armScore();
-    wristSubsystem.lvl4WristScore();
-    leds.setPattern(BlinkinPattern.HOT_PINK);
-  }
+  // if(driveController.getRawButton(1)){
+  //   elevatorSubsystem.level = 1.0;
+  //   // armSubsystem.armScore();
+  //   wristSubsystem.wristScore();
+  //   leds.setPattern(BlinkinPattern.RED);
+  // } else if(driveController.getRawButton(2)){
+  //   elevatorSubsystem.level = 2.0;
+  //   // armSubsystem.armAlgae();
+  //   wristSubsystem.wristScore();
+  //   leds.setPattern(BlinkinPattern.DARK_RED);
+  // } else if(driveController.getRawButton(3)){
+  //   elevatorSubsystem.level = 3.0;
+  //   // armSubsystem.armScore();
+  //   wristSubsystem.wristScore();
+  //   leds.setPattern(BlinkinPattern.AQUA);
+  // } else if(driveController.getRawButton(4)){
+  //   elevatorSubsystem.level = 4.0;
+  //   // armSubsystem.armScore();
+  //   wristSubsystem.lvl4WristScore();
+  //   leds.setPattern(BlinkinPattern.HOT_PINK);
+  // }
 
   // if(driveController.getRawButtonPressed(10) && (manualMode == false)){
   //   manualMode = true;
@@ -244,24 +244,24 @@ public class Robot extends TimedRobot{
   //   manualMode = false;
   // }
   
-  if(driveController.getRawButtonPressed(10)){
-    if(manualMode == true){
-      manualMode = false;
-    } else {
-      manualMode = true;
-    }
-  } 
-  if(manualMode == true){
-    if(driveController.getRawButton(1)){
-      elevatorSubsystem.reverseElevate();
-    } else if(driveController.getRawButton(4)){
-      elevatorSubsystem.goElevate();
-    } else{
-      elevatorSubsystem.stopElevate();
-    }
-  } else {
-    elevatorSubsystem.elPIDToLevel();
-  }
+  // if(driveController.getRawButtonPressed(10)){
+  //   if(manualMode == true){
+  //     manualMode = false;
+  //   } else {
+  //     manualMode = true;
+  //   }
+  // } 
+  // if(manualMode == true){
+  //   if(driveController.getRawButton(1)){
+  //     elevatorSubsystem.reverseElevate();
+  //   } else if(driveController.getRawButton(4)){
+  //     elevatorSubsystem.goElevate();
+  //   } else{
+  //     elevatorSubsystem.stopElevate();
+  //   }
+  // } else {
+  //   elevatorSubsystem.elPIDToLevel();
+  // }
   
   //Intake
   // if(driveController.getRawAxis(2) > 0.5){
