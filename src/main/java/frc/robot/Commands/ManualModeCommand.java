@@ -6,6 +6,15 @@ import frc.robot.Universals;
 public class ManualModeCommand extends Command{
     @Override
     public void initialize() {
-        Universals.manualMode = !Universals.manualMode; 
+        if(Universals.manualMode == true){
+            Universals.manualMode = false;
+        } else {
+            Universals.manualMode = true;
+        }
+    }
+
+    @Override
+    public boolean isFinished(){
+        return false;
     }
 }

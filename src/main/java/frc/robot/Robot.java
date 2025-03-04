@@ -12,7 +12,7 @@ import frc.robot.subsystems.WristSubsystem;
 import frc.robot.utils.BlinkinLEDController;
 import frc.robot.utils.BlinkinLEDController.BlinkinPattern;
 import edu.wpi.first.wpilibj.Joystick;
-
+import frc.robot.Commands.ManualModeCommand;
 import frc.robot.Commands.PickupCommand;
 import frc.robot.OI.OperatorInterface;
 import au.grapplerobotics.CanBridge;
@@ -36,7 +36,7 @@ public class Robot extends TimedRobot{
 
   //Commands
   private PickupCommand pickupCommand;
-
+  private ManualModeCommand manualModeCommand;
   
 
   public Robot(){
@@ -45,8 +45,6 @@ public class Robot extends TimedRobot{
     driveController = new Joystick(0);
     mineController = new Joystick(1);
   }
-  
-  boolean manualMode = false;
 
   @Override
   public void robotInit() {
@@ -55,8 +53,8 @@ public class Robot extends TimedRobot{
     // m_robotContainer = new RobotContainer();
     subsystemManager = new SubsystemManager();
 
-    pickupCommand = new PickupCommand(subsystemManager.getElevatorSubsystem(), subsystemManager.getWristSubsystem());
-
+    //pickupCommand = new PickupCommand(subsystemManager.getElevatorSubsystem(), subsystemManager.getWristSubsystem());
+    //manualModeCommand = new ManualModeCommand();
     OperatorInterface.create(subsystemManager);
 
     if (isSimulation())
@@ -91,7 +89,7 @@ public class Robot extends TimedRobot{
     // }
 
     //SmartDashboard.putNumber("null", m_robotDrive.imuReadingCache);
-    SmartDashboard.putBoolean("manualMode", manualMode);
+    SmartDashboard.putBoolean("manualMode", Universals.manualMode);
   }
 
   /**
@@ -239,6 +237,7 @@ public class Robot extends TimedRobot{
   //   wristSubsystem.lvl4WristScore();
   //   leds.setPattern(BlinkinPattern.HOT_PINK);
   // }
+
 
   // if(driveController.getRawButtonPressed(10) && (manualMode == false)){
   //   manualMode = true;

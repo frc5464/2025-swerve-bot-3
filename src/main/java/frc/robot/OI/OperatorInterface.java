@@ -3,6 +3,8 @@ package frc.robot.OI;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.SubsystemManager;
+import frc.robot.Universals;
+import frc.robot.Commands.ManualModeCommand;
 import frc.robot.Commands.PickupCommand;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -29,6 +31,7 @@ public class OperatorInterface {
 
         //Drive Controller
         driver.axisGreaterThan(2, 0.1).whileTrue(new PickupCommand(elevator, wrist));
+        driver.button(10).onTrue(new ManualModeCommand());
     }
 
         private OperatorInterface(){
