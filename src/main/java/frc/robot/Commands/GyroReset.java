@@ -1,8 +1,9 @@
 package frc.robot.Commands;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SwerveSubsystem;
 
-public class GyroReset {
+public class GyroReset extends Command{
     private final Runnable reset;
 
     public GyroReset(SwerveSubsystem swerveSubsystem) {
