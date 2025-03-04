@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class WristSubsystem {
 
-  // SparkMax armWrist = new SparkMax(7, MotorType.kBrushless);
+  
   // SparkMaxConfig sparkMaxConfig;
   // double kP = 0;
   // double kI = 0;

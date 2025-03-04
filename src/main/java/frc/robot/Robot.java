@@ -12,7 +12,7 @@ import frc.robot.subsystems.WristSubsystem;
 import frc.robot.utils.BlinkinLEDController;
 import frc.robot.utils.BlinkinLEDController.BlinkinPattern;
 import edu.wpi.first.wpilibj.Joystick;
-import frc.robot.SubsystemManager;
+
 import frc.robot.Commands.PickupCommand;
 import frc.robot.OI.OperatorInterface;
 import au.grapplerobotics.CanBridge;
@@ -58,7 +58,7 @@ public class Robot extends TimedRobot{
     pickupCommand = new PickupCommand(subsystemManager.getElevatorSubsystem(), subsystemManager.getWristSubsystem());
 
     OperatorInterface.create(subsystemManager);
-    
+
     if (isSimulation())
     {
       DriverStation.silenceJoystickConnectionWarning(true);
@@ -264,20 +264,20 @@ public class Robot extends TimedRobot{
   }
   
   //Intake
-  if(driveController.getRawAxis(2) > 0.5){
-    wristSubsystem.intake(driveController.getRawAxis(2));
-    wristSubsystem.wristPickup();
-    elevatorSubsystem.level = 0.0;
-  }
-    else if(driveController.getRawAxis(3) > 0.5){
-    wristSubsystem.outake(driveController.getRawAxis(3));
-  } 
-  else if(driveController.getRawButton(5)){
-    wristSubsystem.intake(0.8);
-  }
-  else {
-    wristSubsystem.stop();
-  }
+  // if(driveController.getRawAxis(2) > 0.5){
+  //   wristSubsystem.intake(driveController.getRawAxis(2));
+  //   wristSubsystem.wristPickup();
+  //   elevatorSubsystem.level = 0.0;
+  // }
+  //   else if(driveController.getRawAxis(3) > 0.5){
+  //   wristSubsystem.outake(driveController.getRawAxis(3));
+  // } 
+  // else if(driveController.getRawButton(5)){
+  //   wristSubsystem.intake(0.8);
+  // }
+  // else {
+  //   wristSubsystem.stop();
+  // }
 
   
  //  im programming im haker man i do haks yeahahahahahahahahhh im in the mainframe babyyyyyyyyyyyyyy*/

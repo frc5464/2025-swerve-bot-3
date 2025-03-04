@@ -25,7 +25,7 @@ public class IntakeOutakeCommand extends Command {
     @Override
     public void execute() {
         if(Universals.coralIntaking){
-            wrist.Intake();
+            wrist.intake(0.6);
         }
     }
 

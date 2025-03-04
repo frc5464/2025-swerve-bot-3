@@ -58,9 +58,7 @@ public class ClimbSubsystem {
       return ENABLED;
     }
 
-    public void up(){
-      if(Universals.)
-    }
+    
 
     public void bringOut(){
 
