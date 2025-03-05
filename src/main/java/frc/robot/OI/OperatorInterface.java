@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.SubsystemManager;
 import frc.robot.Universals;
 import frc.robot.Commands.IntakeOutakeCommand;
+import frc.robot.Commands.DriveCommand;
 import frc.robot.Commands.ManualModeCommand;
 import frc.robot.Commands.PickupCommand;
 import frc.robot.Commands.ToLevelCommand;
@@ -45,6 +46,7 @@ public class OperatorInterface {
 
         driver.button(8).onTrue(new ZeroCommand(wrist));
         
+        drive.setDefaultCommand(new DriveCommand(drive, driver));
     }
 
         private OperatorInterface(){
