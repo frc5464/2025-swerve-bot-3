@@ -10,8 +10,8 @@ import frc.robot.subsystems.SwerveSubsystem;
 public class CommandFactory {
     private SwerveSubsystem swerveSubsystem;
 
-    public CommandFactory(/*SubsystemManager subsystemManager*/) {
-        // this.swerveSubsystem = subsystemManager.getSwerveSubsystem();
+    public CommandFactory(SubsystemManager subsystemManager) {
+        this.swerveSubsystem = subsystemManager.getSwerveSubsystem();
     }
 
 

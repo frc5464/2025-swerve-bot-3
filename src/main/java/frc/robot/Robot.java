@@ -22,10 +22,10 @@ import au.grapplerobotics.CanBridge;
  * project, you must also update the build.gradle file in the project.
  */
 public class Robot extends TimedRobot{
-  private final Joystick driveController;
-  private final Joystick mineController;
+  // private final Joystick driveController;
+  // private final Joystick mineController;
   private Command m_autonomousCommand;
-  private SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
+  // private SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
   //private ClimbSubsystem climbSubsystem = new ClimbSubsystem();
   //private ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
   //private processorArmSubsystem processorArmSubsystem = new ProcessorArmSubsystem();
@@ -42,8 +42,7 @@ public class Robot extends TimedRobot{
   public Robot(){
     CanBridge.runTCP();
     // instance = this;
-    driveController = new Joystick(0);
-    mineController = new Joystick(1);
+
   }
 
   @Override
@@ -78,10 +77,9 @@ public class Robot extends TimedRobot{
     // wristSubsystem.periodic();
     subsystemManager.getWristSubsystem().periodic();
     subsystemManager.getElevatorSubsystem().periodic();
-    // subsystemManager.getSwerveSubsystem().periodic();
-    swerveSubsystem.periodic();
-    if(driveController.getRawButtonPressed(7)){
-      swerveSubsystem.zeroGyro();
+    subsystemManager.getSwerveSubsystem().periodic();
+    // if(driveController.getRawButtonPressed(7)){
+    //   swerveSubsystem.zeroGyro();
     // }
     // if(driveController.getRawButtonPressed(8)){
     //   wristSubsystem.reBoot();
@@ -90,7 +88,7 @@ public class Robot extends TimedRobot{
     // }
 
     //SmartDashboard.putNumber("null", m_robotDrive.imuReadingCache);
-    SmartDashboard.putBoolean("manualMode", Universals.manualMode);}
+    SmartDashboard.putBoolean("manualMode", Universals.manualMode);
   }
 
   /**
@@ -159,14 +157,14 @@ public class Robot extends TimedRobot{
     // double rightTriggerVal2 = mineController.getRawAxis(3);
 
     // introduce deadband to keep controller drift from causing issues
-    double driveX = driveController.getRawAxis(1);
-    double driveY = driveController.getRawAxis(0);
-    double driveRot = -driveController.getRawAxis(4);
-    if(Math.abs(driveX) < 0.1){ driveX = 0;}
-    if(Math.abs(driveY) < 0.1){ driveY = 0;}
-    if(Math.abs(driveRot) < 0.1){ driveRot = 0;}
+    // double driveX = driveController.getRawAxis(1);
+    // double driveY = driveController.getRawAxis(0);
+    // double driveRot = -driveController.getRawAxis(4);
+    // if(Math.abs(driveX) < 0.1){ driveX = 0;}
+    // if(Math.abs(driveY) < 0.1){ driveY = 0;}
+    // if(Math.abs(driveRot) < 0.1){ driveRot = 0;}
     
-    swerveSubsystem.drive(driveX, driveY, driveRot);
+    //swerveSubsystem.drive(driveX, driveY, driveRot);
 
   // climber
   // if(mineController.getRawButton(1)){

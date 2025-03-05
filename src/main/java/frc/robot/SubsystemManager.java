@@ -3,11 +3,11 @@ package frc.robot;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.ProcessorArmSubsystem;
-// import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 
 public class SubsystemManager {
-    // private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
+    private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
     private final WristSubsystem wristSubsystem = new WristSubsystem();
     private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
     private final ClimbSubsystem climbSubsystem = new ClimbSubsystem();
@@ -17,9 +17,9 @@ public class SubsystemManager {
         // swerveSubsystem.();
     }
 
-    // public SwerveSubsystem getSwerveSubsystem() {
-    //     return swerveSubsystem;
-    // }
+    public SwerveSubsystem getSwerveSubsystem() {
+        return swerveSubsystem;
+    }
     
     public WristSubsystem getWristSubsystem() {
         return wristSubsystem;
