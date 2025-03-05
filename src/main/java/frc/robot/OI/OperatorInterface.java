@@ -46,7 +46,7 @@ public class OperatorInterface {
 
         driver.button(8).onTrue(new ZeroCommand(wrist));
         
-        drive.setDefaultCommand(new DriveCommand(drive, driver));
+        // drive.setDefaultCommand(new DriveCommand(drive, driver));
     }
 
         private OperatorInterface(){
