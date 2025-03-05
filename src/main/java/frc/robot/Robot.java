@@ -22,8 +22,8 @@ import au.grapplerobotics.CanBridge;
  * project, you must also update the build.gradle file in the project.
  */
 public class Robot extends TimedRobot{
-  private final Joystick driveController;
-  private final Joystick mineController;
+  // private final Joystick driveController;
+  // private final Joystick mineController;
   private Command m_autonomousCommand;
   // private SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
   //private ClimbSubsystem climbSubsystem = new ClimbSubsystem();
@@ -42,8 +42,7 @@ public class Robot extends TimedRobot{
   public Robot(){
     CanBridge.runTCP();
     // instance = this;
-    driveController = new Joystick(0);
-    mineController = new Joystick(1);
+
   }
 
   @Override

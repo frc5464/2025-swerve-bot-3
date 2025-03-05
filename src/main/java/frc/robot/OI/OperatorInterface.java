@@ -34,7 +34,8 @@ public class OperatorInterface {
 
         //Drive Controller
         driver.axisGreaterThan(2, 0.1).whileTrue(new PickupCommand(elevator, wrist));
-        driver.axisGreaterThan(3, 0).whileTrue(new IntakeOutakeCommand(wrist, true));
+        driver.button(5).whileTrue(new IntakeOutakeCommand(wrist, true));
+        driver.axisGreaterThan(3, 0).whileTrue(new IntakeOutakeCommand(wrist, false));
         driver.button(1).onTrue(new ToLevelCommand(elevator, 1, wrist, 16));
         driver.button(2).onTrue(new ToLevelCommand(elevator, 2, wrist, 16));
         driver.button(3).onTrue(new ToLevelCommand(elevator, 3, wrist, 16));

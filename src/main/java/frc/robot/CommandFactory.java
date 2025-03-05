@@ -17,7 +17,7 @@ public class CommandFactory {
 
     public Command AutonomousRun(String autoName){
         SequentialCommandGroup auto = new SequentialCommandGroup();
-        auto.addCommands(new WaitCommand(Universals.wait));
+        // auto.addCommands(new WaitCommand(Universals.wait));
         // auto.addCommands(new GyroReset(swerveSubsystem));
         auto.addCommands(new PathPlannerAuto(autoName));
 
