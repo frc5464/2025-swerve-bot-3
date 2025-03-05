@@ -27,7 +27,7 @@ public class OperatorInterface {
      * @param subsystemManager
      */
     public static void create(SubsystemManager subsystemManager){
-        final SwerveSubsystem drive = subsystemManager.getSwerveSubsystem();
+        // final SwerveSubsystem drive = subsystemManager.getSwerveSubsystem();
         final WristSubsystem wrist = subsystemManager.getWristSubsystem();
         final ElevatorSubsystem elevator = subsystemManager.getElevatorSubsystem();
         final ClimbSubsystem climb = subsystemManager.getClimbSubsystem();
