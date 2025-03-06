@@ -2,10 +2,13 @@ package frc.robot.OI;
 
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import frc.robot.CommandFactory;
 import frc.robot.SubsystemManager;
 import frc.robot.Universals;
 import frc.robot.Commands.IntakeOutakeCommand;
+import frc.robot.Commands.ClimbCommand;
 import frc.robot.Commands.DriveCommand;
+import frc.robot.Commands.GyroReset;
 import frc.robot.Commands.ManualModeCommand;
 import frc.robot.Commands.PickupCommand;
 import frc.robot.Commands.ToLevelCommand;
@@ -27,12 +30,12 @@ public class OperatorInterface {
      * @param subsystemManager
      */
     public static void create(SubsystemManager subsystemManager){
-        // final SwerveSubsystem drive = subsystemManager.getSwerveSubsystem();
+        final SwerveSubsystem drive = subsystemManager.getSwerveSubsystem();
         final WristSubsystem wrist = subsystemManager.getWristSubsystem();
         final ElevatorSubsystem elevator = subsystemManager.getElevatorSubsystem();
         final ClimbSubsystem climb = subsystemManager.getClimbSubsystem();
         final ProcessorArmSubsystem processor = subsystemManager.getProcessorArmSubsystem();
-
+        
         //Drive Controller
         driver.axisGreaterThan(2, 0.1).whileTrue(new PickupCommand(elevator, wrist));
         driver.button(5).whileTrue(new IntakeOutakeCommand(wrist, true));
@@ -43,7 +46,7 @@ public class OperatorInterface {
         driver.button(4).onTrue(new ToLevelCommand(elevator, 4, wrist, 19));
         
         driver.button(10).onTrue(new ManualModeCommand());
-
+        mineController.axisGreaterThan(5, 0.1).whileTrue(new ClimbCommand(climb, true));
         driver.button(8).onTrue(new ZeroCommand(wrist));
         
         // drive.setDefaultCommand(new DriveCommand(drive, driver));

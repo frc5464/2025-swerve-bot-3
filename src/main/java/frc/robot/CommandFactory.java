@@ -5,13 +5,17 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Commands.GyroReset;
 import frc.robot.subsystems.SwerveSubsystem;
 
 public class CommandFactory {
     private SwerveSubsystem swerveSubsystem;
+    private GyroReset gyroReset;
 
-    public CommandFactory(/*SubsystemManager subsystemManager*/) {
-        // this.swerveSubsystem = subsystemManager.getSwerveSubsystem();
+    public CommandFactory(SubsystemManager subsystemManager) {
+        this.swerveSubsystem = subsystemManager.getSwerveSubsystem();
+        
+
     }
 
 

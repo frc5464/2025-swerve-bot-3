@@ -11,19 +11,18 @@ import frc.robot.Universals;
 
 public class ClimbSubsystem {
   
-  SparkMax climb = new SparkMax(2, MotorType.kBrushless);
+  SparkMax climber = new SparkMax(2, MotorType.kBrushless);
 
   public RelativeEncoder climbEncoder;
 
-  public double up;
-  public double down;
+
 
   private static final boolean ENABLED = true;
 
 
   SparkMaxConfig sparkMaxConfig3 = new SparkMaxConfig();
   // SparkClosedLoopController loopController = climb1.getClosedLoopController();
-  SparkClosedLoopController climbPID = climb.getClosedLoopController();
+  SparkClosedLoopController climbPID = climber.getClosedLoopController();
   double kP = 0;
   double kI = 0;
   double kD = 0;
@@ -39,7 +38,7 @@ public class ClimbSubsystem {
   
 
   public void initialize(){
-    climbEncoder = climb.getEncoder();
+    climbEncoder = climber.getEncoder();
 
     climbEncoder.setPosition(0);
   }
@@ -61,14 +60,13 @@ public class ClimbSubsystem {
     
 
     public void bringOut(){
-
-      climb.set(1);
+      climber.set(1);
     }
     public void bringIn(){
-      climb.set(-1);
+      climber.set(-1);
     }
     public void stop(){
-      climb.set(0);
+      climber.set(0);
     }
 
     public void reBoot(){
