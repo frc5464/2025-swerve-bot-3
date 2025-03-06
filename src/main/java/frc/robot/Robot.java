@@ -22,8 +22,8 @@ import au.grapplerobotics.CanBridge;
  * project, you must also update the build.gradle file in the project.
  */
 public class Robot extends TimedRobot{
-  private final Joystick driveController;
-  private final Joystick mineController;
+  // private final Joystick driveController;
+  // private final Joystick mineController;
   private Command m_autonomousCommand;
   // private SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
   //private ClimbSubsystem climbSubsystem = new ClimbSubsystem();
@@ -42,8 +42,8 @@ public class Robot extends TimedRobot{
   public Robot(){
     CanBridge.runTCP();
     // instance = this;
-    driveController = new Joystick(0);
-    mineController = new Joystick(1);
+    // driveController = new Joystick(0);
+    // mineController = new Joystick(1);
   }
 
   @Override
@@ -54,7 +54,7 @@ public class Robot extends TimedRobot{
     subsystemManager = new SubsystemManager();
 
     //pickupCommand = new PickupCommand(subsystemManager.getElevatorSubsystem(), subsystemManager.getWristSubsystem());
-    //manualModeCommand = new ManualModeCommand();
+    // manualModeCommand = new ManualModeCommand();
     OperatorInterface.create(subsystemManager);
 
     if (isSimulation())
@@ -80,7 +80,7 @@ public class Robot extends TimedRobot{
     subsystemManager.getElevatorSubsystem().periodic();
     subsystemManager.getSwerveSubsystem().periodic();
     // swerveSubsystem.periodic();
-    if(driveController.getRawButtonPressed(7)){
+    // if(driveController.getRawButtonPressed(7)){
       // swerveSubsystem.zeroGyro();
     // }
     // if(driveController.getRawButtonPressed(8)){
@@ -91,7 +91,7 @@ public class Robot extends TimedRobot{
 
     //SmartDashboard.putNumber("null", m_robotDrive.imuReadingCache);
     SmartDashboard.putBoolean("manualMode", Universals.manualMode);}
-  }
+  
 
   /**
    * This function is called once each time the robot enters Disabled mode.
