@@ -8,10 +8,11 @@ import frc.robot.subsystems.SwerveSubsystem;
 public class DriveCommand extends Command{
     
     SwerveSubsystem swurv;
-    Joystick shtick;
+    CommandJoystick shtick;
 
     public DriveCommand(SwerveSubsystem swerb, CommandJoystick controller){
         swurv = swerb;
+        shtick = controller;
     }
 
     @Override
