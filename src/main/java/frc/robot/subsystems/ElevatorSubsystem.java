@@ -8,6 +8,7 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
+import au.grapplerobotics.CanBridge;
 import au.grapplerobotics.ConfigurationFailedException;
 import au.grapplerobotics.LaserCan;
 import edu.wpi.first.math.controller.PIDController;
@@ -43,7 +44,7 @@ public class ElevatorSubsystem {
     SparkBaseConfig conf = new SparkMaxConfig();
     conf.openLoopRampRate(0.5);
     leftEl.configure(conf, null, null);
-
+    CanBridge.runTCP();
   }
 
   //lasercan

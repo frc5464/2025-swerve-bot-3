@@ -2,13 +2,18 @@ package frc.robot.subsystems;
 
 import swervelib.parser.SwerveParser;
 import java.io.File;
+import java.util.Optional;
 import java.util.function.Supplier;
+
+import org.photonvision.targeting.PhotonPipelineResult;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.commands.PathfindingCommand;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -21,8 +26,11 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.subsystems.VisionSubsystem.Cameras;
 import swervelib.SwerveController;
 import swervelib.SwerveDrive;
+import swervelib.math.SwerveMath;
 
 public class SwerveSubsystem extends SubsystemBase{
     private SwerveDrive swerveDrive;
@@ -46,7 +54,12 @@ public class SwerveSubsystem extends SubsystemBase{
         SmartDashboard.putNumber("FR Enc", modules[1].getAbsolutePosition());
         SmartDashboard.putNumber("BL Enc", modules[2].getAbsolutePosition());
         SmartDashboard.putNumber("BR Enc", modules[3].getAbsolutePosition());
-
+      // When vision is enabled we must manually update odometry in SwerveDrive
+      if (visionDriveTest)
+      {
+        swerveDrive.updateOdometry();
+        vision.updatePoseEstimation(swerveDrive);
+      }
     }
 
     // TODO: Detemine if this is still necessary based on other things added on 3/6
@@ -60,6 +73,67 @@ public class SwerveSubsystem extends SubsystemBase{
 
     // Everything down here was copied from the YAGSL example, in an attempt to use their Pathplanner integration
   
+      /**
+   * PhotonVision class to keep an accurate odometry.
+   */
+  private       VisionSubsystem      vision;
+
+  /**
+   * Enable vision odometry updates while driving.
+   */
+  private final boolean     visionDriveTest = false;
+  /**
+   * Setup the photon vision class.
+   */
+  public void setupPhotonVision()
+  {
+    vision = new VisionSubsystem(swerveDrive::getPose, swerveDrive.field);
+  }
+
+  /**
+   * Aim the robot at the target returned by PhotonVision.
+   *
+   * @return A {@link Command} which will run the alignment.
+   */
+  public Command aimAtTarget(Cameras camera)
+  {
+
+    return run(() -> {
+      Optional<PhotonPipelineResult> resultO = camera.getBestResult();
+      if (resultO.isPresent())
+      {
+        var result = resultO.get();
+        if (result.hasTargets())
+        {
+          drive(getTargetSpeeds(0,
+                                0,
+                                Rotation2d.fromDegrees(result.getBestTarget()
+                                                             .getYaw()))); // Not sure if this will work, more math may be required.
+        }
+      }
+    });
+  }
+
+  /**
+   * Get the chassis speeds based on controller input of 1 joystick and one angle. Control the robot at an offset of
+   * 90deg.
+   *
+   * @param xInput X joystick input for the robot to move in the X direction.
+   * @param yInput Y joystick input for the robot to move in the Y direction.
+   * @param angle  The angle in as a {@link Rotation2d}.
+   * @return {@link ChassisSpeeds} which can be sent to the Swerve Drive.
+   */
+  public ChassisSpeeds getTargetSpeeds(double xInput, double yInput, Rotation2d angle)
+  {
+    Translation2d scaledInputs = SwerveMath.cubeTranslation(new Translation2d(xInput, yInput));
+
+    return swerveDrive.swerveController.getTargetSpeeds(scaledInputs.getX(),
+                                                        scaledInputs.getY(),
+                                                        angle.getRadians(),
+                                                        getHeading().getRadians(),
+                                                        Constants.MAX_SPEED);
+  }
+
 /**
    * Setup AutoBuilder for PathPlanner.
    */
@@ -258,6 +332,27 @@ public class SwerveSubsystem extends SubsystemBase{
   {
     // Create a path following command using AutoBuilder. This will also trigger event markers.
     return new PathPlannerAuto(pathName);
+  }
+
+  /**
+   * Use PathPlanner Path finding to go to a point on the field.
+   *
+   * @param pose Target {@link Pose2d} to go to.
+   * @return PathFinding command
+   */
+  public Command driveToPose(Pose2d pose)
+  {
+// Create the constraints to use while pathfinding
+    PathConstraints constraints = new PathConstraints(
+        swerveDrive.getMaximumChassisVelocity(), 4.0,
+        swerveDrive.getMaximumChassisAngularVelocity(), Units.degreesToRadians(720));
+
+// Since AutoBuilder is configured, we can use it to build pathfinding commands
+    return AutoBuilder.pathfindToPose(
+        pose,
+        constraints,
+        edu.wpi.first.units.Units.MetersPerSecond.of(0) // Goal end velocity in meters/sec
+                                     );
   }
 
     /**
