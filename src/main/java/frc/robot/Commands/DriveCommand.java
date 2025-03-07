@@ -1,6 +1,5 @@
 package frc.robot.Commands;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.subsystems.SwerveSubsystem;
@@ -13,6 +12,7 @@ public class DriveCommand extends Command{
     public DriveCommand(SwerveSubsystem swerb, CommandJoystick controller){
         swurv = swerb;
         shtick = controller;
+        addRequirements(swurv);
     }
 
     @Override
@@ -31,6 +31,7 @@ public class DriveCommand extends Command{
         if(Math.abs(driveRot) < 0.1){ driveRot = 0;}
 
         swurv.drive(driveX, driveY, driveRot);
+        // System.out.println("driving yo");
     }
 
     @Override
