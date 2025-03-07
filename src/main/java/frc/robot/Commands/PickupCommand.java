@@ -7,9 +7,9 @@ import frc.robot.subsystems.WristSubsystem;
 public class PickupCommand extends Command{
     private final ElevatorSubsystem elevator;
     private final WristSubsystem wrist;
-    private boolean m_pickupint;
+    // private boolean m_pickupint;
 
-    public PickupCommand(ElevatorSubsystem elevator, WristSubsystem intake, boolean m_pickupint) {
+    public PickupCommand(ElevatorSubsystem elevator, WristSubsystem intake /*boolean m_pickupint*/) {
         this.elevator = elevator;
         this.wrist = intake;
     }
@@ -22,14 +22,14 @@ public class PickupCommand extends Command{
 
     @Override
     public void execute() {
-        if(m_pickupint == true){
-            wrist.intake(0.6);
-        }
+        // if(m_pickupint == true){
+        //     wrist.intake(0.6);
+        // }
     }
 
     @Override
     public void end(boolean interrupted) {
-        wrist.stop();
+        wrist.windStop();
     }
 
     @Override
