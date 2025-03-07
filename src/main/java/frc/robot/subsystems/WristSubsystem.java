@@ -86,6 +86,8 @@ public class WristSubsystem {
 
   public void periodic(){
   SmartDashboard.putNumber("WristEncoder", encoder.getPosition());
+  SmartDashboard.putNumber("IntakeCurrent", motor.getOutputCurrent());
+  
   closedLoopController.setReference(targetPosition, ControlType.kPosition, ClosedLoopSlot.kSlot0);
   }
 
