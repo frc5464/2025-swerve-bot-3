@@ -14,7 +14,12 @@ public class ManualModeCommand extends Command{
     }
 
     @Override
+    public void end(boolean interrupted) {
+        System.out.println("manualModeCommand_finished");
+    }
+
+    @Override
     public boolean isFinished(){
-        return false;
+        return true;
     }
 }

@@ -5,28 +5,28 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 
 public class PickupCommand extends Command{
-    private final ElevatorSubsystem m_elevatorSubsystem;
-    private final WristSubsystem m_wristSubsystem;
+    private final ElevatorSubsystem elevator;
+    private final WristSubsystem wrist;
 
-    public PickupCommand(ElevatorSubsystem level, WristSubsystem intake) {
-        this.m_elevatorSubsystem = level;
-        this.m_wristSubsystem = intake;
+    public PickupCommand(ElevatorSubsystem elevator, WristSubsystem intake) {
+        this.elevator = elevator;
+        this.wrist = intake;
     }
 
     @Override
     public void initialize() {
-        m_elevatorSubsystem.level = 0.0;
-        m_wristSubsystem.wristPickup();
+        elevator.level = 0.0;
+        wrist.wristPickup();
     }
 
     @Override
     public void execute() {
-        m_wristSubsystem.intake(0.6);
+        wrist.intake(0.6);
     }
 
     @Override
     public void end(boolean interrupted) {
-        m_wristSubsystem.stop();
+        wrist.stop();
     }
 
     @Override
