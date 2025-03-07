@@ -7,7 +7,7 @@ public class ZeroCommand extends Command{
     
     
     public ZeroCommand(WristSubsystem wrist){
-
+        wrist.reBoot();
 
 
     }
