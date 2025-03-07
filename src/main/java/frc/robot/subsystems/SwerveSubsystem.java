@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
 import swervelib.parser.SwerveParser;
+import swervelib.telemetry.SwerveDriveTelemetry;
+import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 
 import java.io.File;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -15,6 +17,7 @@ public class SwerveSubsystem extends SubsystemBase{
 
     public SwerveSubsystem(){
         try {
+            SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
             m_robotDrive=new SwerveParser(
                 new File(Filesystem.getDeployDirectory(),"swerve"
                 )).createSwerveDrive(Units.feetToMeters(14.5));
