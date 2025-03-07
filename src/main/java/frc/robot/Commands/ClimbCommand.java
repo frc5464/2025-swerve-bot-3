@@ -29,7 +29,7 @@ public class ClimbCommand extends Command{
 
     @Override 
     public void end(boolean interrupted) {
-
+        climb.stop();
     }
 
     @Override
