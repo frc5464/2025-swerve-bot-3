@@ -35,6 +35,9 @@ public class IntakeOutakeCommand extends Command {
 
     @Override
     public boolean isFinished() {
+        // if(wrist.getIntOutCurrent() > 38){
+        //     return true;
+        // }
         return false;
     }
 }
