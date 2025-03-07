@@ -5,9 +5,9 @@ import frc.robot.subsystems.SwerveSubsystem;
 
 public class GyroReset extends Command{
     private final Runnable reset;
-    private boolean m_gyroReset;
+    
 
-    public GyroReset(SwerveSubsystem swerveSubsystem, boolean m_gyroReset) {
+    public GyroReset(SwerveSubsystem swerveSubsystem) {
         reset = () -> {
             swerveSubsystem.zeroGyro();
         };
