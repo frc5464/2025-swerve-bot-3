@@ -36,29 +36,32 @@ public class WristSubsystem {
   // private SparkMaxConfig motorConfig;
   // private SparkClosedLoopController closedLoopController;
 
-  private SparkMax motor;
-  private SparkMax motor2;
-  private SparkMaxConfig motorConfig;
+  private SparkMax rotating;
+  private SparkMax intakeOutake;
+  private SparkMaxConfig rotConfig;
+  private SparkMaxConfig intoutConfig;
   private SparkClosedLoopController closedLoopController;
   private RelativeEncoder encoder;
 
   public WristSubsystem(){
-    motor = new SparkMax(7, MotorType.kBrushless);
-    motor2 = new SparkMax(8, MotorType.kBrushless);
-    closedLoopController = motor.getClosedLoopController();
-    encoder = motor.getEncoder();
+    rotating = new SparkMax(7, MotorType.kBrushless);
+    intakeOutake = new SparkMax(8, MotorType.kBrushless);
+    closedLoopController = rotating.getClosedLoopController();
+    encoder = rotating.getEncoder();
+    
 
     /*
      * Create a new SPARK MAX configuration object. This will store the
      * configuration parameters for the SPARK MAX that we will set below.
      */
-    motorConfig = new SparkMaxConfig();
+    rotConfig = new SparkMaxConfig();
+    intoutConfig = new SparkMaxConfig();
 
     /*
      * Configure the closed loop controller. We want to make sure we set the
      * feedback sensor as the primary encoder.
      */
-    motorConfig.closedLoop
+    rotConfig.closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
         // Set PID values for position control. We don't need to pass a closed loop
         // slot, as it will default to slot 0.
@@ -66,6 +69,8 @@ public class WristSubsystem {
         .i(0)
         .d(0)
         .outputRange(-0.3, 0.3);
+
+        intoutConfig.openLoopRampRate(0.5);
 
     /*
      * Apply the configuration to the SPARK MAX.
@@ -77,8 +82,8 @@ public class WristSubsystem {
      * the SPARK MAX loses power. This is useful for power cycles that may occur
      * mid-operation.
      */
-    motor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
-
+    intakeOutake.configure(intoutConfig, null, null);
+    rotating.configure(rotConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
   }
 
 // used https://github.com/REVrobotics/REVLib-Examples/blob/main/Java/SPARK/Closed%20Loop%20Control/src/main/java/frc/robot/Robot.java as example
@@ -86,20 +91,24 @@ public class WristSubsystem {
 
   public void periodic(){
   SmartDashboard.putNumber("WristEncoder", encoder.getPosition());
-  SmartDashboard.putNumber("IntakeCurrent", motor.getOutputCurrent());
+  SmartDashboard.putNumber("IntakeCurrent", intakeOutake.getOutputCurrent());
   
   closedLoopController.setReference(targetPosition, ControlType.kPosition, ClosedLoopSlot.kSlot0);
   }
 
+  public double getIntOutCurrent(){
+    return intakeOutake.getOutputCurrent();
+  }
+
   //Flick of da wrist
   public void windUp(){
-    motor.set(0.2);
+    rotating.set(0.2);
   }
   public void windDown(){
-    motor.set(-0.2);
+    rotating.set(-0.2);
   }
   public void windStop(){
-    motor.set(0);
+    rotating.set(0);
   }
 
     // Get arm to Coral pickup position
@@ -121,13 +130,13 @@ public class WristSubsystem {
   }
   
   public void intake(double something){
-    motor2.set(-something * 0.25);
+    intakeOutake.set(-something * 0.25);
   }
   public void outake(double something){
-    motor2.set(something * 0.5);
+    intakeOutake.set(something * 0.5);
   }
   public void stop(){
-    motor2.set(0);
+    intakeOutake.set(0);
   }
   //Get arm to starting position
   public void wristStart(){
