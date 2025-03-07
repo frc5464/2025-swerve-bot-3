@@ -12,6 +12,7 @@ import frc.robot.Commands.GyroReset;
 import frc.robot.Commands.ManualModeCommand;
 import frc.robot.Commands.PickupCommand;
 import frc.robot.Commands.ProcessorInt_OutCommand;
+import frc.robot.Commands.ProcessorRotCommand;
 import frc.robot.Commands.ToLevelCommand;
 import frc.robot.Commands.ZeroCommand;
 import frc.robot.subsystems.ClimbSubsystem;
@@ -51,8 +52,10 @@ public class OperatorInterface {
         driver.button(10).onTrue(new ManualModeCommand());
         // drive.setDefaultCommand(new DriveCommand(drive, driver));
 
-        mineController.axisGreaterThan(5, 0.1).whileTrue(new ClimbCommand(climb, true));
         mineController.axisGreaterThan(2, 0.1).whileTrue(new ProcessorInt_OutCommand(processor, true));
+        mineController.axisGreaterThan(3, 0.1).whileTrue(new ProcessorRotCommand(processor, true));
+        mineController.axisGreaterThan(5, 0.1).whileTrue(new ClimbCommand(climb, true));
+        mineController.axisLessThan(5, -0.1).whileTrue(new ClimbCommand(climb, false));
         
         
         
