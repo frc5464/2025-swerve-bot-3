@@ -54,7 +54,7 @@ public class ProcessorArmSubsystem {
   public void outake(double axis3){
     processorint_out.set(-axis3);
   }
-  public void stoprot(){
+  public void stopInt_Out(){
     processorint_out.set(0);
   }
 
