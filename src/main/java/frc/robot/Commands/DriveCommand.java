@@ -9,7 +9,7 @@ public class DriveCommand extends Command{
     SwerveSubsystem swurv;
     CommandJoystick shtick;
 
-    public DriveCommand(SwerveSubsystem swerb, CommandJoystick controller){
+    public DriveCommand(SwerveSubsystem swerb, CommandJoystick controller){   
         swurv = swerb;
         shtick = controller;
         addRequirements(swurv);

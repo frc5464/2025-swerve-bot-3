@@ -1,10 +1,7 @@
 package frc.robot.OI;
 
-import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
-import frc.robot.CommandFactory;
 import frc.robot.SubsystemManager;
-import frc.robot.Universals;
 import frc.robot.Commands.IntakeOutakeCommand;
 import frc.robot.Commands.ClimbCommand;
 import frc.robot.Commands.DriveCommand;
@@ -51,7 +48,7 @@ public class OperatorInterface {
         driver.button(7).onTrue(new GyroReset(drive));
         driver.button(8).onTrue(new ZeroCommand(wrist));
         driver.button(10).onTrue(new ManualModeCommand());
-        drive.setDefaultCommand(new DriveCommand(drive, driver));
+        drive.setDefaultCommand(new DriveCommand(drive, driver)); 
 
         mineController.axisGreaterThan(2, 0.1).whileTrue(new ProcessorInt_OutCommand(processor, true));
         mineController.axisGreaterThan(3, 0.1).whileTrue(new ProcessorRotCommand(processor, true));
