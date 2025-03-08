@@ -90,7 +90,7 @@ public class SwerveSubsystem extends SubsystemBase{
    */
   public void setupPhotonVision()
   {
-    vision = new VisionSubsystem(swerveDrive::getPose, swerveDrive.field);
+    // vision = new VisionSubsystem(swerveDrive::getPose, swerveDrive.field);
   }
 
   /**

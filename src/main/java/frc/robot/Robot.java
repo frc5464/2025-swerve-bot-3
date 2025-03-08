@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.utils.BlinkinLEDController;
 import frc.robot.utils.BlinkinLEDController.BlinkinPattern;
 import frc.robot.OI.OperatorInterface;
+import frc.robot.subsystems.VisionSubsystem;
 
 public class Robot extends TimedRobot{
   private Command m_autonomousCommand;
@@ -35,6 +36,7 @@ public class Robot extends TimedRobot{
     // //processorArmSubsystem.periodic();
     // climbSubsystem.periodic();
     // wristSubsystem.periodic();
+    subsystemManager.getVisionSubsystem().periodic();
     subsystemManager.getWristSubsystem().periodic();
     subsystemManager.getElevatorSubsystem().periodic();
     subsystemManager.getSwerveSubsystem().periodic();

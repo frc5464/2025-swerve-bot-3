@@ -44,7 +44,7 @@ public class ElevatorSubsystem {
     SparkBaseConfig conf = new SparkMaxConfig();
     conf.openLoopRampRate(0.5);
     leftEl.configure(conf, null, null);
-    CanBridge.runTCP();
+    // CanBridge.runTCP();
   }
 
   //lasercan

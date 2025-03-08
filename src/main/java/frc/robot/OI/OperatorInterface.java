@@ -33,7 +33,7 @@ public class OperatorInterface {
         final WristSubsystem wrist = subsystemManager.getWristSubsystem();
         final ElevatorSubsystem elevator = subsystemManager.getElevatorSubsystem();
         final ClimbSubsystem climb = subsystemManager.getClimbSubsystem();
-        final ProcessorArmSubsystem processor = subsystemManager.getProcessorArmSubsystem();
+        // final ProcessorArmSubsystem processor = subsystemManager.getProcessorArmSubsystem();
         
         //Drive Controller
         driver.axisGreaterThan(2, 0.1).whileTrue(/*new PickupCommand(elevator, wrist), */new IntakeOutakeCommand(wrist, true));
@@ -50,8 +50,8 @@ public class OperatorInterface {
         driver.button(10).onTrue(new ManualModeCommand());
         drive.setDefaultCommand(new DriveCommand(drive, driver)); 
 
-        mineController.axisGreaterThan(2, 0.1).whileTrue(new ProcessorInt_OutCommand(processor, true));
-        mineController.axisGreaterThan(3, 0.1).whileTrue(new ProcessorRotCommand(processor, true));
+        // mineController.axisGreaterThan(2, 0.1).whileTrue(new ProcessorInt_OutCommand(processor, true));
+        // mineController.axisGreaterThan(3, 0.1).whileTrue(new ProcessorRotCommand(processor, true));
         mineController.axisGreaterThan(5, 0.1).whileTrue(new ClimbCommand(climb, true));
         mineController.axisLessThan(5, -0.1).whileTrue(new ClimbCommand(climb, false));
         
