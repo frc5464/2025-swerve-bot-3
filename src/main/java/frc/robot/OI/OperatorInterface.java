@@ -36,6 +36,7 @@ public class OperatorInterface {
         final ProcessorArmSubsystem processor = subsystemManager.getProcessorArmSubsystem();
         
         //Drive Controller
+        driver.axisGreaterThan(2, 0.1).whileTrue(/*new PickupCommand(elevator, wrist), */new IntakeOutakeCommand(wrist, true));
         driver.axisGreaterThan(2, 0.1).whileTrue(new PickupCommand(elevator, wrist));
         driver.button(5).whileTrue(new IntakeOutakeCommand(wrist, true));
         driver.axisGreaterThan(3, 0).whileTrue(new IntakeOutakeCommand(wrist, false));

@@ -31,6 +31,7 @@ public class DriveCommand extends Command{
         if(Math.abs(driveRot) < 0.1){ driveRot = 0;}
 
         swurv.drive(driveX, driveY, driveRot);
+        // System.out.println("driving yo");
     }
 
     @Override
