@@ -22,6 +22,7 @@ import edu.wpi.first.networktables.NetworkTablesJNI;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import java.awt.Desktop;
 import java.util.ArrayList;
@@ -62,30 +63,69 @@ private             Supplier<Pose2d>    currentPose;
  */
 private             Field2d             field2d;
 
+private PhotonCamera Shapey = new PhotonCamera("ScoringCamera");
 
+public double shapeX = 0;
+public double shapeY = 0;
+public boolean shapesPresent = false;
+
+public void periodic(){
+  
+  // This is the main method of the colored object detection
+  foundShape();
+
+
+  // Here is where all of our printouts are
+  SmartDashboard.putNumber("ReefX", shapeX);
+  SmartDashboard.putNumber("ReefY", shapeX);
+  SmartDashboard.putBoolean("Reef Detected", shapesPresent);
+}
+
+public void foundShape(){
+  // Had to use get(0) to get only the results from one pipeline
+  var shapeResults = Shapey.getAllUnreadResults();
+  
+  if(shapeResults.isEmpty()){
+    return;
+  }
+
+  var shapeResult = shapeResults.get(0);
+
+  // See if that pipeline has any valid targets according to our processing
+  shapesPresent = shapeResult.hasTargets();
+
+  // Do things with the best target if things exist
+  if(shapesPresent){
+    // Find the best target, and get the x and y of it relative to the screen center
+    PhotonTrackedTarget perfectTarget = shapeResult.getBestTarget();
+    shapeX = perfectTarget.getYaw();
+    shapeY = perfectTarget.getPitch();
+  }
+}
 /**
  * Constructor for the Vision class.
  *
  * @param currentPose Current pose supplier, should reference {@link SwerveDrive#getPose()}
  * @param field       Current field, should be {@link SwerveDrive#field}
  */
-public VisionSubsystem(Supplier<Pose2d> currentPose, Field2d field)
+// public VisionSubsystem(Supplier<Pose2d> currentPose, Field2d field)
+public VisionSubsystem()
 {
-  this.currentPose = currentPose;
-  this.field2d = field;
+  // this.currentPose = currentPose;
+  // this.field2d = field;
 
-  if (Robot.isSimulation())
-  {
-    visionSim = new VisionSystemSim("Vision");
-    visionSim.addAprilTags(fieldLayout);
+  // if (Robot.isSimulation())
+  // {
+  //   visionSim = new VisionSystemSim("Vision");
+  //   visionSim.addAprilTags(fieldLayout);
 
-    for (Cameras c : Cameras.values())
-    {
-      c.addToVisionSim(visionSim);
-    }
+  //   for (Cameras c : Cameras.values())
+  //   {
+  //     c.addToVisionSim(visionSim);
+  //   }
 
-    openSimCameraViews();
-  }
+  //   openSimCameraViews();
+  // }
 }
 
 /**
