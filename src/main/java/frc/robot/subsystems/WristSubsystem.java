@@ -13,6 +13,8 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
+
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class WristSubsystem {
@@ -42,12 +44,14 @@ public class WristSubsystem {
   private SparkMaxConfig intoutConfig;
   private SparkClosedLoopController closedLoopController;
   private RelativeEncoder encoder;
+  private AnalogInput nob;
 
   public WristSubsystem(){
     rotating = new SparkMax(7, MotorType.kBrushless);
     intakeOutake = new SparkMax(8, MotorType.kBrushless);
     closedLoopController = rotating.getClosedLoopController();
     encoder = rotating.getEncoder();
+    nob = new AnalogInput(0);
     
 
     /*
@@ -92,7 +96,7 @@ public class WristSubsystem {
   public void periodic(){
   SmartDashboard.putNumber("WristEncoder", encoder.getPosition());
   SmartDashboard.putNumber("IntakeCurrent", intakeOutake.getOutputCurrent());
-  
+  SmartDashboard.putNumber("pot", nob.getAverageVoltage());
   closedLoopController.setReference(targetPosition, ControlType.kPosition, ClosedLoopSlot.kSlot0);
   }
 
@@ -148,11 +152,5 @@ public class WristSubsystem {
   public void reBoot(){
     encoder.setPosition(0);
   }
-
-
-
-
-  
-
 
 }
