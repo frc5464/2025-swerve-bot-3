@@ -5,11 +5,16 @@ import frc.robot.subsystems.WristSubsystem;
 
 public class ZeroCommand extends Command{
     
-    
+        private WristSubsystem wristsubs;
     public ZeroCommand(WristSubsystem wrist){
-        wrist.reBoot();
+        this.wristsubs = wrist;
 
 
+    }
+
+    @Override
+    public void initialize() {
+        wristsubs.reBoot();
     }
 
     @Override
