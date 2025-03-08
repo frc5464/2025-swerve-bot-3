@@ -1,5 +1,9 @@
 
 package frc.robot;
+import java.io.WriteAbortedException;
+
+import com.pathplanner.lib.auto.NamedCommands;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -7,26 +11,63 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.utils.BlinkinLEDController;
 import frc.robot.utils.BlinkinLEDController.BlinkinPattern;
+import frc.robot.Commands.GyroReset;
+import frc.robot.Commands.IntakeOutakeCommand;
+import frc.robot.Commands.PickupCommand;
+import frc.robot.Commands.ToLevelCommand;
+import frc.robot.Commands.ZeroCommand;
 import frc.robot.OI.OperatorInterface;
+import frc.robot.subsystems.ClimbSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
+import frc.robot.subsystems.WristSubsystem;
 
 public class Robot extends TimedRobot{
   private Command m_autonomousCommand;
   private BlinkinLEDController leds = new BlinkinLEDController();
   private SubsystemManager subsystemManager;
+  private Command autonomousCommand;
 
-  public Robot(){}
+  //Commands to register in Path Planner
+  private IntakeOutakeCommand intakeOutakeCommand;
+  private ToLevelCommand toLevelCommand;
+  private ToLevelCommand toLevel1;
+  private ToLevelCommand toLevel2;
+  private ToLevelCommand toLevel3;
+  private ToLevelCommand toLevel4;
+  private PickupCommand pickupCommand;
+  private GyroReset gyroReset;
+  private ZeroCommand zeroCommand;
+
 
   @Override
   public void robotInit() {
     // m_robotContainer = new RobotContainer();
     subsystemManager = new SubsystemManager();
+    ElevatorSubsystem elevator = subsystemManager.getElevatorSubsystem();
+    WristSubsystem wrist = subsystemManager.getWristSubsystem();
+    //ClimbSubsystem climb = subsystemManager.getClimbSubsystem();
+
+    pickupCommand = new PickupCommand(elevator, wrist);
+    toLevel1 = new ToLevelCommand(elevator,1.0, wrist, 16);
+    toLevel2 = new ToLevelCommand(elevator, 2.0, wrist, 16);
+    toLevel3 = new ToLevelCommand(elevator, 3.0, wrist, 16);
+    toLevel4 = new ToLevelCommand(elevator, 4.0, wrist, 19);
+
+    NamedCommands.registerCommand("IntakeOutake", intakeOutakeCommand);
+    NamedCommands.registerCommand("ToLevelCommand", toLevelCommand);
+    NamedCommands.registerCommand("PickupCommand", pickupCommand);
+    NamedCommands.registerCommand("GyroReset", gyroReset);
+    NamedCommands.registerCommand("ZeroCommamnd", zeroCommand);
+
     OperatorInterface.create(subsystemManager);
     if (isSimulation())
     {
       DriverStation.silenceJoystickConnectionWarning(true);
     }
     leds.setPattern(BlinkinPattern.CONFETTI);
+
+    
   }
   
   @Override
@@ -40,6 +81,7 @@ public class Robot extends TimedRobot{
     subsystemManager.getWristSubsystem().periodic();
     subsystemManager.getElevatorSubsystem().periodic();
     subsystemManager.getSwerveSubsystem().periodic();
+    // subsystemManager.getProcessorArmSubsystem().periodic();
     // swerveSubsystem.periodic();
     SmartDashboard.putBoolean("manualMode", Universals.manualMode);}
   
@@ -56,8 +98,7 @@ public class Robot extends TimedRobot{
   public void autonomousInit()
   {
     // schedule the autonomous command (example)
-    if (m_autonomousCommand != null)
-    {
+    if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
   }
@@ -68,11 +109,9 @@ public class Robot extends TimedRobot{
   @Override
   public void teleopInit()
   {
-    if (m_autonomousCommand != null)
-    {
+    if (m_autonomousCommand != null){
       m_autonomousCommand.cancel();
-    } else
-    {
+    } else{
       CommandScheduler.getInstance().cancelAll();
     }
   }
