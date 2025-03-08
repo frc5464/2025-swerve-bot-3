@@ -21,6 +21,11 @@
           "open": true
         }
       },
+      "Talon FX (v6)[10]": {
+        "header": {
+          "open": true
+        }
+      },
       "Talon FX (v6)[2]/Rotor Sensor": {
         "header": {
           "open": true
@@ -135,6 +140,15 @@
     }
   },
   "NetworkTables Info": {
+    "Connections": {
+      "open": true
+    },
+    "Server": {
+      "Publishers": {
+        "open": true
+      },
+      "open": true
+    },
     "visible": true
   }
 }
