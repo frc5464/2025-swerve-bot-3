@@ -21,18 +21,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class WristSubsystem {
 
   
-  // SparkMaxConfig sparkMaxConfig;
-  // double kP = 0;
-  // double kI = 0;
-  // double kD = 0;
-  // double kIz = 0;
-  // double kFF = 0;
-  // double extMaxOutput = -0.2;
-  // double extMinOutput = 0.2;
-  // RelativeEncoder wristEncoder;
-  // public double wristencoderPos;
-  // public double counts;
-  // public int level = 0;
+  SparkMaxConfig sparkMaxConfig;
+  double kP = 0;
+  double kI = 0;
+  double kD = 0;
+  double kIz = 0;
+  double kFF = 0;
+  double extMaxOutput = -0.2;
+  double extMinOutput = 0.2;
+  RelativeEncoder wristEncoder;
+  public double wristencoderPos;
+  public double counts;
+  public int level = 0;
 
   public double targetPosition = 0.5;
 
@@ -44,7 +44,7 @@ public class WristSubsystem {
   private SparkMaxConfig rotConfig;
   private SparkMaxConfig intoutConfig;
   private SparkClosedLoopController closedLoopController;
-  private PIDController wristPID;
+  // private PIDController wristPID;
   private RelativeEncoder encoder;
   private AnalogInput nob;
   private double maxWristPower = 0.3;
@@ -53,7 +53,7 @@ public class WristSubsystem {
     rotating = new SparkMax(7, MotorType.kBrushless);
     intakeOutake = new SparkMax(8, MotorType.kBrushless);
     closedLoopController = rotating.getClosedLoopController();
-    wristPID = new PIDController(0.0001, 0, 0);
+    // wristPID = new PIDController(0.0001, 0, 0);
     encoder = rotating.getEncoder();
     nob = new AnalogInput(0);
     
@@ -69,14 +69,14 @@ public class WristSubsystem {
      * Configure the closed loop controller. We want to make sure we set the
      * feedback sensor as the primary encoder.
      */
-    // rotConfig.closedLoop
-    //     .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-    //     // Set PID values for position control. We don't need to pass a closed loop
-    //     // slot, as it will default to slot 0.
-    //     .p(0.3)
-    //     .i(0)
-    //     .d(0)
-    //     .outputRange(-0.3, 0.3);
+    rotConfig.closedLoop
+        .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+        // Set PID values for position control. We don't need to pass a closed loop
+        // slot, as it will default to slot 0.
+        .p(0.3)
+        .i(0)
+        .d(0)
+        .outputRange(-0.3, 0.3);
 
         intoutConfig.openLoopRampRate(0.5);
 
@@ -101,14 +101,14 @@ public class WristSubsystem {
   SmartDashboard.putNumber("WristEncoder", encoder.getPosition());
   SmartDashboard.putNumber("IntakeCurrent", intakeOutake.getOutputCurrent());
   SmartDashboard.putNumber("pot", nob.getValue());
-  //closedLoopController.setReference(targetPosition, ControlType.kPosition, ClosedLoopSlot.kSlot0);
+  closedLoopController.setReference(targetPosition, ControlType.kPosition, ClosedLoopSlot.kSlot0);
   }
 
-  public void wristPIDtolevel(){
-    if(nob.getValue() > 3000){
-      rotating.set((wristPID.calculate(nob.getValue(), targetPosition) * maxWristPower));
-    }
-  }
+  // public void wristPIDtolevel(){
+  //   if(nob.getValue() > 3000){
+  //     rotating.set((wristPID.calculate(nob.getValue(), targetPosition) * maxWristPower));
+  //   }
+  // }
 
   public double getIntOutCurrent(){
     return intakeOutake.getOutputCurrent();
@@ -127,16 +127,16 @@ public class WristSubsystem {
 
     // Get arm to Coral pickup position
   public void wristPickup(){
-    targetPosition = 3738    ;
+    targetPosition = 0.5    ;
   }
   
   //Get arm to Coral scoring position
   public void wristScore(){
-    targetPosition = 3910;
+    targetPosition = 16;
   }
 
   public void lvl4WristScore(){
-    targetPosition = 3933;
+    targetPosition = 19;
   }
 
   public void wristAlgae(){
@@ -154,13 +154,13 @@ public class WristSubsystem {
   }
   //Get arm to starting position
   public void wristStart(){
-    targetPosition = 3738;
+    targetPosition = 2;
   }
 
   
 
   public void reBoot(){
-    encoder.setPosition(3738);
+    encoder.setPosition(0);
   }
 
 }
