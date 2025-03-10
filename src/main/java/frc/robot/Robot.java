@@ -3,12 +3,14 @@ package frc.robot;
 import java.io.WriteAbortedException;
 
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.utils.BlinkinLEDController;
 import frc.robot.utils.BlinkinLEDController.BlinkinPattern;
 import frc.robot.Commands.GyroReset;
@@ -17,9 +19,10 @@ import frc.robot.Commands.PickupCommand;
 import frc.robot.Commands.ToLevelCommand;
 import frc.robot.Commands.ZeroCommand;
 import frc.robot.OI.OperatorInterface;
-import frc.robot.subsystems.ClimbSubsystem;
+// import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.VisionSubsystem;
+// import frc.robot.subsystems.SwerveSubsystem;
+// import frc.robot.subsystems.VisionSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 
 public class Robot extends TimedRobot{
@@ -107,6 +110,12 @@ public class Robot extends TimedRobot{
   @Override
   public void autonomousInit()
   {
+    SequentialCommandGroup auto = new SequentialCommandGroup();
+    auto.addCommands(new GyroReset(subsystemManager.getSwerveSubsystem()));
+    auto.addCommands(new PathPlannerAuto("B2_Left"));
+
+    m_autonomousCommand = auto;
+
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
