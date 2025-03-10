@@ -59,6 +59,11 @@ public class Robot extends TimedRobot{
     NamedCommands.registerCommand("PickupCommand", pickupCommand);
     NamedCommands.registerCommand("GyroReset", gyroReset);
     NamedCommands.registerCommand("ZeroCommamnd", zeroCommand);
+    NamedCommands.registerCommand("toLevel1", toLevel1);
+    NamedCommands.registerCommand("toLevel2", toLevel2);
+    NamedCommands.registerCommand("toLevel3", toLevel3);
+    NamedCommands.registerCommand("toLevel4", toLevel4);
+
 
     OperatorInterface.create(subsystemManager);
     if (isSimulation())
