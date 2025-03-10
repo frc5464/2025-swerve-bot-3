@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 5.85,
-        "y": 3.972713088283645
+        "y": 3.8689999999999993
       },
       "prevControl": null,
       "nextControl": {
         "x": 6.341495901639344,
-        "y": 2.3783483341852834
+        "y": 2.2746352459016377
       },
       "isLocked": false,
       "linkedName": "B2_R2"
@@ -55,7 +55,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -177.48324139506812
   },
   "useDefaultConstraints": true
 }

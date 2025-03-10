@@ -30,6 +30,8 @@ public class Robot extends TimedRobot{
 
   //Commands to register in Path Planner
   private IntakeOutakeCommand intakeOutakeCommand;
+  private IntakeOutakeCommand intakeCommand;
+  private IntakeOutakeCommand outakeCommand;
   private ToLevelCommand toLevelCommand;
   private ToLevelCommand toLevel1;
   private ToLevelCommand toLevel2;
@@ -53,8 +55,11 @@ public class Robot extends TimedRobot{
     toLevel2 = new ToLevelCommand(elevator, 2.0, wrist, 16);
     toLevel3 = new ToLevelCommand(elevator, 3.0, wrist, 16);
     toLevel4 = new ToLevelCommand(elevator, 4.0, wrist, 19);
-
+    intakeCommand = new IntakeOutakeCommand(wrist, true);
+    outakeCommand = new IntakeOutakeCommand(wrist, false);
     NamedCommands.registerCommand("IntakeOutake", intakeOutakeCommand);
+    NamedCommands.registerCommand("IntakeCommand", intakeCommand);
+    NamedCommands.registerCommand("OutakeCommand", outakeCommand);
     NamedCommands.registerCommand("ToLevelCommand", toLevelCommand);
     NamedCommands.registerCommand("PickupCommand", pickupCommand);
     NamedCommands.registerCommand("GyroReset", gyroReset);
