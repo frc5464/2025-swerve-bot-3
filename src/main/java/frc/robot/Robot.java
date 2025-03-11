@@ -7,12 +7,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.utils.BlinkinLEDController;
 import frc.robot.utils.BlinkinLEDController.BlinkinPattern;
 import frc.robot.Commands.GyroReset;
 import frc.robot.Commands.IntakeOutakeCommand;
 import frc.robot.Commands.PickupCommand;
 import frc.robot.Commands.ToLevelCommand;
+import frc.robot.Commands.WaitCommand;
 import frc.robot.Commands.ZeroCommand;
 import frc.robot.OI.OperatorInterface;
 // import frc.robot.subsystems.ClimbSubsystem;
@@ -85,8 +87,7 @@ public class Robot extends TimedRobot{
     NamedCommands.registerCommand("toLevel3", toLevel3);
     NamedCommands.registerCommand("toLevel4", toLevel4);
 
-    // auto_chooser.addOption("B2_Left", kB2_Left);
-    // auto_chooser.addOption("B2_Right", kB2_Right);
+
 
     wait_chooser.addOption("0Seconds", k0Seconds);
     wait_chooser.setDefaultOption("0Seconds", k0Seconds);
@@ -96,9 +97,12 @@ public class Robot extends TimedRobot{
     wait_chooser.addOption("4Seconds", k4Seconds);
     wait_chooser.addOption("5Seconds", k5Seconds);
     wait_chooser.addOption("k8Seconds", k8Seconds);
-
-    // SmartDashboard.putData("Auto choices", auto_chooser);
     SmartDashboard.putData("Wait choices", wait_chooser);
+
+    // auto_chooser.addOption("B2_Left", kB2_Left);
+    // auto_chooser.addOption("B2_Right", kB2_Right);
+    // SmartDashboard.putData("Auto choices", auto_chooser);
+    
 
     OperatorInterface.create(subsystemManager);
     if (isSimulation())
@@ -141,46 +145,41 @@ public class Robot extends TimedRobot{
 
     wait_selected = wait_chooser.getSelected();
 
-            switch(wait_selected){  
-                case k0Seconds:
-                Universals.wait = 0;
-                break;
+    switch(wait_selected){  
+        case k0Seconds:
+        Universals.wait = 0;
+        break;
 
-                case k1Seconds:
-                Universals.wait = 1;
-                break;
+        case k1Seconds:
+        Universals.wait = 1;
+        break;
 
-                case k2Seconds:
-                Universals.wait = 2;
-                break;
+        case k2Seconds:
+        Universals.wait = 2;
+        break;
 
-                case k3Seconds:
-                Universals.wait = 3;
-                break;
+        case k3Seconds:
+        Universals.wait = 3;
+        break;
 
-                default:
-                Universals.wait = 0;
-                break;
-            }
+        default:
+        Universals.wait = 0;
+        break;
+    }
 
-    // auto_selected = auto_chooser.getSelected();
-    // SequentialCommandGroup auto = new SequentialCommandGroup();
-    // // auto.addCommands(new GyroReset(subsystemManager.getSwerveSubsystem()));
-    // // auto.addCommands(new PathPlannerAuto(auto_selected)); // currently crashing?
-    // auto.addCommands(new PathPlannerAuto("C1_R1"));
-    // m_autonomousCommand = auto;
+    // Sequential grouping which crashes the code on the 2nd go through auto
+    // SequentialCommandGroup fullAuto = new SequentialCommandGroup();
+    // fullAuto.addCommands(new WaitCommand(Universals.wait));
+    // fullAuto.addCommands(m_robotContainer.getAutonomousCommand());
     // // schedule the autonomous command (example)
-    // if (m_autonomousCommand != null) {
-    //   System.out.println("sanity check");
-    //   m_autonomousCommand.schedule();
-    // }
+    // if (fullAuto != null) {
+    //   fullAuto.schedule();
+    // }    
 
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
-    // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
-    }    
+    }   
 
   }
 
