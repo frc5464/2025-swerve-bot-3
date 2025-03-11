@@ -1,17 +1,12 @@
 
 package frc.robot;
-import java.io.WriteAbortedException;
-
 import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
-
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.utils.BlinkinLEDController;
 import frc.robot.utils.BlinkinLEDController.BlinkinPattern;
 import frc.robot.Commands.GyroReset;
@@ -27,6 +22,8 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 
 public class Robot extends TimedRobot{
+
+  private RobotContainer m_robotContainer;
   private Command m_autonomousCommand;
   private BlinkinLEDController leds = new BlinkinLEDController();
   private SubsystemManager subsystemManager;
@@ -44,11 +41,11 @@ public class Robot extends TimedRobot{
   private GyroReset gyroReset;
   private ZeroCommand zeroCommand;
 
-  //Building the Autonomous Chooser
-  private String auto_selected;
-  private final SendableChooser<String> auto_chooser = new SendableChooser<>();
-  public static String kB2_Left;
-  public static String kB2_Right;
+  //Building the Autonomous Chooser (May be unnecessary with AutoBuilder)
+  // private String auto_selected;
+  // private final SendableChooser<String> auto_chooser = new SendableChooser<>();
+  // public static String kB2_Left;
+  // public static String kB2_Right;
 
   private String wait_selected;
   private final SendableChooser<String> wait_chooser = new SendableChooser<>();
@@ -62,8 +59,8 @@ public class Robot extends TimedRobot{
 
   @Override
   public void robotInit() {
-    // m_robotContainer = new RobotContainer();
     subsystemManager = new SubsystemManager();
+    
     ElevatorSubsystem elevator = subsystemManager.getElevatorSubsystem();
     WristSubsystem wrist = subsystemManager.getWristSubsystem();
     //ClimbSubsystem climb = subsystemManager.getClimbSubsystem();
@@ -88,10 +85,8 @@ public class Robot extends TimedRobot{
     NamedCommands.registerCommand("toLevel3", toLevel3);
     NamedCommands.registerCommand("toLevel4", toLevel4);
 
-    auto_chooser.addOption("B2_Left", kB2_Left);
-    auto_chooser.addOption("B2_Right", kB2_Right);
-
-    // SmartDashboard.putData("Auto choices", auto_chooser);
+    // auto_chooser.addOption("B2_Left", kB2_Left);
+    // auto_chooser.addOption("B2_Right", kB2_Right);
 
     wait_chooser.addOption("0Seconds", k0Seconds);
     wait_chooser.setDefaultOption("0Seconds", k0Seconds);
@@ -102,8 +97,8 @@ public class Robot extends TimedRobot{
     wait_chooser.addOption("5Seconds", k5Seconds);
     wait_chooser.addOption("k8Seconds", k8Seconds);
 
-    // SmartDashboard.putData("Wait choices", wait_chooser);
-
+    // SmartDashboard.putData("Auto choices", auto_chooser);
+    SmartDashboard.putData("Wait choices", wait_chooser);
 
     OperatorInterface.create(subsystemManager);
     if (isSimulation())
@@ -112,7 +107,7 @@ public class Robot extends TimedRobot{
     }
     leds.setPattern(BlinkinPattern.CONFETTI);
 
-    
+    m_robotContainer = new RobotContainer();
   }
   
   @Override
@@ -130,9 +125,6 @@ public class Robot extends TimedRobot{
     // swerveSubsystem.periodic();
     SmartDashboard.putBoolean("manualMode", Universals.manualMode);
 
-    SmartDashboard.putData("Auto choices", auto_chooser);
-    SmartDashboard.putData("Wait choices", wait_chooser);
-    
   }
   
   @Override
@@ -171,20 +163,25 @@ public class Robot extends TimedRobot{
                 break;
             }
 
-    auto_selected = auto_chooser.getSelected();
-    
+    // auto_selected = auto_chooser.getSelected();
+    // SequentialCommandGroup auto = new SequentialCommandGroup();
+    // // auto.addCommands(new GyroReset(subsystemManager.getSwerveSubsystem()));
+    // // auto.addCommands(new PathPlannerAuto(auto_selected)); // currently crashing?
+    // auto.addCommands(new PathPlannerAuto("C1_R1"));
+    // m_autonomousCommand = auto;
+    // // schedule the autonomous command (example)
+    // if (m_autonomousCommand != null) {
+    //   System.out.println("sanity check");
+    //   m_autonomousCommand.schedule();
+    // }
 
-    SequentialCommandGroup auto = new SequentialCommandGroup();
-    // auto.addCommands(new GyroReset(subsystemManager.getSwerveSubsystem()));
-    auto.addCommands(new PathPlannerAuto(auto_selected));
-
-    m_autonomousCommand = auto;
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
-      System.out.println("sanity check");
       m_autonomousCommand.schedule();
-    }
+    }    
+
   }
 
   @Override

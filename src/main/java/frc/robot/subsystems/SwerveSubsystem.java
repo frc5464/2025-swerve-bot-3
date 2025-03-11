@@ -203,7 +203,7 @@ public class SwerveSubsystem extends SubsystemBase{
     } catch (Exception e)
     {
       // Handle exception as needed
-      e.printStackTrace();
+      DriverStation.reportError("Failed to load PathPlanner config and configure AutoBuilder", e.getStackTrace());
     }
 
     //Preload PathPlanner Path finding
