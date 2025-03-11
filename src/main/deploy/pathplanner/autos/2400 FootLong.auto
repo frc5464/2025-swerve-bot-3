@@ -13,49 +13,37 @@
         {
           "type": "path",
           "data": {
-            "pathName": "R1_C1"
+            "pathName": "R1_L_C1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "C1_R1"
+            "pathName": "C1_R1_R"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "R1_C1_2"
+            "pathName": "R1_R_C1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "C1_R1"
+            "pathName": "C1_R6_L"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "The Master Part 6"
+            "pathName": "R6_L_C1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "The Master Part 7"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "The Master Part 8"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "The Master Part 9"
+            "pathName": "C1_R6_R"
           }
         }
       ]

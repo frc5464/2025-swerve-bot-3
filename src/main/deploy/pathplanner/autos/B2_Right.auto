@@ -19,19 +19,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "C1_R6"
+            "pathName": "C1_R6_L"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "R6_C1"
+            "pathName": "R6_L_C1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "C1_RightEndpoint"
+            "pathName": "C1_R6_R"
           }
         }
       ]

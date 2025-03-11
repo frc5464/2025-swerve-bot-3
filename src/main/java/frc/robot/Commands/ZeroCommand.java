@@ -9,7 +9,6 @@ public class ZeroCommand extends Command{
     private WristSubsystem wristsubs;
     private ClimbSubsystem climbsubs;
 
-
     public ZeroCommand(WristSubsystem wrist, ClimbSubsystem climb){
         wristsubs = wrist;
         climbsubs = climb;
