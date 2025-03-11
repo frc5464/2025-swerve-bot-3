@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.31375,
-        "y": 5.0584999999999996
+        "x": 3.8025,
+        "y": 5.18525
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.31375,
-        "y": 5.0584999999999996
+        "x": 3.01275,
+        "y": 6.76475
       },
       "isLocked": false,
-      "linkedName": "The Master Part 1 End"
+      "linkedName": "R6_L"
     },
     {
       "anchor": {
@@ -20,20 +20,15 @@
         "y": 7.262
       },
       "prevControl": {
-        "x": 3.0614999999999997,
-        "y": 7.58375
+        "x": 2.4277500000000005,
+        "y": 6.755
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "The Master Part 2 End"
+      "linkedName": "C1"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 1,
-      "rotationDegrees": 0.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -53,7 +48,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -120.00492087082397
+    "rotation": -59.34933204294706
   },
   "useDefaultConstraints": true
 }
