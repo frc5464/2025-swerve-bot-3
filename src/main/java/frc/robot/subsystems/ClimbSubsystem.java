@@ -10,10 +10,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ClimbSubsystem {
   
-  SparkMax climb = new SparkMax(2, MotorType.kBrushless);
+  SparkMax climber = new SparkMax(3, MotorType.kBrushless);
+
+  public RelativeEncoder climbEncoder;
+
+
+
+  private static final boolean ENABLED = true;
+
+
   SparkMaxConfig sparkMaxConfig3 = new SparkMaxConfig();
   // SparkClosedLoopController loopController = climb1.getClosedLoopController();
-  SparkClosedLoopController climbPID = climb.getClosedLoopController();
+  SparkClosedLoopController climbPID = climber.getClosedLoopController();
   double kP = 0;
   double kI = 0;
   double kD = 0;
@@ -21,43 +29,43 @@ public class ClimbSubsystem {
   double kFF = 0;
   double extMaxOutput = 0;
   double extMinOutput = 0;
-  RelativeEncoder climbEncoder;
+  
+
+
   public double climbEncoderPos;
   public double counts;
   
 
-  public ClimbSubsystem(){
+  public void initialize(){
+    climbEncoder = climber.getEncoder();
 
-    climbEncoder = climb.getEncoder();
-
-                                              
-
-    // sparkMaxConfig.closedLoop
-    //   .p(kP)
-    //   .i(kI)
-    //   .d(kD)
-    //   .outputRange(extMinOutput, extMaxOutput);
-  
-    //climb1.configure(sparkMaxConfig, null, null);    
+    climbEncoder.setPosition(0);
   }
 
-    public void periodic(){
-    climbEncoderPos = climbEncoder.getPosition();
+  public void periodic(){
+
     SmartDashboard.putNumber("ClimbEncoder", climbEncoderPos);
     //ClimbToLevel(0);
         //loopController.setReference(400, ControlType.kPosition );
         
+        climbEncoderPos = climbEncoder.getPosition();
     } 
     
-    public void bringOut(){
+    // @Override
+    public boolean isEnabled() {
+      return ENABLED;
+    }
 
-      climb.set(1);
+    
+
+    public void bringOut(){
+      climber.set(1);
     }
     public void bringIn(){
-      climb.set(-1);
+      climber.set(-1);
     }
     public void stop(){
-      climb.set(0);
+      climber.set(0);
     }
 
     public void reBoot(){

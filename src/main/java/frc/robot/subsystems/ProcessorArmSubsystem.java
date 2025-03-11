@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ProcessorArmSubsystem {
   
-  SparkMax processorRotater = new SparkMax(3, MotorType.kBrushless);
+  SparkMax processorRotater = new SparkMax(2, MotorType.kBrushless);
   SparkFlex processorint_out = new SparkFlex(4, MotorType.kBrushless);
   SparkMaxConfig sparkMaxConfig2 = new SparkMaxConfig();
   SparkClosedLoopController procRotPID = processorRotater.getClosedLoopController();
@@ -54,7 +54,7 @@ public class ProcessorArmSubsystem {
   public void outake(double axis3){
     processorint_out.set(-axis3);
   }
-  public void stoprot(){
+  public void stopInt_Out(){
     processorint_out.set(0);
   }
 

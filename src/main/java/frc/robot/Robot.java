@@ -1,88 +1,140 @@
 
 package frc.robot;
+import java.io.WriteAbortedException;
+
+import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.ClimbSubsystem;
-import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.SwerveSubsystem;
-import frc.robot.subsystems.WristSubsystem;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.utils.BlinkinLEDController;
 import frc.robot.utils.BlinkinLEDController.BlinkinPattern;
-import edu.wpi.first.wpilibj.Joystick;
+import frc.robot.Commands.GyroReset;
+import frc.robot.Commands.IntakeOutakeCommand;
+import frc.robot.Commands.PickupCommand;
+import frc.robot.Commands.ToLevelCommand;
+import frc.robot.Commands.ZeroCommand;
+import frc.robot.OI.OperatorInterface;
+// import frc.robot.subsystems.ClimbSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
+// import frc.robot.subsystems.SwerveSubsystem;
+// import frc.robot.subsystems.VisionSubsystem;
+import frc.robot.subsystems.WristSubsystem;
 
-import au.grapplerobotics.CanBridge;
-/**
- * The VM is configured to automatically run this class, and to call the functions corresponding to each mode, as
- * described in the TimedRobot documentation. If you change the name of this class or the package after creating this
- * project, you must also update the build.gradle file in the project.
- */
 public class Robot extends TimedRobot{
-  private final Joystick driveController;
-  private final Joystick mineController;
   private Command m_autonomousCommand;
-  private SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
-  private ClimbSubsystem climbSubsystem = new ClimbSubsystem();
-  private ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
-  //private processorArmSubsystem processorArmSubsystem = new ProcessorArmSubsystem();
-  private WristSubsystem wristSubsystem = new WristSubsystem();
   private BlinkinLEDController leds = new BlinkinLEDController();
-  // private Constants constants = new Constants();
-  
+  private SubsystemManager subsystemManager;
 
-  public Robot(){
-    CanBridge.runTCP();
-    // instance = this;
-    driveController = new Joystick(0);
-    mineController = new Joystick(1);
-  }
-  
-  boolean manualMode = false;
+  //Commands to register in Path Planner
+  private IntakeOutakeCommand intakeOutakeCommand;
+  private IntakeOutakeCommand intakeCommand;
+  private IntakeOutakeCommand outakeCommand;
+  private ToLevelCommand toLevelCommand;
+  private ToLevelCommand toLevel1;
+  private ToLevelCommand toLevel2;
+  private ToLevelCommand toLevel3;
+  private ToLevelCommand toLevel4;
+  private PickupCommand pickupCommand;
+  private GyroReset gyroReset;
+  private ZeroCommand zeroCommand;
+
+  //Building the Autonomous Chooser
+  private String auto_selected;
+  private final SendableChooser<String> auto_chooser = new SendableChooser<>();
+  public static String kB2_Left;
+  public static String kB2_Right;
+
+  private String wait_selected;
+  private final SendableChooser<String> wait_chooser = new SendableChooser<>();
+  private static final String k0Seconds = "0Seconds";
+  private static final String k1Seconds = "1Seconds";
+  private static final String k2Seconds = "2Seconds";
+  private static final String k3Seconds = "3Seconds";
+  private static final String k4Seconds = "4Seconds";
+  private static final String k5Seconds = "5Seconds";
+  private static final String k8Seconds = "8Seconds";
 
   @Override
   public void robotInit() {
-    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-    // autonomous chooser on the dashboard.
     // m_robotContainer = new RobotContainer();
+    subsystemManager = new SubsystemManager();
+    ElevatorSubsystem elevator = subsystemManager.getElevatorSubsystem();
+    WristSubsystem wrist = subsystemManager.getWristSubsystem();
+    //ClimbSubsystem climb = subsystemManager.getClimbSubsystem();
 
+    pickupCommand = new PickupCommand(elevator, wrist);
+    toLevel1 = new ToLevelCommand(elevator,1.0, wrist, 16);
+    toLevel2 = new ToLevelCommand(elevator, 2.0, wrist, 16);
+    toLevel3 = new ToLevelCommand(elevator, 3.0, wrist, 16);
+    toLevel4 = new ToLevelCommand(elevator, 4.0, wrist, 19);
+    intakeCommand = new IntakeOutakeCommand(wrist, true);
+    outakeCommand = new IntakeOutakeCommand(wrist, false);
+
+    NamedCommands.registerCommand("IntakeOutake", intakeOutakeCommand);
+    NamedCommands.registerCommand("IntakeCommand", intakeCommand);
+    NamedCommands.registerCommand("OutakeCommand", outakeCommand);
+    NamedCommands.registerCommand("ToLevelCommand", toLevelCommand);
+    NamedCommands.registerCommand("PickupCommand", pickupCommand);
+    NamedCommands.registerCommand("GyroReset", gyroReset);
+    NamedCommands.registerCommand("ZeroCommand", zeroCommand);
+    NamedCommands.registerCommand("toLevel1", toLevel1);
+    NamedCommands.registerCommand("toLevel2", toLevel2);
+    NamedCommands.registerCommand("toLevel3", toLevel3);
+    NamedCommands.registerCommand("toLevel4", toLevel4);
+
+    auto_chooser.addOption("B2_Left", kB2_Left);
+    auto_chooser.addOption("B2_Right", kB2_Right);
+
+    // SmartDashboard.putData("Auto choices", auto_chooser);
+
+    wait_chooser.addOption("0Seconds", k0Seconds);
+    wait_chooser.setDefaultOption("0Seconds", k0Seconds);
+    wait_chooser.addOption("1Seconds", k1Seconds);
+    wait_chooser.addOption("2Seconds", k2Seconds);
+    wait_chooser.addOption("3Seconds", k3Seconds);
+    wait_chooser.addOption("4Seconds", k4Seconds);
+    wait_chooser.addOption("5Seconds", k5Seconds);
+    wait_chooser.addOption("k8Seconds", k8Seconds);
+
+    // SmartDashboard.putData("Wait choices", wait_chooser);
+
+
+    OperatorInterface.create(subsystemManager);
     if (isSimulation())
     {
       DriverStation.silenceJoystickConnectionWarning(true);
     }
     leds.setPattern(BlinkinPattern.CONFETTI);
+
+    
   }
   
   @Override
   public void robotPeriodic(){
-    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
-    // commands, running already-scheduled commands, removing finished or interrupted commands,
-    // and running subsystem periodic() methods.  This must be called from the robot's periodic
-    // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    // elevatorSubsystem.periodic();
+    // //processorArmSubsystem.periodic();
+    // climbSubsystem.periodic();
+    // wristSubsystem.periodic();
+    // subsystemManager.getVisionSubsystem().periodic();
+    subsystemManager.getWristSubsystem().periodic();
+    subsystemManager.getElevatorSubsystem().periodic();
+    subsystemManager.getSwerveSubsystem().periodic();
+    // subsystemManager.getProcessorArmSubsystem().periodic();
+    // swerveSubsystem.periodic();
+    SmartDashboard.putBoolean("manualMode", Universals.manualMode);
 
-    elevatorSubsystem.periodic();
-    //processorArmSubsystem.periodic();
-    climbSubsystem.periodic();
-    wristSubsystem.periodic();
-
-    if(driveController.getRawButtonPressed(7)){
-      swerveSubsystem.zeroGyro();
-    }
-    if(driveController.getRawButtonPressed(8)){
-      wristSubsystem.reBoot();
-      // armSubsystem.reBoot();
-      climbSubsystem.reBoot();
-    }
-
-    //SmartDashboard.putNumber("null", m_robotDrive.imuReadingCache);
-    SmartDashboard.putBoolean("manualMode", manualMode);
+    SmartDashboard.putData("Auto choices", auto_chooser);
+    SmartDashboard.putData("Wait choices", wait_chooser);
+    
   }
-
-  /**
-   * This function is called once each time the robot enters Disabled mode.
-   */
+  
   @Override
   public void disabledInit()
   {
@@ -90,207 +142,80 @@ public class Robot extends TimedRobot{
   }
 
   @Override
-  public void disabledPeriodic()
-  {
+  public void disabledPeriodic(){}
 
-  }
-
-  /**
-   * This autonomous runs the autonomous command selected by your {@link RobotContainer} class.
-   */
   @Override
-  public void autonomousInit()
-  {
-    // m_robotContainer.setMotorBrake(true);
-    // m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+  public void autonomousInit(){
+
+    wait_selected = wait_chooser.getSelected();
+
+            switch(wait_selected){  
+                case k0Seconds:
+                Universals.wait = 0;
+                break;
+
+                case k1Seconds:
+                Universals.wait = 1;
+                break;
+
+                case k2Seconds:
+                Universals.wait = 2;
+                break;
+
+                case k3Seconds:
+                Universals.wait = 3;
+                break;
+
+                default:
+                Universals.wait = 0;
+                break;
+            }
+
+    auto_selected = auto_chooser.getSelected();
+    
+
+    SequentialCommandGroup auto = new SequentialCommandGroup();
+    // auto.addCommands(new GyroReset(subsystemManager.getSwerveSubsystem()));
+    auto.addCommands(new PathPlannerAuto(auto_selected));
+
+    m_autonomousCommand = auto;
 
     // schedule the autonomous command (example)
-    if (m_autonomousCommand != null)
-    {
+    if (m_autonomousCommand != null) {
+      System.out.println("sanity check");
       m_autonomousCommand.schedule();
     }
   }
 
-  /**
-   * This function is called periodically during autonomous.
-   */
   @Override
-  public void autonomousPeriodic()
-  {
-  }
+  public void autonomousPeriodic(){}
 
   @Override
-  public void teleopInit()
-  {
-    // This makes sure that the autonomous stops running when
-    // teleop starts running. If you want the autonomous to
-    // continue until interrupted by another command, remove
-    // this line or comment it out.
-    if (m_autonomousCommand != null)
-    {
+  public void teleopInit(){
+    if (m_autonomousCommand != null){
       m_autonomousCommand.cancel();
-    } else
-    {
+    } else{
       CommandScheduler.getInstance().cancelAll();
     }
-    // m_robotContainer.setDriveMode();
   }
 
-  /**
-   * This function is called periodically during operator control.
-   */
   @Override
   public void teleopPeriodic(){
-    
-    // double leftTriggerVal2 = mineController.getRawAxis(2);
-    // double rightTriggerVal2 = mineController.getRawAxis(3);
-
-    // introduce deadband to keep controller drift from causing issues
-    double driveX = driveController.getRawAxis(1);
-    double driveY = driveController.getRawAxis(0);
-    double driveRot = -driveController.getRawAxis(4);
-    if(Math.abs(driveX) < 0.1){ driveX = 0;}
-    if(Math.abs(driveY) < 0.1){ driveY = 0;}
-    if(Math.abs(driveRot) < 0.1){ driveRot = 0;}
-    
-    swerveSubsystem.drive(driveX, driveY, driveRot);
-
-  // climber
-  if(mineController.getRawButton(1)){
-      climbSubsystem.bringOut();
-  } else if(mineController.getRawButton(4)){
-    // climbSubsystem.openHand();
-    // if(climbSubsystem.climbEncoderPos < 589){
-      if(climbSubsystem.climbEncoderPos > 0){
-        climbSubsystem.bringIn();
-      }
-      else{
-        
-      }
-  } else{
-    climbSubsystem.stop();
-  }
-
-  // Processor Rotation
-  // if(mineController.getRawButton(5)){
-  //   if(processorArmSubsystem.procrotEncoderPos > 5){
-  //   processorArmSubsystem.downrot_procarm();}
-  // } else if(mineController.getRawButton(6)){
-  //   if(processorArmSubsystem.procrotEncoderPos < 559){
-  //     processorArmSubsystem.rot_procarm();
-  //   }
-  // } else {
-    
-  // }
-  
-  // // Processor Roll (Int_Out)
-  // if(mineController.getRawAxis(2) > 0.05){
-  //   processorArmSubsystem.intake(leftTriggerVal2);
-  // } else if(mineController.getRawAxis(3) > 0.05){
-  //   processorArmSubsystem.outake(rightTriggerVal2);
-  // } else {
-  //   processorArmSubsystem.stoprot();
-  // }
-
-  
-  // if(driveController.getPOV() == 0){
-  //   armSubsystem.armScore();
-  //   wristSubsystem.wristScore();
-  // }
-
-  // if(driveController.getRawButton(6)){
-  //   armSubsystem.armAlgae();
-  //   wristSubsystem.wristAlgae();
-  // }
-
-  //Elevator level selector
-  if(driveController.getRawButton(1)){
-    elevatorSubsystem.level = 1.0;
-    // armSubsystem.armScore();
-    wristSubsystem.wristScore();
-    leds.setPattern(BlinkinPattern.RED);
-  } else if(driveController.getRawButton(2)){
-    elevatorSubsystem.level = 2.0;
-    // armSubsystem.armAlgae();
-    wristSubsystem.wristScore();
-    leds.setPattern(BlinkinPattern.DARK_RED);
-  } else if(driveController.getRawButton(3)){
-    elevatorSubsystem.level = 3.0;
-    // armSubsystem.armScore();
-    wristSubsystem.wristScore();
-    leds.setPattern(BlinkinPattern.AQUA);
-  } else if(driveController.getRawButton(4)){
-    elevatorSubsystem.level = 4.0;
-    // armSubsystem.armScore();
-    wristSubsystem.lvl4WristScore();
-    leds.setPattern(BlinkinPattern.HOT_PINK);
-  }
-
-  // if(driveController.getRawButtonPressed(10) && (manualMode == false)){
-  //   manualMode = true;
-  // } else if(driveController.getRawButtonPressed(10) && (manualMode == true)){
-  //   manualMode = false;
-  // }
-  
-  if(driveController.getRawButtonPressed(10)){
-    if(manualMode == true){
-      manualMode = false;
-    } else {
-      manualMode = true;
-    }
-  } 
-  if(manualMode == true){
-    if(driveController.getRawButton(1)){
-      elevatorSubsystem.reverseElevate();
-    } else if(driveController.getRawButton(4)){
-      elevatorSubsystem.goElevate();
-    } else{
-      elevatorSubsystem.stopElevate();
-    }
-  } else {
-    elevatorSubsystem.elPIDToLevel();
-  }
-  
-  //Intake
-  if(driveController.getRawAxis(2) > 0.5){
-    wristSubsystem.intake(driveController.getRawAxis(2));
-    wristSubsystem.wristPickup();
-    elevatorSubsystem.level = 0.0;
-  }
-    else if(driveController.getRawAxis(3) > 0.5){
-    wristSubsystem.outake(driveController.getRawAxis(3));
-  } 
-  else if(driveController.getRawButton(5)){
-    wristSubsystem.intake(0.8);
-  }
-  else {
-    wristSubsystem.stop();
-  }
-
-  
  //  im programming im haker man i do haks yeahahahahahahahahhh im in the mainframe babyyyyyyyyyyyyyy*/
 }
 
   @Override
   public void testInit()
   {
-    // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
-    // m_robotContainer.setDriveMode(); 
   }
 
   @Override
-  public void testPeriodic()
-  {
-  }
+  public void testPeriodic(){}
 
   @Override
-  public void simulationInit()
-  {
-  }
+  public void simulationInit(){}
 
   @Override
-  public void simulationPeriodic()
-  {
-  }
+  public void simulationPeriodic(){}
 }

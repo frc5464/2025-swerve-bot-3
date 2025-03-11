@@ -1,5 +1,5 @@
-CANId 2: ClimbSubsystem.climb  Moves the Climber forward and backward
-CANId 3: ProcessorArmSubsystem.processorRotator  Rotates the processor arm
+CANId 3: ClimbSubsystem.climb  Moves the Climber forward and backward
+CANId 2: ProcessorArmSubsystem.processorRotator  Rotates the processor arm
 CANId 4: ProcessorArmSubsystem.processorint_out  Spins the processor to take in Algae or spit out an Algae
 CANId 5: ElevatorSubsystem.leftEl  The left elevator motor
 CANId 6: ElevatorSubsystem.rightEl  The right elevator motor

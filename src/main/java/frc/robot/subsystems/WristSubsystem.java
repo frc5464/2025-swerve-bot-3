@@ -13,52 +13,63 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
+
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class WristSubsystem {
 
-  // SparkMax armWrist = new SparkMax(7, MotorType.kBrushless);
-  // SparkMaxConfig sparkMaxConfig;
-  // double kP = 0;
-  // double kI = 0;
-  // double kD = 0;
-  // double kIz = 0;
-  // double kFF = 0;
-  // double extMaxOutput = -0.2;
-  // double extMinOutput = 0.2;
-  // RelativeEncoder wristEncoder;
-  // public double wristencoderPos;
-  // public double counts;
+  
+  SparkMaxConfig sparkMaxConfig;
+  double kP = 0;
+  double kI = 0;
+  double kD = 0;
+  double kIz = 0;
+  double kFF = 0;
+  double extMaxOutput = -0.2;
+  double extMinOutput = 0.2;
+  RelativeEncoder wristEncoder;
+  public double wristencoderPos;
+  public double counts;
   public int level = 0;
 
-  double targetPosition = 0.5;
+  public double targetPosition = 0.5;
 
   // private SparkMaxConfig motorConfig;
   // private SparkClosedLoopController closedLoopController;
 
-  private SparkMax motor;
-  private SparkMax motor2;
-  private SparkMaxConfig motorConfig;
+  private SparkMax rotating;
+  private SparkMax intakeOutake;
+  private SparkMaxConfig rotConfig;
+  private SparkMaxConfig intoutConfig;
   private SparkClosedLoopController closedLoopController;
+  // private PIDController wristPID;
   private RelativeEncoder encoder;
+  private AnalogInput nob;
+  private double maxWristPower = 0.3;
 
   public WristSubsystem(){
-    motor = new SparkMax(7, MotorType.kBrushless);
-    motor2 = new SparkMax(8, MotorType.kBrushless);
-    closedLoopController = motor.getClosedLoopController();
-    encoder = motor.getEncoder();
+    rotating = new SparkMax(7, MotorType.kBrushless);
+    intakeOutake = new SparkMax(8, MotorType.kBrushless);
+    closedLoopController = rotating.getClosedLoopController();
+    // wristPID = new PIDController(0.0001, 0, 0);
+    encoder = rotating.getEncoder();
+    nob = new AnalogInput(0);
+    
 
     /*
      * Create a new SPARK MAX configuration object. This will store the
      * configuration parameters for the SPARK MAX that we will set below.
      */
-    motorConfig = new SparkMaxConfig();
+    rotConfig = new SparkMaxConfig();
+    intoutConfig = new SparkMaxConfig();
 
     /*
      * Configure the closed loop controller. We want to make sure we set the
      * feedback sensor as the primary encoder.
      */
-    motorConfig.closedLoop
+    rotConfig.closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
         // Set PID values for position control. We don't need to pass a closed loop
         // slot, as it will default to slot 0.
@@ -66,6 +77,8 @@ public class WristSubsystem {
         .i(0)
         .d(0)
         .outputRange(-0.3, 0.3);
+
+        intoutConfig.openLoopRampRate(0.5);
 
     /*
      * Apply the configuration to the SPARK MAX.
@@ -77,8 +90,8 @@ public class WristSubsystem {
      * the SPARK MAX loses power. This is useful for power cycles that may occur
      * mid-operation.
      */
-    motor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
-
+    intakeOutake.configure(intoutConfig, null, null);
+    rotating.configure(rotConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
   }
 
 // used https://github.com/REVrobotics/REVLib-Examples/blob/main/Java/SPARK/Closed%20Loop%20Control/src/main/java/frc/robot/Robot.java as example
@@ -86,18 +99,30 @@ public class WristSubsystem {
 
   public void periodic(){
   SmartDashboard.putNumber("WristEncoder", encoder.getPosition());
+  SmartDashboard.putNumber("IntakeCurrent", intakeOutake.getOutputCurrent());
+  SmartDashboard.putNumber("pot", nob.getValue());
   closedLoopController.setReference(targetPosition, ControlType.kPosition, ClosedLoopSlot.kSlot0);
+  }
+
+  // public void wristPIDtolevel(){
+  //   if(nob.getValue() > 3000){
+  //     rotating.set((wristPID.calculate(nob.getValue(), targetPosition) * maxWristPower));
+  //   }
+  // }
+
+  public double getIntOutCurrent(){
+    return intakeOutake.getOutputCurrent();
   }
 
   //Flick of da wrist
   public void windUp(){
-    motor.set(0.2);
+    rotating.set(0.2);
   }
   public void windDown(){
-    motor.set(-0.2);
+    rotating.set(-0.2);
   }
   public void windStop(){
-    motor.set(0);
+    rotating.set(0);
   }
 
     // Get arm to Coral pickup position
@@ -111,21 +136,21 @@ public class WristSubsystem {
   }
 
   public void lvl4WristScore(){
-    targetPosition = 19;
+    targetPosition = 17;
   }
 
   public void wristAlgae(){
-    targetPosition = 25;
+    // targetPosition = 25; need new val
   }
   
   public void intake(double something){
-    motor2.set(something * 0.5);
+    intakeOutake.set(-something * 0.25);
   }
   public void outake(double something){
-    motor2.set(-something * 0.5);
+    intakeOutake.set(something * 0.5);
   }
   public void stop(){
-    motor2.set(0);
+    intakeOutake.set(0);
   }
   //Get arm to starting position
   public void wristStart(){
@@ -137,11 +162,5 @@ public class WristSubsystem {
   public void reBoot(){
     encoder.setPosition(0);
   }
-
-
-
-
-  
-
 
 }

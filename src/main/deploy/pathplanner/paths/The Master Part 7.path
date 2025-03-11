@@ -3,37 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.2089999999999999,
-        "y": 7.05725
+        "x": 1.33575,
+        "y": 7.13525
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.7432377049180328,
-        "y": 5.679303278688525
+        "x": 2.29125,
+        "y": 6.2285
       },
       "isLocked": false,
-      "linkedName": "R2_C1"
+      "linkedName": "The Master Part 6 End"
     },
     {
       "anchor": {
-        "x": 3.1287909836065575,
-        "y": 1.5675204918032797
+        "x": 3.6660000000000004,
+        "y": 5.0584999999999996
       },
       "prevControl": {
-        "x": 2.529405737704918,
-        "y": 1.4955942622950837
+        "x": 3.1005000000000003,
+        "y": 5.516749999999999
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "C1_EndPoint"
+      "linkedName": "The Master Part 7 End"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.07077169132347196,
-      "rotationDegrees": -86.97079424710516
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -47,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -3.3018656744351116
+    "rotation": -60.5304658185363
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -54.60520415501291
+    "rotation": -53.746162262555266
   },
   "useDefaultConstraints": true
 }

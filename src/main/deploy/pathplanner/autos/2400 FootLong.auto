@@ -1,0 +1,67 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "B1_R1_L"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "R1_C1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "C1_R1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "R1_C1_2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "C1_R1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "The Master Part 6"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "The Master Part 7"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "The Master Part 8"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "The Master Part 9"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

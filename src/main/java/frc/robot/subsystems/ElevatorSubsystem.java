@@ -8,10 +8,12 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
+import au.grapplerobotics.CanBridge;
 import au.grapplerobotics.ConfigurationFailedException;
 import au.grapplerobotics.LaserCan;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Universals;
 
 public class ElevatorSubsystem {
   private LaserCan laserCannon;
@@ -42,7 +44,7 @@ public class ElevatorSubsystem {
     SparkBaseConfig conf = new SparkMaxConfig();
     conf.openLoopRampRate(0.5);
     leftEl.configure(conf, null, null);
-
+    // CanBridge.runTCP();
   }
 
   //lasercan
@@ -80,6 +82,9 @@ public class ElevatorSubsystem {
     SmartDashboard.putNumber("ElTarget", targetPosition);
     SmartDashboard.putNumber("Offset", targetPosition - lasercanMeasurement);
 
+    if(Universals.manualMode == false){
+      elPIDToLevel();
+    }
 
     laserPeriodic();
   }
@@ -91,29 +96,30 @@ public class ElevatorSubsystem {
 
   public void reverseElevate(){
     leftEl.set(-0.20);
-    // rightEl.set(0.05);
+    // rightEl.set(0.05);hello
   }
 
   public void stopElevate(){
     leftEl.set(0);
     // rightEl.set(0);
   }
+  
   public void elPIDToLevel(){
     if(level == 0.0){
       targetPosition = 0;
     }
     if(level == 1.0){
-      targetPosition = 80;
+      targetPosition = 40;
     }
     
     if(level == 2.0){
-      targetPosition = 123;
+      targetPosition = 125;
     }
     if(level == 2.5){
       targetPosition = 478;
     }
     if(level == 3.0){
-      targetPosition = 280;
+      targetPosition = 310;
     }
 
     if(level == 4.0){
