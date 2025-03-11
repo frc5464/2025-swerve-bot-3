@@ -7,6 +7,7 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -44,6 +45,21 @@ public class Robot extends TimedRobot{
   private GyroReset gyroReset;
   private ZeroCommand zeroCommand;
 
+  //Building the Autonomous Chooser
+  private String auto_selected;
+  private final SendableChooser<String> auto_chooser = new SendableChooser<>();
+  public static String kB2_Left;
+  public static String kB2_Right;
+
+  private String wait_selected;
+  private final SendableChooser<String> wait_chooser = new SendableChooser<>();
+  private static final String k0Seconds = "0Seconds";
+  private static final String k1Seconds = "1Seconds";
+  private static final String k2Seconds = "2Seconds";
+  private static final String k3Seconds = "3Seconds";
+  private static final String k4Seconds = "4Seconds";
+  private static final String k5Seconds = "5Seconds";
+  private static final String k8Seconds = "8Seconds";
 
   @Override
   public void robotInit() {
@@ -60,6 +76,7 @@ public class Robot extends TimedRobot{
     toLevel4 = new ToLevelCommand(elevator, 4.0, wrist, 19);
     intakeCommand = new IntakeOutakeCommand(wrist, true);
     outakeCommand = new IntakeOutakeCommand(wrist, false);
+
     NamedCommands.registerCommand("IntakeOutake", intakeOutakeCommand);
     NamedCommands.registerCommand("IntakeCommand", intakeCommand);
     NamedCommands.registerCommand("OutakeCommand", outakeCommand);
@@ -71,6 +88,22 @@ public class Robot extends TimedRobot{
     NamedCommands.registerCommand("toLevel2", toLevel2);
     NamedCommands.registerCommand("toLevel3", toLevel3);
     NamedCommands.registerCommand("toLevel4", toLevel4);
+
+    auto_chooser.addOption("B2_Left", kB2_Left);
+    auto_chooser.addOption("B2_Right", kB2_Right);
+
+    // SmartDashboard.putData("Auto choices", auto_chooser);
+
+    wait_chooser.addOption("0Seconds", k0Seconds);
+    wait_chooser.setDefaultOption("0Seconds", k0Seconds);
+    wait_chooser.addOption("1Seconds", k1Seconds);
+    wait_chooser.addOption("2Seconds", k2Seconds);
+    wait_chooser.addOption("3Seconds", k3Seconds);
+    wait_chooser.addOption("4Seconds", k4Seconds);
+    wait_chooser.addOption("5Seconds", k5Seconds);
+    wait_chooser.addOption("k8Seconds", k8Seconds);
+
+    // SmartDashboard.putData("Wait choices", wait_chooser);
 
 
     OperatorInterface.create(subsystemManager);
@@ -96,7 +129,12 @@ public class Robot extends TimedRobot{
     subsystemManager.getSwerveSubsystem().periodic();
     // subsystemManager.getProcessorArmSubsystem().periodic();
     // swerveSubsystem.periodic();
-    SmartDashboard.putBoolean("manualMode", Universals.manualMode);}
+    SmartDashboard.putBoolean("manualMode", Universals.manualMode);
+
+    SmartDashboard.putData("Auto choices", auto_chooser);
+    SmartDashboard.putData("Wait choices", wait_chooser);
+    
+  }
   
   @Override
   public void disabledInit()
@@ -108,11 +146,38 @@ public class Robot extends TimedRobot{
   public void disabledPeriodic(){}
 
   @Override
-  public void autonomousInit()
-  {
+  public void autonomousInit(){
+
+    wait_selected = wait_chooser.getSelected();
+
+            switch(wait_selected){  
+                case k0Seconds:
+                Universals.wait = 0;
+                break;
+
+                case k1Seconds:
+                Universals.wait = 1;
+                break;
+
+                case k2Seconds:
+                Universals.wait = 2;
+                break;
+
+                case k3Seconds:
+                Universals.wait = 3;
+                break;
+
+                default:
+                Universals.wait = 0;
+                break;
+            }
+
+    auto_selected = auto_chooser.getSelected();
+    
+
     SequentialCommandGroup auto = new SequentialCommandGroup();
     auto.addCommands(new GyroReset(subsystemManager.getSwerveSubsystem()));
-    auto.addCommands(new PathPlannerAuto("B2_Left"));
+    auto.addCommands(new PathPlannerAuto(auto_selected));
 
     m_autonomousCommand = auto;
 
@@ -126,8 +191,7 @@ public class Robot extends TimedRobot{
   public void autonomousPeriodic(){}
 
   @Override
-  public void teleopInit()
-  {
+  public void teleopInit(){
     if (m_autonomousCommand != null){
       m_autonomousCommand.cancel();
     } else{
