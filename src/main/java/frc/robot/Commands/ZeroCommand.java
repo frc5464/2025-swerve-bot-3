@@ -1,15 +1,17 @@
 package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 
 public class ZeroCommand extends Command{
     
     private WristSubsystem wristsubs;
+    private ClimbSubsystem climbsubs;
 
-    public ZeroCommand(WristSubsystem wrist){
+    public ZeroCommand(WristSubsystem wrist, ClimbSubsystem climb){
         wristsubs = wrist;
-
+        climbsubs = climb;
 
     }
 
@@ -17,6 +19,7 @@ public class ZeroCommand extends Command{
     public void initialize() {
         System.out.println("A medium Hi-C");
         wristsubs.reBoot();
+        climbsubs.reBoot();
     }
 
     @Override

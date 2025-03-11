@@ -22,7 +22,11 @@ public class ClimbCommand extends Command{
     public void execute() {
         // System.out.println("climbing?!");
         if(m_climb == true){
-            climb.bringIn();
+            if(climb.climbEncoderPos >= 0){
+                climb.bringIn();
+            } else {
+                climb.stop();
+            }  
         } else{
             climb.bringOut();
         }
