@@ -12,20 +12,25 @@
         "y": 1.6154713114754098
       },
       "isLocked": false,
-      "linkedName": "R2_C2"
+      "linkedName": "C2"
     },
     {
       "anchor": {
-        "x": 3.7641393442622952,
-        "y": 2.7902663934426233
+        "x": 3.6855,
+        "y": 2.972
       },
       "prevControl": {
+<<<<<<< Updated upstream
         "x": 2.9249999999999994,
         "y": 2.1908811475409844
+=======
+        "x": 3.17002868852459,
+        "y": 2.0968975409836066
+>>>>>>> Stashed changes
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "C2_R4"
+      "linkedName": "R4_L"
     }
   ],
   "rotationTargets": [],

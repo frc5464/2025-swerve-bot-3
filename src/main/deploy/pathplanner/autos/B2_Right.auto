@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "B2_R2"
+            "pathName": "B2_R2_L"
           }
         },
         {
@@ -31,7 +31,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "C1_Endpoint"
+            "pathName": "C1_RightEndpoint"
           }
         }
       ]

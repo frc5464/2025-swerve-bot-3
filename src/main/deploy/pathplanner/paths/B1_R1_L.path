@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.85,
-        "y": 3.972713088283645
+        "x": 6.99075,
+        "y": 7.34975
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.341495901639344,
-        "y": 2.3783483341852834
+        "x": 6.054750000000001,
+        "y": 6.140750000000001
       },
       "isLocked": false,
-      "linkedName": "R2"
+      "linkedName": "B1_Angled"
     },
     {
       "anchor": {
-        "x": 1.2107581967213117,
-        "y": 1.0040983606557392
+        "x": 5.31375,
+        "y": 5.0584999999999996
       },
       "prevControl": {
-        "x": 1.6183401639344261,
-        "y": 1.2558401639344265
+        "x": 5.82075,
+        "y": 5.545999999999999
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "C2_L"
+      "linkedName": "R1_L"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "PickupCommand",
+      "name": "IntakeOutakeCommand",
       "waypointRelativePos": 0,
       "endWaypointRelativePos": null,
       "command": null
@@ -49,13 +49,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 53.55555824341288
+    "rotation": -125.70669140060288
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -134.23610153907003
   },
   "useDefaultConstraints": true
 }
