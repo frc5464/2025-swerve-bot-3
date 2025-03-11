@@ -82,7 +82,7 @@ public class Robot extends TimedRobot{
     NamedCommands.registerCommand("ToLevelCommand", toLevelCommand);
     NamedCommands.registerCommand("PickupCommand", pickupCommand);
     NamedCommands.registerCommand("GyroReset", gyroReset);
-    NamedCommands.registerCommand("ZeroCommamnd", zeroCommand);
+    NamedCommands.registerCommand("ZeroCommand", zeroCommand);
     NamedCommands.registerCommand("toLevel1", toLevel1);
     NamedCommands.registerCommand("toLevel2", toLevel2);
     NamedCommands.registerCommand("toLevel3", toLevel3);
@@ -175,13 +175,14 @@ public class Robot extends TimedRobot{
     
 
     SequentialCommandGroup auto = new SequentialCommandGroup();
-    auto.addCommands(new GyroReset(subsystemManager.getSwerveSubsystem()));
+    // auto.addCommands(new GyroReset(subsystemManager.getSwerveSubsystem()));
     auto.addCommands(new PathPlannerAuto(auto_selected));
 
     m_autonomousCommand = auto;
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
+      System.out.println("sanity check");
       m_autonomousCommand.schedule();
     }
   }

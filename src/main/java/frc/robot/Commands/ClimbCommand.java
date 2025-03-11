@@ -15,11 +15,12 @@ public class ClimbCommand extends Command{
 
     @Override
     public void initialize() {
-        
+        // System.out.println("climbing?");
     }
 
     @Override
     public void execute() {
+        // System.out.println("climbing?!");
         if(m_climb == true){
             climb.bringIn();
         } else{

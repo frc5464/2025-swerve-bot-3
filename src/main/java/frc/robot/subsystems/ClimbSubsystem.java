@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ClimbSubsystem {
   
-  SparkMax climber = new SparkMax(2, MotorType.kBrushless);
+  SparkMax climber = new SparkMax(3, MotorType.kBrushless);
 
   public RelativeEncoder climbEncoder;
 
