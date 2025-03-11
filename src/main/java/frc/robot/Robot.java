@@ -30,7 +30,6 @@ public class Robot extends TimedRobot{
   private Command m_autonomousCommand;
   private BlinkinLEDController leds = new BlinkinLEDController();
   private SubsystemManager subsystemManager;
-  private Command autonomousCommand;
 
   //Commands to register in Path Planner
   private IntakeOutakeCommand intakeOutakeCommand;
@@ -123,7 +122,7 @@ public class Robot extends TimedRobot{
     // //processorArmSubsystem.periodic();
     // climbSubsystem.periodic();
     // wristSubsystem.periodic();
-    subsystemManager.getVisionSubsystem().periodic();
+    // subsystemManager.getVisionSubsystem().periodic();
     subsystemManager.getWristSubsystem().periodic();
     subsystemManager.getElevatorSubsystem().periodic();
     subsystemManager.getSwerveSubsystem().periodic();

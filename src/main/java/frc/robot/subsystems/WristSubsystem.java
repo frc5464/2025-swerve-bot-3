@@ -136,7 +136,7 @@ public class WristSubsystem {
   }
 
   public void lvl4WristScore(){
-    targetPosition = 19;
+    targetPosition = 17;
   }
 
   public void wristAlgae(){

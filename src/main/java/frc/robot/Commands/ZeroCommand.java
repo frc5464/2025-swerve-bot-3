@@ -5,15 +5,17 @@ import frc.robot.subsystems.WristSubsystem;
 
 public class ZeroCommand extends Command{
     
-        private WristSubsystem wristsubs;
+    private WristSubsystem wristsubs;
+
     public ZeroCommand(WristSubsystem wrist){
-        this.wristsubs = wrist;
+        wristsubs = wrist;
 
 
     }
 
     @Override
     public void initialize() {
+        System.out.println("A medium Hi-C");
         wristsubs.reBoot();
     }
 
@@ -29,6 +31,11 @@ public class ZeroCommand extends Command{
 
     @Override
     public boolean isFinished() {
+        return true;
+    }
+
+    @Override
+    public boolean runsWhenDisabled(){
         return true;
     }
 }

@@ -73,6 +73,7 @@ public class SwerveSubsystem extends SubsystemBase{
     }
 
     public void zeroGyro(){
+        System.out.println("BREADED SHRIMP FROM CULVERS");
         swerveDrive.zeroGyro();
     }
 

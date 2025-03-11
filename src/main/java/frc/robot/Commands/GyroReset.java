@@ -5,16 +5,18 @@ import frc.robot.subsystems.SwerveSubsystem;
 
 public class GyroReset extends Command{
     // private final Runnable reset;
-    
+    SwerveSubsystem swerve;
 
     public GyroReset(SwerveSubsystem swerveSubsystem) {
-        swerveSubsystem.zeroGyro();
+        System.out.println("A side of fries");
+        swerve = swerveSubsystem;
     
     }
 
     @Override
     public void initialize() {
-        // reset.run();
+        System.out.println("Two scoop custard with butterfinger");
+        swerve.zeroGyro();
     }
 
     @Override
@@ -24,6 +26,11 @@ public class GyroReset extends Command{
 
     @Override
     public boolean isFinished() {
+        return true;
+    }
+
+    @Override
+    public boolean runsWhenDisabled(){
         return true;
     }
 }

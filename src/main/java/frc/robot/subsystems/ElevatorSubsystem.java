@@ -113,13 +113,13 @@ public class ElevatorSubsystem {
     }
     
     if(level == 2.0){
-      targetPosition = 100;
+      targetPosition = 125;
     }
     if(level == 2.5){
       targetPosition = 478;
     }
     if(level == 3.0){
-      targetPosition = 290;
+      targetPosition = 310;
     }
 
     if(level == 4.0){

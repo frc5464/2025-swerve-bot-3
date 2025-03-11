@@ -13,14 +13,14 @@ public class SubsystemManager {
     private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
     private final ClimbSubsystem climbSubsystem = new ClimbSubsystem();
     // private final ProcessorArmSubsystem processorArmSubsystem = new ProcessorArmSubsystem();
-    private final VisionSubsystem visionSubsystem = new VisionSubsystem();
+    // private final VisionSubsystem visionSubsystem = new VisionSubsystem();
     public SubsystemManager() {
         // swerveSubsystem.();
     }
 
-    public VisionSubsystem getVisionSubsystem() {
-        return visionSubsystem;
-    }
+    // public VisionSubsystem getVisionSubsystem() {
+    //     return visionSubsystem;
+    // }
 
     public SwerveSubsystem getSwerveSubsystem() {
         return swerveSubsystem;
