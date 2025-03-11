@@ -1,10 +1,6 @@
 
 package frc.robot;
-import java.io.WriteAbortedException;
-
 import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
-
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -18,6 +14,7 @@ import frc.robot.Commands.GyroReset;
 import frc.robot.Commands.IntakeOutakeCommand;
 import frc.robot.Commands.PickupCommand;
 import frc.robot.Commands.ToLevelCommand;
+import frc.robot.Commands.WaitCommand;
 import frc.robot.Commands.ZeroCommand;
 import frc.robot.OI.OperatorInterface;
 // import frc.robot.subsystems.ClimbSubsystem;
@@ -27,6 +24,8 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 
 public class Robot extends TimedRobot{
+
+  private RobotContainer m_robotContainer;
   private Command m_autonomousCommand;
   private BlinkinLEDController leds = new BlinkinLEDController();
   private SubsystemManager subsystemManager;
@@ -44,11 +43,11 @@ public class Robot extends TimedRobot{
   private GyroReset gyroReset;
   private ZeroCommand zeroCommand;
 
-  //Building the Autonomous Chooser
-  private String auto_selected;
-  private final SendableChooser<String> auto_chooser = new SendableChooser<>();
-  public static String kB2_Left;
-  public static String kB2_Right;
+  //Building the Autonomous Chooser (May be unnecessary with AutoBuilder)
+  // private String auto_selected;
+  // private final SendableChooser<String> auto_chooser = new SendableChooser<>();
+  // public static String kB2_Left;
+  // public static String kB2_Right;
 
   private String wait_selected;
   private final SendableChooser<String> wait_chooser = new SendableChooser<>();
@@ -62,8 +61,8 @@ public class Robot extends TimedRobot{
 
   @Override
   public void robotInit() {
-    // m_robotContainer = new RobotContainer();
     subsystemManager = new SubsystemManager();
+    
     ElevatorSubsystem elevator = subsystemManager.getElevatorSubsystem();
     WristSubsystem wrist = subsystemManager.getWristSubsystem();
     //ClimbSubsystem climb = subsystemManager.getClimbSubsystem();
@@ -88,10 +87,7 @@ public class Robot extends TimedRobot{
     NamedCommands.registerCommand("toLevel3", toLevel3);
     NamedCommands.registerCommand("toLevel4", toLevel4);
 
-    auto_chooser.addOption("B2_Left", kB2_Left);
-    auto_chooser.addOption("B2_Right", kB2_Right);
 
-    // SmartDashboard.putData("Auto choices", auto_chooser);
 
     wait_chooser.addOption("0Seconds", k0Seconds);
     wait_chooser.setDefaultOption("0Seconds", k0Seconds);
@@ -101,9 +97,12 @@ public class Robot extends TimedRobot{
     wait_chooser.addOption("4Seconds", k4Seconds);
     wait_chooser.addOption("5Seconds", k5Seconds);
     wait_chooser.addOption("k8Seconds", k8Seconds);
+    SmartDashboard.putData("Wait choices", wait_chooser);
 
-    // SmartDashboard.putData("Wait choices", wait_chooser);
-
+    // auto_chooser.addOption("B2_Left", kB2_Left);
+    // auto_chooser.addOption("B2_Right", kB2_Right);
+    // SmartDashboard.putData("Auto choices", auto_chooser);
+    
 
     OperatorInterface.create(subsystemManager);
     if (isSimulation())
@@ -112,7 +111,7 @@ public class Robot extends TimedRobot{
     }
     leds.setPattern(BlinkinPattern.CONFETTI);
 
-    
+    m_robotContainer = new RobotContainer();
   }
   
   @Override
@@ -130,9 +129,6 @@ public class Robot extends TimedRobot{
     // swerveSubsystem.periodic();
     SmartDashboard.putBoolean("manualMode", Universals.manualMode);
 
-    SmartDashboard.putData("Auto choices", auto_chooser);
-    SmartDashboard.putData("Wait choices", wait_chooser);
-    
   }
   
   @Override
@@ -149,42 +145,42 @@ public class Robot extends TimedRobot{
 
     wait_selected = wait_chooser.getSelected();
 
-            switch(wait_selected){  
-                case k0Seconds:
-                Universals.wait = 0;
-                break;
+    switch(wait_selected){  
+        case k0Seconds:
+        Universals.wait = 0;
+        break;
 
-                case k1Seconds:
-                Universals.wait = 1;
-                break;
+        case k1Seconds:
+        Universals.wait = 1;
+        break;
 
-                case k2Seconds:
-                Universals.wait = 2;
-                break;
+        case k2Seconds:
+        Universals.wait = 2;
+        break;
 
-                case k3Seconds:
-                Universals.wait = 3;
-                break;
+        case k3Seconds:
+        Universals.wait = 3;
+        break;
 
-                default:
-                Universals.wait = 0;
-                break;
-            }
-
-    auto_selected = auto_chooser.getSelected();
-    
-
-    SequentialCommandGroup auto = new SequentialCommandGroup();
-    // auto.addCommands(new GyroReset(subsystemManager.getSwerveSubsystem()));
-    auto.addCommands(new PathPlannerAuto(auto_selected));
-
-    m_autonomousCommand = auto;
-
-    // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      System.out.println("sanity check");
-      m_autonomousCommand.schedule();
+        default:
+        Universals.wait = 0;
+        break;
     }
+
+    // Sequential grouping which crashes the code on the 2nd go through auto
+    // SequentialCommandGroup fullAuto = new SequentialCommandGroup();
+    // fullAuto.addCommands(new WaitCommand(Universals.wait));
+    // fullAuto.addCommands(m_robotContainer.getAutonomousCommand());
+    // // schedule the autonomous command (example)
+    // if (fullAuto != null) {
+    //   fullAuto.schedule();
+    // }    
+
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.schedule();
+    }   
+
   }
 
   @Override
