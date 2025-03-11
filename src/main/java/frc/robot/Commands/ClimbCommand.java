@@ -26,6 +26,7 @@ public class ClimbCommand extends Command{
         } else{
             climb.bringOut();
         }
+        //why it no work
     }
 
     @Override 
