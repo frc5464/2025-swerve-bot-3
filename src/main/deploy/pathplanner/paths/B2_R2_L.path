@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.527868150684932,
-        "y": 3.972410102739726
+        "x": 7.636168032786885,
+        "y": 3.972713088283645
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.257405821917809,
-        "y": 3.9573844178082194
+        "x": 6.9225,
+        "y": 3.9762499999999994
       },
       "isLocked": false,
       "linkedName": "B2"
     },
     {
       "anchor": {
-        "x": 6.130479452054795,
-        "y": 3.867230308219178
+        "x": 5.85,
+        "y": 3.972713088283645
       },
       "prevControl": {
-        "x": 6.385916095890411,
-        "y": 3.882255993150685
+        "x": 6.591000000000001,
+        "y": 3.9762499999999994
       },
       "nextControl": null,
       "isLocked": false,
@@ -29,23 +29,22 @@
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
     {
-      "name": "Constraints Zone",
-      "minWaypointRelativePos": 0,
-      "maxWaypointRelativePos": 1.0,
-      "constraints": {
-        "maxVelocity": 0.75,
-        "maxAcceleration": 3.0,
-        "maxAngularVelocity": 540.0,
-        "maxAngularAcceleration": 720.0,
-        "nominalVoltage": 12.0,
-        "unlimited": false
-      }
+      "name": "toLevel4",
+      "waypointRelativePos": 0.8481572481572527,
+      "endWaypointRelativePos": null,
+      "command": null
+    },
+    {
+      "name": "OutakeCommand",
+      "waypointRelativePos": 1.0,
+      "endWaypointRelativePos": null,
+      "command": null
     }
   ],
-  "pointTowardsZones": [],
-  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -56,13 +55,17 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -178.40885972880545
+<<<<<<< Updated upstream:src/main/deploy/pathplanner/paths/B2_R2.path
+    "rotation": -179.10482628978895
+=======
+    "rotation": 180.0
+>>>>>>> Stashed changes:src/main/deploy/pathplanner/paths/B2_R2_L.path
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 178.09084756700364
+    "rotation": -178.36037238838006
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }
