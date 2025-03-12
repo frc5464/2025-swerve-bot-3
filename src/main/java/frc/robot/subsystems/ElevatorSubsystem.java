@@ -21,8 +21,8 @@ public class ElevatorSubsystem {
   SparkMax rightEl = new SparkMax(6, MotorType.kBrushless); //right follows Left
   SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
   // SparkClosedLoopController elPID = leftEl.getClosedLoopController();
-  double kP = 0;
-  double kI = 0;
+  double kP = 0.04;
+  double kI = 10e-2;
   double kD = 0;
   double kIz = 0;
   double kFF = 0;
@@ -38,13 +38,17 @@ public class ElevatorSubsystem {
   double maxElevatorPower = 0.05;
 
   public ElevatorSubsystem(){
-    elevatorPid = new PIDController(0.04, 10e-2, 0);
+    elevatorPid = new PIDController(kP, kI, kD);
+    
     leftelEncoder = leftEl.getEncoder();
     laserInit();
     SparkBaseConfig conf = new SparkMaxConfig();
     conf.openLoopRampRate(0.5);
     leftEl.configure(conf, null, null);
     // CanBridge.runTCP();
+    SmartDashboard.putNumber("elP", kP);
+    SmartDashboard.putNumber("elI", kP);
+    SmartDashboard.putNumber("elD", kP);
   }
 
   //lasercan
@@ -75,12 +79,35 @@ public class ElevatorSubsystem {
     }
   }
 
+  private void checkForPidChanges(){
+    double newP = SmartDashboard.getNumber("elP", -1);
+    double newI = SmartDashboard.getNumber("elI", -1);
+    double newD = SmartDashboard.getNumber("elD", -1);
+    if(newP != kP){
+      kP = newP;
+      elevatorPid.setP(newP);
+      System.out.println("New P parameter!");
+    }
+    if(newI != kI){
+      kI = newI;
+      elevatorPid.setI(newI);
+      System.out.println("New I parameter!");
+    }
+    if(newD != kD){
+      kD = newD;
+      elevatorPid.setD(newD);
+      System.out.println("New D parameter!");
+    }
+  }
+
   public void periodic(){
     elencoderPos = leftelEncoder.getPosition();
     SmartDashboard.putNumber("ElEncoder", elencoderPos);
     SmartDashboard.putNumber("ElLaser", lasercanMeasurement);
     SmartDashboard.putNumber("ElTarget", targetPosition);
-    SmartDashboard.putNumber("Offset", targetPosition - lasercanMeasurement);
+    SmartDashboard.putNumber("ElError", targetPosition - lasercanMeasurement);
+
+    checkForPidChanges();
 
     if(Universals.manualMode == false){
       elPIDToLevel();
