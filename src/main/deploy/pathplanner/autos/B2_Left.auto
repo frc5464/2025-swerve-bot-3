@@ -5,9 +5,28 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "B2_R2_L"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "B2_R2_L"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "toLevel4"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "OutakeCommand"
           }
         },
         {

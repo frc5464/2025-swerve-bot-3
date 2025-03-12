@@ -31,8 +31,6 @@ public class Robot extends TimedRobot{
   private BlinkinLEDController leds = new BlinkinLEDController();
   private SubsystemManager subsystemManager;
 
-  //Commands to register in Path Planner
-  private IntakeOutakeCommand intakeOutakeCommand;
   private IntakeOutakeCommand intakeCommand;
   private IntakeOutakeCommand outakeCommand;
   private ToLevelCommand toLevelCommand;
@@ -75,8 +73,6 @@ public class Robot extends TimedRobot{
     toLevel4 = new ToLevelCommand(elevator, 4.0, wrist, 19);
     intakeCommand = new IntakeOutakeCommand(wrist, true);
     outakeCommand = new IntakeOutakeCommand(wrist, false);
-
-    NamedCommands.registerCommand("IntakeOutake", intakeOutakeCommand);
     NamedCommands.registerCommand("IntakeCommand", intakeCommand);
     NamedCommands.registerCommand("OutakeCommand", outakeCommand);
     NamedCommands.registerCommand("ToLevelCommand", toLevelCommand);
