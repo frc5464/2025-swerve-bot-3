@@ -35,10 +35,8 @@ public class ClimbSubsystem {
   public double climbEncoderPos;
   public double counts;
   
-
-  public void initialize(){
+  public ClimbSubsystem(){
     climbEncoder = climber.getEncoder();
-
     climbEncoder.setPosition(0);
   }
 

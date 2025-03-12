@@ -47,8 +47,8 @@ public class ElevatorSubsystem {
     leftEl.configure(conf, null, null);
     // CanBridge.runTCP();
     SmartDashboard.putNumber("elP", kP);
-    SmartDashboard.putNumber("elI", kP);
-    SmartDashboard.putNumber("elD", kP);
+    SmartDashboard.putNumber("elI", kI);
+    SmartDashboard.putNumber("elD", kD);
   }
 
   //lasercan
@@ -83,6 +83,7 @@ public class ElevatorSubsystem {
     double newP = SmartDashboard.getNumber("elP", -1);
     double newI = SmartDashboard.getNumber("elI", -1);
     double newD = SmartDashboard.getNumber("elD", -1);
+    // System.out.println(newP);
     if(newP != kP){
       kP = newP;
       elevatorPid.setP(newP);
