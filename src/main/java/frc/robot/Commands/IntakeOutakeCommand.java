@@ -43,10 +43,16 @@ public class IntakeOutakeCommand extends Command {
         //     return true;
         // }
 
-        // This should cause autonomous to only spit out game pieces for a half second
+        // This should cause autonomous to only spit out game pieces for a bit
         if((timer.get() > 0.5) && RobotState.isAutonomous() && (!m_intake)){
             return true;
         }
+
+         // This should cause autonomous to only intake game pieces for a bit
+        else if((timer.get() > 1.5) && RobotState.isAutonomous() && m_intake){
+            return true;
+        }
+        
         return false;
     }
 }
