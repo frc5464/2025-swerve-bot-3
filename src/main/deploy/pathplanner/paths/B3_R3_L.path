@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.9585000000000004,
-        "y": 5.26325
+        "x": 7.064150943389703,
+        "y": 1.3966391509485232
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.1882500000000005,
-        "y": 5.858
+        "x": 6.229422169804797,
+        "y": 2.0106132075522978
       },
       "isLocked": false,
-      "linkedName": "The Master Part 5 End"
+      "linkedName": "B3"
     },
     {
       "anchor": {
-        "x": 1.33575,
-        "y": 7.13525
+        "x": 4.966981132068949,
+        "y": 2.831544811325882
       },
       "prevControl": {
-        "x": 2.2327500000000002,
-        "y": 6.86225
+        "x": 5.54646226414442,
+        "y": 2.42452830189192
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "The Master Part 6 End"
+      "linkedName": "R3_L"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -53.746162262555266
+    "rotation": 28.95099520746682
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -59.29867545714025
+    "rotation": 35.323728900652206
   },
   "useDefaultConstraints": true
 }

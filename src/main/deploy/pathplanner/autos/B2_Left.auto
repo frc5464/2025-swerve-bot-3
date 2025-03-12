@@ -49,6 +49,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "IntakeCommand"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
@@ -90,6 +96,12 @@
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeCommand"
           }
         },
         {

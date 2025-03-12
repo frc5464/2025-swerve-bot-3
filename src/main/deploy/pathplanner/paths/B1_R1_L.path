@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.054750000000001,
-        "y": 6.140750000000001
+        "x": 6.298408018867925,
+        "y": 6.39121462264151
       },
       "isLocked": false,
       "linkedName": "B1_Angled"
@@ -20,8 +20,8 @@
         "y": 5.077999999999999
       },
       "prevControl": {
-        "x": 5.791500000000001,
-        "y": 5.565499999999999
+        "x": 5.760318396226415,
+        "y": 5.666863207547169
       },
       "nextControl": null,
       "isLocked": false,
@@ -31,14 +31,7 @@
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "IntakeOutakeCommand",
-      "waypointRelativePos": 0,
-      "endWaypointRelativePos": null,
-      "command": null
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 1.5,
     "maxAcceleration": 2.0,

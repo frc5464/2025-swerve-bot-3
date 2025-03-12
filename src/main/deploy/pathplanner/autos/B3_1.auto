@@ -11,7 +11,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "B2_R2_L"
+                  "pathName": "B3_R3_L"
                 }
               },
               {
@@ -36,7 +36,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "R2_C1"
+                  "pathName": "R3_L_C2"
                 }
               },
               {
@@ -61,7 +61,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "C1_R6_L"
+                  "pathName": "C2_R3_R"
                 }
               },
               {
@@ -86,7 +86,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "R6_L_C1"
+                  "pathName": "R3_R_C2"
                 }
               },
               {
@@ -111,7 +111,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "C1_R6_R"
+                  "pathName": "C2_R4_L"
                 }
               },
               {

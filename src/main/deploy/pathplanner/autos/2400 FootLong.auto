@@ -5,45 +5,178 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "B1_R1_L"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "B1_R1_L"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "toLevel4"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "R1_L_C1"
+            "name": "OutakeCommand"
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "C1_R1_R"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "R1_L_C1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "PickupCommand"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "R1_R_C1"
+            "name": "IntakeCommand"
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "C1_R6_L"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "C1_R1_R"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "toLevel4"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "R6_L_C1"
+            "name": "OutakeCommand"
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "C1_R6_R"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "R1_R_C1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "PickupCommand"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeCommand"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "C1_R6_L"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "toLevel4"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "OutakeCommand"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "R6_L_C1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "PickupCommand"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeCommand"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "C1_R6_R"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "toLevel4"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "OutakeCommand"
           }
         }
       ]
