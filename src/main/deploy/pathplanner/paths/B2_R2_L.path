@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.636168032786885,
-        "y": 3.972713088283645
+        "x": 7.588380681818182,
+        "y": 3.8355397727272718
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.9225,
-        "y": 3.9762499999999994
+        "x": 6.950198863636363,
+        "y": 3.8355397727272718
       },
       "isLocked": false,
       "linkedName": "B2"
     },
     {
       "anchor": {
-        "x": 5.85,
-        "y": 3.972713088283645
+        "x": 5.793494318181818,
+        "y": 3.8355397727272718
       },
       "prevControl": {
-        "x": 6.591000000000001,
-        "y": 3.9762499999999994
+        "x": 6.371846590909091,
+        "y": 3.8355397727272718
       },
       "nextControl": null,
       "isLocked": false,
@@ -31,23 +31,10 @@
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "toLevel4",
-      "waypointRelativePos": 0.8481572481572527,
-      "endWaypointRelativePos": null,
-      "command": null
-    },
-    {
-      "name": "OutakeCommand",
-      "waypointRelativePos": 1.0,
-      "endWaypointRelativePos": null,
-      "command": null
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 1.5,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -55,17 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-<<<<<<< Updated upstream:src/main/deploy/pathplanner/paths/B2_R2.path
-    "rotation": -179.10482628978895
-=======
-    "rotation": 180.0
->>>>>>> Stashed changes:src/main/deploy/pathplanner/paths/B2_R2_L.path
+    "rotation": 90.0
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -178.36037238838006
+    "rotation": 90.0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

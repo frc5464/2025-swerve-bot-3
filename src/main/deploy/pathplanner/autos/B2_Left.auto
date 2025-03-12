@@ -7,31 +7,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": null
+            "pathName": "B2_R2_L"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "R2_C2"
+            "pathName": "R2_L_C2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": null
+            "pathName": "C2_R4_L"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "R4_C2"
+            "pathName": "R4_L_C2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "C2_LeftEndPoint"
+            "pathName": "C2_R4_R"
           }
         }
       ]
