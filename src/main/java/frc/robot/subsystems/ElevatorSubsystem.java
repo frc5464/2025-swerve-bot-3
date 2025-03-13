@@ -22,7 +22,7 @@ public class ElevatorSubsystem {
   SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
   // SparkClosedLoopController elPID = leftEl.getClosedLoopController();
   double kP = 0.04;
-  double kI = 10e-2;
+  double kI = 10e-3;
   double kD = 0;
   double kIz = 0;
   double kFF = 0;
@@ -137,21 +137,21 @@ public class ElevatorSubsystem {
       targetPosition = 0;
     }
     if(level == 1.0){
-      targetPosition = 40;
+      targetPosition = 80;
     }
     
     if(level == 2.0){
-      targetPosition = 125;
+      targetPosition = 147;
     }
     if(level == 2.5){
       targetPosition = 478;
     }
     if(level == 3.0){
-      targetPosition = 310;
+      targetPosition = 342;
     }
 
     if(level == 4.0){
-      targetPosition  = 697;
+      targetPosition  = 720;
     }
     if(laserOk){
       leftEl.set((elevatorPid.calculate(lasercanMeasurement,targetPosition) * maxElevatorPower));
