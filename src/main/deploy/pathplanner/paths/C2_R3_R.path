@@ -21,7 +21,7 @@
       },
       "prevControl": {
         "x": 3.966686320754717,
-        "y": 2.3417452830188674
+        "y": 2.341745283018867
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,7 +45,7 @@
     "rotation": 29.142274485165785
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Right Score",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -36.099884167622776

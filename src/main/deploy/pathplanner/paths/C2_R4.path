@@ -8,29 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0379098360655736,
-        "y": 1.6154713114754098
+        "x": 2.1983537092624026,
+        "y": 1.6732671276707194
       },
       "isLocked": false,
       "linkedName": "C2"
     },
     {
       "anchor": {
-        "x": 3.6855,
-        "y": 2.972
+        "x": 3.9886363636363638,
+        "y": 2.8084659090909088
       },
       "prevControl": {
-<<<<<<< Updated upstream
-        "x": 2.9249999999999994,
-        "y": 2.1908811475409844
-=======
-        "x": 3.17002868852459,
-        "y": 2.0968975409836066
->>>>>>> Stashed changes
+        "x": 3.5109608859499573,
+        "y": 2.4993193299714975
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "R4_L"
+      "linkedName": "R4_R"
     }
   ],
   "rotationTargets": [],
@@ -38,8 +33,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 1.5,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -47,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 58.86102756302111
+    "rotation": -29.744881296942285
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Test Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 53.55555824341288
+    "rotation": -36.099884167622776
   },
   "useDefaultConstraints": true
 }

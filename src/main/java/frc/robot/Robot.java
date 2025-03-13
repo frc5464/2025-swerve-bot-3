@@ -73,6 +73,7 @@ public class Robot extends TimedRobot{
     toLevel4 = new ToLevelCommand(elevator, 4.0, wrist, 19);
     intakeCommand = new IntakeOutakeCommand(wrist, true);
     outakeCommand = new IntakeOutakeCommand(wrist, false);
+    
     NamedCommands.registerCommand("IntakeCommand", intakeCommand);
     NamedCommands.registerCommand("OutakeCommand", outakeCommand);
     NamedCommands.registerCommand("ToLevelCommand", toLevelCommand);
