@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.99075,
-        "y": 7.34975
+        "x": 7.566,
+        "y": 7.223
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.298408018867925,
-        "y": 6.39121462264151
+        "x": 6.873658018867925,
+        "y": 6.264464622641509
       },
       "isLocked": false,
       "linkedName": "B1_Angled"
@@ -48,7 +48,7 @@
   "folder": "Barge Starts",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 145.75066388582033
+    "rotation": 90.0
   },
   "useDefaultConstraints": true
 }

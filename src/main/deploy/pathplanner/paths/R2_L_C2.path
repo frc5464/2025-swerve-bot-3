@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.793494318181818,
-        "y": 3.8355397727272718
+        "x": 5.7525,
+        "y": 3.6545
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.284990219821162,
-        "y": 2.24117501862891
+        "x": 6.2439959016393445,
+        "y": 2.0601352459016384
       },
       "isLocked": false,
       "linkedName": "R2_L"
     },
     {
       "anchor": {
-        "x": 1.2107581967213117,
-        "y": 1.0040983606557392
+        "x": 0.92625,
+        "y": 0.6807499999999993
       },
       "prevControl": {
-        "x": 1.6183401639344261,
-        "y": 1.2558401639344265
+        "x": 1.333831967213114,
+        "y": 0.9324918032786859
       },
       "nextControl": null,
       "isLocked": false,
@@ -52,7 +52,7 @@
     "rotation": -36.099884167622776
   },
   "reversed": false,
-  "folder": "To Coral Station",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": 90.0

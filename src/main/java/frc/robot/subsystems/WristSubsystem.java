@@ -135,10 +135,6 @@ public class WristSubsystem {
     targetPosition = 16;
   }
 
-  public void lvl4WristScore(){
-    targetPosition = 17;
-  }
-
   public void wristAlgae(){
     // targetPosition = 25; need new val
   }
