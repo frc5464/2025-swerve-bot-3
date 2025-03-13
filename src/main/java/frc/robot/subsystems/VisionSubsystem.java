@@ -66,9 +66,9 @@ private             Field2d             field2d;
 
 
 private PhotonCamera Shapey = new PhotonCamera("AprilTagsCamera");
-private static double Height = 0.5;
-private static double Width = 0.0;
-private static double z = 0.5;
+private static double Height = 9.375;
+private static double Width = 9.875;
+private static double z = 8;
 
 Transform3d camOnRobot = new Transform3d(new Translation3d(Height, Width, z), new Rotation3d(0,0,0));
 
