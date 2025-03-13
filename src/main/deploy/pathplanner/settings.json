@@ -5,9 +5,9 @@
   "pathFolders": [
     "Barge Starts",
     "Left Score",
-    "Coral Station",
     "Right Score",
-    "Test Paths"
+    "Test Paths",
+    "To Coral Station"
   ],
   "autoFolders": [],
   "defaultMaxVel": 1.5,

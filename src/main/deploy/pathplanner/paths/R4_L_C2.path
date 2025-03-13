@@ -20,7 +20,7 @@
         "y": 1.0040983606557392
       },
       "prevControl": {
-        "x": 1.9843465909090907,
+        "x": 1.9843465909090905,
         "y": 1.5640331594634902
       },
       "nextControl": null,
@@ -45,7 +45,7 @@
     "rotation": -36.099884167622776
   },
   "reversed": false,
-  "folder": null,
+  "folder": "To Coral Station",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -29.744881296942285
