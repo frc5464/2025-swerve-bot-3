@@ -18,6 +18,7 @@ import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -48,6 +49,7 @@ public class SwerveSubsystem extends SubsystemBase{
             throw new RuntimeException(e);
             }
 
+            setupPhotonVision();
             setupPathPlanner();
     }
 
@@ -87,13 +89,13 @@ public class SwerveSubsystem extends SubsystemBase{
   /**
    * Enable vision odometry updates while driving.
    */
-  private final boolean     visionDriveTest = false;
+  private final boolean     visionDriveTest = true;
   /**
    * Setup the photon vision class.
    */
   public void setupPhotonVision()
   {
-    // vision = new VisionSubsystem(swerveDrive::getPose, swerveDrive.field);
+    vision = new VisionSubsystem(swerveDrive::getPose, swerveDrive.field);
   }
 
   /**
@@ -218,6 +220,7 @@ public class SwerveSubsystem extends SubsystemBase{
    */
   public Pose2d getPose()
   {
+    swerveDrive.addVisionMeasurement(new Pose2d(3, 3, Rotation2d.fromDegrees(65)), Timer.getFPGATimestamp());
     return swerveDrive.getPose();
   }
 
