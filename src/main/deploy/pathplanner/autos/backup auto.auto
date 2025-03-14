@@ -5,9 +5,22 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "backup"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "backup"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "toLevel2"
+                }
+              }
+            ]
           }
         }
       ]
