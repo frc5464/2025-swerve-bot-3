@@ -48,15 +48,16 @@ public class OperatorInterface {
         
         driver.button(7).onTrue(new GyroReset(drive));
         driver.button(8).onTrue(new ZeroCommand(wrist,climb));
-        driver.button(10).onTrue(new ManualModeCommand());
-        driver.pov(0).whileTrue(new ManualElevatorCommand(elevator, true));
-        driver.pov(180).whileTrue(new ManualElevatorCommand(elevator, false));
+        
         drive.setDefaultCommand(new DriveCommand(drive, driver)); 
 
         // mineController.axisGreaterThan(2, 0.1).whileTrue(new ProcessorInt_OutCommand(processor, true));
         // mineController.axisGreaterThan(3, 0.1).whileTrue(new ProcessorRotCommand(processor, true));
         mineController.axisGreaterThan(5, 0.1).whileTrue(new ClimbCommand(climb, false));
         mineController.axisLessThan(5, -0.1).whileTrue(new ClimbCommand(climb, true));
+        mineController.button(5).onTrue(new ManualModeCommand());
+        mineController.pov(0).whileTrue(new ManualElevatorCommand(elevator, true));
+        mineController.pov(180).whileTrue(new ManualElevatorCommand(elevator, false));
         
         
         
