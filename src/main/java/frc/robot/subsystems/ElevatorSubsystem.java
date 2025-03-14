@@ -36,7 +36,8 @@ public class ElevatorSubsystem {
   boolean laserOk = false;
   PIDController elevatorPid;
   double maxElevatorPower = 0.05;
-
+  double laser;
+  double encoder;
   public ElevatorSubsystem(){
     elevatorPid = new PIDController(kP, kI, kD);
     
@@ -131,7 +132,13 @@ public class ElevatorSubsystem {
     leftEl.set(0);
     // rightEl.set(0);
   }
-  
+    public boolean emergencyStop(double laser, double encoder){
+      if(laser < 80 && encoder > 50){
+        return true;
+      } else {
+        return false;
+      }
+    }
   public void elPIDToLevel(){
     if(level == 0.0){
       targetPosition = 0;
@@ -154,7 +161,13 @@ public class ElevatorSubsystem {
       targetPosition  = 720;
     }
     if(laserOk){
-      leftEl.set((elevatorPid.calculate(lasercanMeasurement,targetPosition) * maxElevatorPower));
+      if(emergencyStop(lasercanMeasurement, elencoderPos)){
+        stopElevate();
+      } else {
+        leftEl.set((elevatorPid.calculate(elencoderPos * 11.7,targetPosition) * maxElevatorPower));
+      }
+      //leftEl.set((elevatorPid.calculate(lasercanMeasurement,targetPosition) * maxElevatorPower));
+      
     }
     else{
       leftEl.set(0);
