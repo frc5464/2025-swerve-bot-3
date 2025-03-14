@@ -111,7 +111,7 @@ public class ElevatorSubsystem {
 
     checkForPidChanges();
     
-    if(lasercanMeasurement > 15){
+    if(lasercanMeasurement < 15){
       Universals.zoom = true;
     } else {
       Universals.zoom = false;
