@@ -110,7 +110,12 @@ public class ElevatorSubsystem {
     SmartDashboard.putNumber("ElError", targetPosition - lasercanMeasurement);
 
     checkForPidChanges();
-
+    
+    if(lasercanMeasurement > 15){
+      Universals.zoom = true;
+    } else {
+      Universals.zoom = false;
+    }
     if(Universals.manualMode == false){
       elPIDToLevel();
     }

@@ -29,6 +29,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Universals;
 import frc.robot.subsystems.VisionSubsystem.Cameras;
 import swervelib.SwerveController;
 import swervelib.SwerveDrive;
@@ -67,9 +68,13 @@ public class SwerveSubsystem extends SubsystemBase{
       }
     }
 
-    // TODO: Detemine if this is still necessary based on other things added on 3/6
     public void drive(double x, double y, double z){
-        swerveDrive.drive(new Translation2d(x * 1.5,y * 1.5),z * 3, true, false);
+      if(Universals.zoom){
+        swerveDrive.drive(new Translation2d(x * 3,y * 3),z * 3.5, true, false);
+      } else {
+        swerveDrive.drive(new Translation2d(x * 1,y * 1),z * 3, true, false);
+      }
+        
     }
 
     public void zeroGyro(){
