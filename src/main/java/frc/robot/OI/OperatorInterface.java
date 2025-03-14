@@ -47,7 +47,7 @@ public class OperatorInterface {
         driver.button(4).onTrue(new ToLevelCommand(elevator, 4, wrist, 17.5));
         
         driver.button(7).onTrue(new GyroReset(drive));
-        driver.button(8).onTrue(new ZeroCommand(wrist,climb));
+        driver.button(8).onTrue(new ZeroCommand(wrist, climb, elevator));
         
         drive.setDefaultCommand(new DriveCommand(drive, driver)); 
 

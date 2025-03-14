@@ -178,4 +178,8 @@ public class ElevatorSubsystem {
       leftEl.set(0);
     }
   }
+
+  public void reBoot(){
+    leftelEncoder.setPosition(0);
+  }
 }
