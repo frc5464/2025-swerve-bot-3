@@ -22,7 +22,7 @@ public class ManualModeCommand extends Command{
 
     @Override
     public boolean isFinished(){
-        return true;
+        return false;
     }
 
     @Override
