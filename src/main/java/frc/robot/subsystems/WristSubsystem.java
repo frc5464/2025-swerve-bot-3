@@ -140,7 +140,7 @@ public class WristSubsystem {
   }
   
   public void intake(double something){
-    intakeOutake.set(-something * 0.25);
+    intakeOutake.set(-something * 0.35);
   }
   public void outake(double something){
     intakeOutake.set(something * 0.5);
