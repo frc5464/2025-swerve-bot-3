@@ -42,9 +42,9 @@ public class OperatorInterface {
         driver.button(5).whileTrue(new IntakeOutakeCommand(wrist, true));
         driver.axisGreaterThan(3, 0).whileTrue(new IntakeOutakeCommand(wrist, false));
         driver.button(1).onTrue(new ToLevelCommand(elevator, 1, wrist, 16));
-        driver.button(2).onTrue(new ToLevelCommand(elevator, 2, wrist, 16));
-        driver.button(3).onTrue(new ToLevelCommand(elevator, 3, wrist, 16));
-        driver.button(4).onTrue(new ToLevelCommand(elevator, 4, wrist, 17.5));
+        driver.button(2).onTrue(new ToLevelCommand(elevator, 2, wrist, 18));
+        driver.button(3).onTrue(new ToLevelCommand(elevator, 3, wrist, 18));
+        driver.button(4).onTrue(new ToLevelCommand(elevator, 4, wrist, 19));
         
         driver.button(7).onTrue(new GyroReset(drive));
         driver.button(8).onTrue(new ZeroCommand(wrist, climb, elevator));

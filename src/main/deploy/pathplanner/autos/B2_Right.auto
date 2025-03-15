@@ -5,7 +5,7 @@
     "data": {
       "commands": [
         {
-          "type": "parallel",
+          "type": "sequential",
           "data": {
             "commands": [
               {
@@ -17,16 +17,22 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "toLevel2"
+                  "name": "toLevel4"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 2.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "OutakeCommand"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "OutakeCommand"
           }
         },
         {
@@ -55,7 +61,7 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "sequential",
           "data": {
             "commands": [
               {
@@ -67,16 +73,22 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "toLevel2"
+                  "name": "toLevel4"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 2.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "OutakeCommand"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "OutakeCommand"
           }
         },
         {
@@ -105,7 +117,7 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "sequential",
           "data": {
             "commands": [
               {
@@ -117,16 +129,22 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "toLevel2"
+                  "name": "toLevel4"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 2.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "OutakeCommand"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "OutakeCommand"
           }
         }
       ]
