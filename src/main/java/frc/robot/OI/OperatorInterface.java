@@ -11,6 +11,7 @@ import frc.robot.Commands.ManualModeCommand;
 import frc.robot.Commands.PickupCommand;
 import frc.robot.Commands.ProcessorInt_OutCommand;
 import frc.robot.Commands.ProcessorRotCommand;
+import frc.robot.Commands.SlowModeCommand;
 import frc.robot.Commands.ToLevelCommand;
 import frc.robot.Commands.ZeroCommand;
 import frc.robot.subsystems.ClimbSubsystem;
@@ -58,9 +59,10 @@ public class OperatorInterface {
         mineController.button(5).whileTrue(new ManualModeCommand());
         mineController.pov(0).whileTrue(new ManualElevatorCommand(elevator, true));
         mineController.pov(180).whileTrue(new ManualElevatorCommand(elevator, false));
-        
-        
-        
+
+        mineController.button(1).whileTrue(new BrakeCommand(drive));
+        mineController.button(2).whileTrue(new SlowModeCommand());
+
     }
 
         private OperatorInterface(){
