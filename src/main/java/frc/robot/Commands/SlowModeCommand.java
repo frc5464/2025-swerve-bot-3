@@ -3,16 +3,17 @@ package frc.robot.Commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Universals;
 
-public class ManualModeCommand extends Command{
+public class SlowModeCommand extends Command{
     @Override
     public void initialize() {
-        Universals.manualMode = true;
+        // Enable slow mode while a button on the op controller is pressed
+        Universals.slowMode = true;
     }
 
     @Override
     public void end(boolean interrupted) {
-        Universals.manualMode = false;
-        System.out.println("manualModeCommand_finished");
+        // When button is released, turn off slow mode
+        Universals.slowMode = false;
     }
 
     @Override
