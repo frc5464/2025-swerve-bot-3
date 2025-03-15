@@ -226,10 +226,6 @@ public class SwerveSubsystem extends SubsystemBase{
     return swerveDrive.getPose();
   }
 
-  public void lockpose(){
-    swerveDrive.lockPose();
-  }
-
   /**
    * Resets odometry to the given pose. Gyro angle and module positions do not need to be reset when calling this
    * method.  However, if either gyro angle or module position is reset, this must be called in order for odometry to

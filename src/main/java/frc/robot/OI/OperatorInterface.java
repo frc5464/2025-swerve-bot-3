@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.SubsystemManager;
 import frc.robot.Commands.IntakeOutakeCommand;
 import frc.robot.Commands.ManualElevatorCommand;
-import frc.robot.Commands.BrakeCommand;
 import frc.robot.Commands.ClimbCommand;
 import frc.robot.Commands.DriveCommand;
 import frc.robot.Commands.GyroReset;
@@ -59,8 +58,9 @@ public class OperatorInterface {
         mineController.button(5).whileTrue(new ManualModeCommand());
         mineController.pov(0).whileTrue(new ManualElevatorCommand(elevator, true));
         mineController.pov(180).whileTrue(new ManualElevatorCommand(elevator, false));
-        mineController.button(1).whileTrue(new BrakeCommand(drive));
-
+        
+        
+        
     }
 
         private OperatorInterface(){
