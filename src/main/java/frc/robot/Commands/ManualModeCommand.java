@@ -7,6 +7,11 @@ public class ManualModeCommand extends Command{
     @Override
     public void initialize() {
         Universals.manualMode = true;
+        // if(Universals.manualMode == true){
+        //     Universals.manualMode = false;
+        // } else {
+        //     Universals.manualMode = true;
+        // }
     }
 
     @Override

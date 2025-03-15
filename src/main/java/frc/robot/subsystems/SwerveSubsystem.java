@@ -69,10 +69,7 @@ public class SwerveSubsystem extends SubsystemBase{
     }
 
     public void drive(double x, double y, double z){
-      if(Universals.slowMode){
-        swerveDrive.drive(new Translation2d(x * 1,y * 1),z * 2.5, true, false);
-      }      
-      else if(Universals.zoom){
+      if(Universals.zoom){
         swerveDrive.drive(new Translation2d(x * 3,y * 3),z * 3.5, true, false);
       } else {
         swerveDrive.drive(new Translation2d(x * 1,y * 1),z * 3, true, false);
