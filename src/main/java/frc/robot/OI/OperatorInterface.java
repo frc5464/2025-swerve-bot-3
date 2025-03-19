@@ -41,13 +41,13 @@ public class OperatorInterface {
         //Drive Controller
         driver.axisGreaterThan(2, 0.1).whileTrue(new IntakeOutakeCommand(wrist, true));
         driver.axisGreaterThan(2, 0.1).whileTrue(new PickupCommand(elevator, wrist));
-        driver.button(5).whileTrue(new IntakeOutakeCommand(wrist, true));
         driver.axisGreaterThan(3, 0).whileTrue(new IntakeOutakeCommand(wrist, false));
         driver.button(1).onTrue(new ToLevelCommand(elevator, 1, wrist, 16));
         driver.button(2).onTrue(new ToLevelCommand(elevator, 2, wrist, 18));
         driver.button(3).onTrue(new ToLevelCommand(elevator, 3, wrist, 18));
         driver.button(4).onTrue(new ToLevelCommand(elevator, 4, wrist, 19));
-        
+        driver.button(5).whileTrue(new IntakeOutakeCommand(wrist, true));
+        driver.button(6).whileTrue(new BrakeCommand(drive));
         driver.button(7).onTrue(new GyroReset(drive));
         driver.button(8).onTrue(new ZeroCommand(wrist, climb, elevator));
         
@@ -60,7 +60,7 @@ public class OperatorInterface {
         mineController.button(5).whileTrue(new ManualModeCommand());
         mineController.pov(0).whileTrue(new ManualElevatorCommand(elevator, true));
         mineController.pov(180).whileTrue(new ManualElevatorCommand(elevator, false));
-        mineController.button(1).whileTrue(new BrakeCommand(drive));
+        
         mineController.button(2).whileTrue(new SlowModeCommand());
     }
 
