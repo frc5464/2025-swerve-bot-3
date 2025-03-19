@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.873658018867925,
-        "y": 6.264464622641509
+        "x": 5.586270491803279,
+        "y": 7.417520491803279
       },
       "isLocked": false,
       "linkedName": "B1"
     },
     {
       "anchor": {
-        "x": 5.2845,
-        "y": 5.077999999999999
+        "x": 3.65625,
+        "y": 5.043954918032787
       },
       "prevControl": {
-        "x": 5.760318396226415,
-        "y": 5.666863207547169
+        "x": 3.8120901639344265,
+        "y": 5.907069672131149
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "R1_L"
+      "linkedName": "R6_R"
     }
   ],
   "rotationTargets": [],
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 150.16509219790112
+    "rotation": -149.58891873287453
   },
   "reversed": false,
   "folder": "Barge Starts",
