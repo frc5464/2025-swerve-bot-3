@@ -11,7 +11,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "B2_R2_L"
+                  "pathName": "B1_R2_L"
                 }
               },
               {
@@ -119,50 +119,6 @@
                 "type": "named",
                 "data": {
                   "name": "PickupCommand"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeCommand"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "C1_R6_R"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "toLevel4"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "sequential",
-          "data": {
-            "commands": [
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 2.0
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "OutakeCommand"
                 }
               }
             ]
