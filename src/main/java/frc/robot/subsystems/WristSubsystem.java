@@ -135,16 +135,12 @@ public class WristSubsystem {
     targetPosition = 16;
   }
 
-  public void lvl4WristScore(){
-    targetPosition = 17;
-  }
-
   public void wristAlgae(){
     // targetPosition = 25; need new val
   }
   
   public void intake(double something){
-    intakeOutake.set(-something * 0.25);
+    intakeOutake.set(-something * 0.35);
   }
   public void outake(double something){
     intakeOutake.set(something * 0.5);

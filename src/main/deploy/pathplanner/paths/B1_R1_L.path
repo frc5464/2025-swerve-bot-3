@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.99075,
-        "y": 7.34975
+        "x": 7.566,
+        "y": 7.223
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.298408018867925,
-        "y": 6.39121462264151
+        "x": 6.873658018867925,
+        "y": 6.264464622641509
       },
       "isLocked": false,
-      "linkedName": "B1_Angled"
+      "linkedName": "B1"
     },
     {
       "anchor": {
-        "x": 5.2845,
-        "y": 5.077999999999999
+        "x": 5.46,
+        "y": 4.960999999999999
       },
       "prevControl": {
-        "x": 5.760318396226415,
-        "y": 5.666863207547169
+        "x": 5.935818396226415,
+        "y": 5.549863207547169
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "folder": "Barge Starts",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 145.75066388582033
+    "rotation": 90.0
   },
   "useDefaultConstraints": true
 }

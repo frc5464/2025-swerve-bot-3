@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.835613207553693,
-        "y": 2.2934551886741175
+        "x": 3.2175000000000002,
+        "y": 1.6459999999999988
       },
       "isLocked": false,
       "linkedName": "R3_L"
     },
     {
       "anchor": {
-        "x": 1.2107581967213117,
-        "y": 1.0040983606557392
+        "x": 0.7792008196721311,
+        "y": 0.6324795081967204
       },
       "prevControl": {
-        "x": 2.393808962264151,
-        "y": 1.617393867924528
+        "x": 1.96225158521497,
+        "y": 1.2457750154655094
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,7 +45,7 @@
     "rotation": -36.099884167622776
   },
   "reversed": false,
-  "folder": "To Coral Station",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": 28.95099520746682

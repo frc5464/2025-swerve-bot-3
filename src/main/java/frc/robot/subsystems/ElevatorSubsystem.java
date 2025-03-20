@@ -7,11 +7,13 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import au.grapplerobotics.CanBridge;
 import au.grapplerobotics.ConfigurationFailedException;
 import au.grapplerobotics.LaserCan;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Universals;
 
@@ -22,7 +24,7 @@ public class ElevatorSubsystem {
   SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
   // SparkClosedLoopController elPID = leftEl.getClosedLoopController();
   double kP = 0.04;
-  double kI = 10e-2;
+  double kI = 10e-3;
   double kD = 0;
   double kIz = 0;
   double kFF = 0;
@@ -36,15 +38,27 @@ public class ElevatorSubsystem {
   boolean laserOk = false;
   PIDController elevatorPid;
   double maxElevatorPower = 0.05;
-
+  double laser;
+  double encoder;
   public ElevatorSubsystem(){
     elevatorPid = new PIDController(kP, kI, kD);
     
     leftelEncoder = leftEl.getEncoder();
     laserInit();
+
+    // Make things buttery smooth
     SparkBaseConfig conf = new SparkMaxConfig();
+    conf.idleMode(IdleMode.kCoast);
     conf.openLoopRampRate(0.5);
+
     leftEl.configure(conf, null, null);
+
+    // Follow the yellow brick road (left elevator)
+    SparkBaseConfig conf2 = new SparkMaxConfig();
+    conf2.follow(5, true);
+    conf2.idleMode(IdleMode.kCoast);
+    rightEl.configure(conf2, null, null);
+
     // CanBridge.runTCP();
     SmartDashboard.putNumber("elP", kP);
     SmartDashboard.putNumber("elI", kI);
@@ -109,7 +123,12 @@ public class ElevatorSubsystem {
     SmartDashboard.putNumber("ElError", targetPosition - lasercanMeasurement);
 
     checkForPidChanges();
-
+    
+    if(lasercanMeasurement < 15){
+      Universals.zoom = true;
+    } else {
+      Universals.zoom = false;
+    }
     if(Universals.manualMode == false){
       elPIDToLevel();
     }
@@ -131,33 +150,49 @@ public class ElevatorSubsystem {
     leftEl.set(0);
     // rightEl.set(0);
   }
-  
+    public boolean emergencyStop(double laser, double encoder){
+      if(laser < 80 && encoder > 50){
+        return true;
+      } else {
+        return false;
+      }
+    }
   public void elPIDToLevel(){
     if(level == 0.0){
       targetPosition = 0;
     }
     if(level == 1.0){
-      targetPosition = 40;
+      targetPosition = 8;
     }
     
     if(level == 2.0){
-      targetPosition = 125;
+      targetPosition = 147;
     }
     if(level == 2.5){
       targetPosition = 478;
     }
     if(level == 3.0){
-      targetPosition = 310;
+      targetPosition = 342;
     }
 
     if(level == 4.0){
-      targetPosition  = 697;
+      targetPosition  = 720;
     }
     if(laserOk){
-      leftEl.set((elevatorPid.calculate(lasercanMeasurement,targetPosition) * maxElevatorPower));
+      if(emergencyStop(lasercanMeasurement, elencoderPos)){
+        stopElevate();
+      } else {
+        leftEl.set((elevatorPid.calculate(elencoderPos * 11.7,targetPosition) * maxElevatorPower));
+      }
+      //leftEl.set((elevatorPid.calculate(lasercanMeasurement,targetPosition) * maxElevatorPower));
+      
     }
     else{
       leftEl.set(0);
     }
+  }
+
+  public void reBoot(){
+    leftelEncoder.setPosition(0);
   }
 }
