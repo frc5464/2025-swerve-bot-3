@@ -1,6 +1,7 @@
 package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Universals;
 import frc.robot.subsystems.SwerveSubsystem;
 
 public class BrakeCommand extends Command{
@@ -20,11 +21,12 @@ public class BrakeCommand extends Command{
     @Override
     public void execute(){
         swerve.lockpose();
+        Universals.brakemode = true;
     }
 
     @Override
     public void end(boolean interrupted){
-
+        Universals.brakemode = false;
     }
 
     @Override

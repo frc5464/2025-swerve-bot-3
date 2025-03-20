@@ -7,11 +7,13 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import au.grapplerobotics.CanBridge;
 import au.grapplerobotics.ConfigurationFailedException;
 import au.grapplerobotics.LaserCan;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Universals;
 
@@ -43,9 +45,20 @@ public class ElevatorSubsystem {
     
     leftelEncoder = leftEl.getEncoder();
     laserInit();
+
+    // Make things buttery smooth
     SparkBaseConfig conf = new SparkMaxConfig();
+    conf.idleMode(IdleMode.kCoast);
     conf.openLoopRampRate(0.5);
+
     leftEl.configure(conf, null, null);
+
+    // Follow the yellow brick road (left elevator)
+    SparkBaseConfig conf2 = new SparkMaxConfig();
+    conf2.follow(5, true);
+    conf2.idleMode(IdleMode.kCoast);
+    rightEl.configure(conf2, null, null);
+
     // CanBridge.runTCP();
     SmartDashboard.putNumber("elP", kP);
     SmartDashboard.putNumber("elI", kI);

@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.utils.BlinkinLEDController;
 import frc.robot.utils.BlinkinLEDController.BlinkinPattern;
+import frc.robot.Commands.BrakeCommand;
 import frc.robot.Commands.GyroReset;
 import frc.robot.Commands.IntakeOutakeCommand;
 import frc.robot.Commands.PickupCommand;
@@ -126,6 +127,7 @@ public class Robot extends TimedRobot{
     // subsystemManager.getProcessorArmSubsystem().periodic();
     // swerveSubsystem.periodic();
     SmartDashboard.putBoolean("manualMode", Universals.manualMode);
+    SmartDashboard.putBoolean("brakeMode", Universals.brakemode);
 
   }
   
