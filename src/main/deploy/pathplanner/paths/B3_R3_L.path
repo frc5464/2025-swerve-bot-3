@@ -9,7 +9,7 @@
       "prevControl": null,
       "nextControl": {
         "x": 6.7295130296937815,
-        "y": 1.3423552041447577
+        "y": 1.3423552041447575
       },
       "isLocked": false,
       "linkedName": "B3"
@@ -48,7 +48,7 @@
   "folder": "Barge Starts",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 90.37105571786427
+    "rotation": 91.43209618416454
   },
   "useDefaultConstraints": true
 }

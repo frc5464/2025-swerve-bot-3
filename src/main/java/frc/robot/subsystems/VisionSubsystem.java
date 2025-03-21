@@ -66,11 +66,11 @@ private             Field2d             field2d;
 
 
 private PhotonCamera Shapey = new PhotonCamera("AprilTagsCamera");
-private static double Height = 9.375;
-private static double Width = 9.875;
-private static double z = 8;
+private static double x = 9.375;
+private static double y = 9.875;
+private static double z = 13;
 
-Transform3d camOnRobot = new Transform3d(new Translation3d(Height, Width, z), new Rotation3d(0,0,0));
+Transform3d camOnRobot = new Transform3d(new Translation3d(x, y, z), new Rotation3d(0,0,90));
 
 // Construct PhotonPoseEstimator
 //PhotonPoseEstimator photonPoseEstimator = new PhotonPoseEstimator(fieldLayout, PoseStrategy.CLOSEST_TO_REFERENCE_POSE, Shapey, camOnRobot);
@@ -330,12 +330,12 @@ enum Cameras
   /**
    * Left Camera
    */
-  LEFT_CAM("left",
-           new Rotation3d(0, Math.toRadians(-24.094), Math.toRadians(30)),
-           new Translation3d(Units.inchesToMeters(12.056),
-                             Units.inchesToMeters(10.981),
-                             Units.inchesToMeters(8.44)),
-           VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1)),
+  // LEFT_CAM("left",
+  //          new Rotation3d(0, Math.toRadians(-24.094), Math.toRadians(30)),
+  //          new Translation3d(Units.inchesToMeters(12.056),
+  //                            Units.inchesToMeters(10.981),
+  //                            Units.inchesToMeters(8.44)),
+  //          VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1)),
   /**
    * Right Camera
    */
@@ -349,9 +349,9 @@ enum Cameras
    * Center Camera
    */
   Shapey("AprilTagsCamera",
-            new Rotation3d(0, Math.toRadians(-24.094), Math.toRadians(-30)),
-            new Translation3d(Units.inchesToMeters(Height),
-                              Units.inchesToMeters(Width),
+            new Rotation3d(0, 0, Math.toRadians(90)),
+            new Translation3d(Units.inchesToMeters(x),
+                              Units.inchesToMeters(y),
                               Units.inchesToMeters(z)),
             VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
 

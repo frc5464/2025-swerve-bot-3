@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 148.90886310973298
+    "rotation": 150.24771487218325
   },
   "reversed": false,
   "folder": "Barge Starts",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 91.07393860031226
+    "rotation": 90.0
   },
   "useDefaultConstraints": true
 }
