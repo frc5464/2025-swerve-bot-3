@@ -9,7 +9,7 @@
       "prevControl": null,
       "nextControl": {
         "x": 6.530741803278687,
-        "y": 1.1963811475409838
+        "y": 1.196381147540984
       },
       "isLocked": false,
       "linkedName": "B3"
@@ -48,7 +48,7 @@
   "folder": "Test Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 88.63607246839716
+    "rotation": 91.43209618416454
   },
   "useDefaultConstraints": true
 }
