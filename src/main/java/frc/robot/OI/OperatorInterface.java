@@ -1,5 +1,6 @@
 package frc.robot.OI;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.SubsystemManager;
 import frc.robot.Commands.IntakeOutakeCommand;
@@ -62,6 +63,7 @@ public class OperatorInterface {
         mineController.pov(180).whileTrue(new ManualElevatorCommand(elevator, false));
         
         mineController.button(2).whileTrue(new SlowModeCommand());
+        mineController.button(1).onTrue(drive.driveToPose(drive.pose1));
     }
 
         private OperatorInterface(){

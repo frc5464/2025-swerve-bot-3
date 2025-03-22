@@ -3,6 +3,9 @@ package frc.robot.subsystems;
 import swervelib.parser.SwerveParser;
 import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
+
+import static edu.wpi.first.units.Units.Radians;
+
 import java.io.File;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -41,6 +44,9 @@ public class SwerveSubsystem extends SubsystemBase{
     private SwerveDrive swerveDrive;
     private final Field2d field = new Field2d();
 
+    Translation2d translation = new Translation2d(3.73, 2.96);
+      Rotation2d rotation = new Rotation2d(-0.52);
+      public Pose2d pose1 = new Pose2d(translation, rotation);
     public SwerveSubsystem(){
       SmartDashboard.putData("field", field);
         try {
@@ -58,6 +64,8 @@ public class SwerveSubsystem extends SubsystemBase{
     }
 
     public void periodic(){
+      Pose2d currentPose = swerveDrive.getPose();
+      
       field.setRobotPose(swerveDrive.getPose());
         SmartDashboard.putNumber("Yaw", swerveDrive.getYaw().getDegrees());
         SmartDashboard.putNumber("IMU angle", swerveDrive.getGyro().getRawRotation3d().getAngle());
@@ -66,6 +74,8 @@ public class SwerveSubsystem extends SubsystemBase{
         SmartDashboard.putNumber("FR Enc", modules[1].getAbsolutePosition());
         SmartDashboard.putNumber("BL Enc", modules[2].getAbsolutePosition());
         SmartDashboard.putNumber("BR Enc", modules[3].getAbsolutePosition());
+        SmartDashboard.putString("PoseTranslation", currentPose.getTranslation().toString());
+        SmartDashboard.putString("PoseRotation", currentPose.getRotation().toString());
       // When vision is enabled we must manually update odometry in SwerveDrive
       if (visionDriveTest)
       {
@@ -227,6 +237,7 @@ public class SwerveSubsystem extends SubsystemBase{
     PathfindingCommand.warmupCommand().schedule();
   }
 
+  
   /**
    * Gets the current pose (position and rotation) of the robot, as reported by odometry.
    *
