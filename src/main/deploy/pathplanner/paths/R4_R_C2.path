@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.0069672131147542,
-        "y": 0.9561475409836078
-      },
-      "prevControl": null,
-      "nextControl": {
-        "x": 1.9945627256558454,
-        "y": 1.6253163079985882
-      },
-      "isLocked": false,
-      "linkedName": "C2"
-    },
-    {
-      "anchor": {
         "x": 3.812090163934426,
         "y": 2.9580942622950825
       },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.368545081973071,
+        "y": 2.5744877049187678
+      },
+      "isLocked": false,
+      "linkedName": "R4_R"
+    },
+    {
+      "anchor": {
+        "x": 1.0069672131147542,
+        "y": 0.9561475409836078
+      },
       "prevControl": {
-        "x": 3.3344146862480195,
-        "y": 2.6489476831756713
+        "x": 1.9300204918091364,
+        "y": 1.6514344262302463
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "R4_R"
+      "linkedName": "C2"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -29.744881296942285
+    "rotation": -36.099884167622776
   },
   "reversed": false,
-  "folder": "Test Paths",
+  "folder": "To Coral Station",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -36.099884167622776
+    "rotation": -29.744881296942285
   },
   "useDefaultConstraints": true
 }
