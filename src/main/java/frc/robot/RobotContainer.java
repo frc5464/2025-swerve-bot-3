@@ -150,7 +150,7 @@ public class RobotContainer {
   private final SendableChooser<Command> autoChooser;
 
   public RobotContainer() {
-    autoChooser = AutoBuilder.buildAutoChooser(); // Default auto will be `Commands.none()`
+    autoChooser = AutoBuilder.buildAutoChooser("B2_Left"); // Default auto will be `Commands.none()`
     SmartDashboard.putData("Auto Mode", autoChooser); 
   }
 
