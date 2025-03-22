@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 5.70375,
-        "y": 4.0737499999999995
+        "x": 5.730122950819672,
+        "y": 4.001024590163935
       },
       "prevControl": {
-        "x": 6.363073770491803,
-        "y": 3.378463114754098
+        "x": 6.389446721311474,
+        "y": 3.3057377049180334
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "folder": "Barge Starts",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": 91.43209618416454
   },
   "useDefaultConstraints": true
 }

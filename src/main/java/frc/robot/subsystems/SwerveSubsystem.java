@@ -18,6 +18,7 @@ import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -25,6 +26,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -37,8 +39,10 @@ import swervelib.math.SwerveMath;
 
 public class SwerveSubsystem extends SubsystemBase{
     private SwerveDrive swerveDrive;
+    private final Field2d field = new Field2d();
 
     public SwerveSubsystem(){
+      SmartDashboard.putData("field", field);
         try {
             SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
             swerveDrive=new SwerveParser(
@@ -49,10 +53,12 @@ public class SwerveSubsystem extends SubsystemBase{
             throw new RuntimeException(e);
             }
 
+            setupPhotonVision();
             setupPathPlanner();
     }
 
     public void periodic(){
+      field.setRobotPose(swerveDrive.getPose());
         SmartDashboard.putNumber("Yaw", swerveDrive.getYaw().getDegrees());
         SmartDashboard.putNumber("IMU angle", swerveDrive.getGyro().getRawRotation3d().getAngle());
         swervelib.SwerveModule[] modules = swerveDrive.getModules();
@@ -69,6 +75,8 @@ public class SwerveSubsystem extends SubsystemBase{
     }
 
     public void drive(double x, double y, double z){
+      x = -x;
+      y = -y;
       if(Universals.slowMode){
         swerveDrive.drive(new Translation2d(x * 1,y * 1),z * 2.5, true, false);
       }      
@@ -95,13 +103,13 @@ public class SwerveSubsystem extends SubsystemBase{
   /**
    * Enable vision odometry updates while driving.
    */
-  private final boolean     visionDriveTest = false;
+  private final boolean     visionDriveTest = true;
   /**
    * Setup the photon vision class.
    */
   public void setupPhotonVision()
   {
-    // vision = new VisionSubsystem(swerveDrive::getPose, swerveDrive.field);
+    vision = new VisionSubsystem(swerveDrive::getPose, swerveDrive.field);
   }
 
   /**
@@ -226,6 +234,7 @@ public class SwerveSubsystem extends SubsystemBase{
    */
   public Pose2d getPose()
   {
+    swerveDrive.addVisionMeasurement(new Pose2d(3, 3, Rotation2d.fromDegrees(65)), Timer.getFPGATimestamp());
     return swerveDrive.getPose();
   }
 
