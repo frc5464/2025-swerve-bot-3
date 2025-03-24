@@ -66,9 +66,13 @@ private             Field2d             field2d;
 
 
 private PhotonCamera Shapey = new PhotonCamera("AprilTagsCamera");
+private PhotonCamera ClimbCam = new PhotonCamera("ClimbCam");
 private static double x = 9.375;
 private static double y = 9.875;
 private static double z = 13;
+private static double climbCamx = -2.0;
+private static double climbCamy = 3.5;
+private static double climbCamz = 34.5;
 
 Transform3d camOnRobot = new Transform3d(new Translation3d(x, y, z), new Rotation3d(0,0,90));
 
@@ -78,6 +82,7 @@ PhotonPoseEstimator photonPoseEstimator = new PhotonPoseEstimator(fieldLayout, P
 public double shapeX = 0;
 public double shapeY = 0;
 public boolean shapesPresent = false;
+public boolean aprilTagPresent = false;
 
 public void periodic(){
   
@@ -88,21 +93,25 @@ public void periodic(){
   // Here is where all of our printouts are
   SmartDashboard.putNumber("ReefX", shapeX);
   SmartDashboard.putNumber("ReefY", shapeX);
-  SmartDashboard.putBoolean("Reef Detected", shapesPresent);
+  SmartDashboard.putBoolean("ScoreSee", shapesPresent);
+  SmartDashboard.putBoolean("ClimbSee", aprilTagPresent);
 }
 
 public void foundShape(){
   // Had to use get(0) to get only the results from one pipeline
   var shapeResults = Shapey.getAllUnreadResults();
+  var aprilTagResults = ClimbCam.getAllUnreadResults();
   
   if(shapeResults.isEmpty()){
     return;
   }
 
   var shapeResult = shapeResults.get(0);
+  var aprilTagResult = aprilTagResults.get(0);
 
   // See if that pipeline has any valid targets according to our processing
   shapesPresent = shapeResult.hasTargets();
+  aprilTagPresent = aprilTagResult.hasTargets();
 
   // Do things with the best target if things exist
   if(shapesPresent){
@@ -353,8 +362,16 @@ enum Cameras
             new Translation3d(Units.inchesToMeters(x),
                               Units.inchesToMeters(y),
                               Units.inchesToMeters(z)),
+            VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1)),
+
+  ClimbCam("ClimbCam",
+            new Rotation3d(0, Math.toRadians(15), Math.toRadians(180)),
+            new Translation3d(Units.inchesToMeters(climbCamx),
+                              Units.inchesToMeters(climbCamy),
+                              Units.inchesToMeters(climbCamz)),
             VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
 
+}
   // CENTER_CAM("center",
   //            new Rotation3d(0, Units.degreesToRadians(18), 0),
   //            new Translation3d(Units.inchesToMeters(-4.628),
