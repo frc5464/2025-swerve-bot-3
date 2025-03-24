@@ -60,7 +60,8 @@ public class OperatorInterface {
         mineController.button(5).whileTrue(new ManualModeCommand());
         mineController.pov(0).whileTrue(new ManualElevatorCommand(elevator, true));
         mineController.pov(180).whileTrue(new ManualElevatorCommand(elevator, false));
-        mineController.button(1).onTrue(drive.driveToPose(drive.pose1));
+        mineController.button(1).onTrue(drive.driveToPose(drive.r4));
+        mineController.button(3).onTrue(drive.driveToPose(drive.r5));
         mineController.button(2).whileTrue(new SlowModeCommand());
     }
 
