@@ -40,6 +40,10 @@ public class SwerveSubsystem extends SubsystemBase{
     private SwerveDrive swerveDrive;
     private final Field2d field = new Field2d();
 
+    Translation2d translation = new Translation2d(3.73, 2.96);
+      Rotation2d rotation = new Rotation2d(-0.52);
+      public Pose2d pose1 = new Pose2d(translation, rotation);
+
     public SwerveSubsystem(){
       SmartDashboard.putData("field", field);
         try {
@@ -57,6 +61,7 @@ public class SwerveSubsystem extends SubsystemBase{
 
     public void periodic(){
       field.setRobotPose(swerveDrive.getPose());
+      Pose2d currentPose = swerveDrive.getPose();
         SmartDashboard.putNumber("Yaw", swerveDrive.getYaw().getDegrees());
         SmartDashboard.putNumber("IMU angle", swerveDrive.getGyro().getRawRotation3d().getAngle());
         swervelib.SwerveModule[] modules = swerveDrive.getModules();
@@ -64,6 +69,8 @@ public class SwerveSubsystem extends SubsystemBase{
         SmartDashboard.putNumber("FR Enc", modules[1].getAbsolutePosition());
         SmartDashboard.putNumber("BL Enc", modules[2].getAbsolutePosition());
         SmartDashboard.putNumber("BR Enc", modules[3].getAbsolutePosition());
+        SmartDashboard.putString("Translation", currentPose.getTranslation().toString());
+        SmartDashboard.putString("Rotation", currentPose.getRotation().toString());
       // When vision is enabled we must manually update odometry in SwerveDrive
       if (visionDriveTest)
       {
