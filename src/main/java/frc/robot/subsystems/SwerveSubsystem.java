@@ -40,6 +40,10 @@ public class SwerveSubsystem extends SubsystemBase{
     private SwerveDrive swerveDrive;
     private final Field2d field = new Field2d();
 
+    Translation2d translation = new Translation2d(3.73, 2.96);
+      Rotation2d rotation = new Rotation2d(-0.52);
+      public Pose2d pose1 = new Pose2d(translation, rotation);
+
     public SwerveSubsystem(){
       SmartDashboard.putData("field", field);
         try {
