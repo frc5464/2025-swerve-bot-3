@@ -65,16 +65,20 @@ private             Field2d             field2d;
 
 
 
-private PhotonCamera Shapey = new PhotonCamera("AprilTagsCamera");
+private PhotonCamera Shapey = new PhotonCamera("BottomCam");
 private PhotonCamera ClimbCam = new PhotonCamera("ClimbCam");
-private static double x = 9.375;
-private static double y = 9.875;
-private static double z = 13;
+private PhotonCamera TopCam = new PhotonCamera("TopCam");
+private static double bottomCamx = 4.75;
+private static double bottomCamy = 11.5;
+private static double bottomCamz = 13;
 private static double climbCamx = -2.0;
 private static double climbCamy = 3.5;
 private static double climbCamz = 34.5;
+private static double TopCamx = 4.75;
+private static double TopCamy = -11.5;
+private static double TopCamz = 39.0;
 
-Transform3d camOnRobot = new Transform3d(new Translation3d(x, y, z), new Rotation3d(0,0,90));
+Transform3d camOnRobot = new Transform3d(new Translation3d(bottomCamx, bottomCamy, bottomCamz), new Rotation3d(0,0,90));
 
 // Construct PhotonPoseEstimator
 //PhotonPoseEstimator photonPoseEstimator = new PhotonPoseEstimator(fieldLayout, PoseStrategy.CLOSEST_TO_REFERENCE_POSE, Shapey, camOnRobot);
@@ -83,6 +87,7 @@ public double shapeX = 0;
 public double shapeY = 0;
 public boolean shapesPresent = false;
 public boolean aprilTagPresent = false;
+
 
 public void periodic(){
   
@@ -112,6 +117,7 @@ public void foundShape(){
   // See if that pipeline has any valid targets according to our processing
   shapesPresent = shapeResult.hasTargets();
   aprilTagPresent = aprilTagResult.hasTargets();
+
 
   // Do things with the best target if things exist
   if(shapesPresent){
@@ -357,21 +363,31 @@ enum Cameras
   /**
    * Center Camera
    */
-  Shapey("AprilTagsCamera",
-            new Rotation3d(0, 0, Math.toRadians(90)),
-            new Translation3d(Units.inchesToMeters(x),
-                              Units.inchesToMeters(y),
-                              Units.inchesToMeters(z)),
-            VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1)),
 
-  ClimbCam("ClimbCam",
-            new Rotation3d(0, Math.toRadians(15), Math.toRadians(180)),
-            new Translation3d(Units.inchesToMeters(climbCamx),
-                              Units.inchesToMeters(climbCamy),
-                              Units.inchesToMeters(climbCamz)),
+   TopCam("TopCam",
+   new Rotation3d(0, 0, Math.toRadians(270)),
+   new Translation3d(Units.inchesToMeters(TopCamx),
+                     Units.inchesToMeters(TopCamy),
+                     Units.inchesToMeters(TopCamz)),
+   VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1)),
+
+   ClimbCam("ClimbCam",
+   new Rotation3d(0, Math.toRadians(15), Math.toRadians(180)),
+   new Translation3d(Units.inchesToMeters(climbCamx),
+                     Units.inchesToMeters(climbCamy),
+                     Units.inchesToMeters(climbCamz)),
+   VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1)),
+
+  Shapey("BottomCam",
+            new Rotation3d(0, 0, Math.toRadians(90)),
+            new Translation3d(Units.inchesToMeters(bottomCamx),
+                              Units.inchesToMeters(bottomCamy),
+                              Units.inchesToMeters(bottomCamz)),
             VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
 
-}
+
+
+
   // CENTER_CAM("center",
   //            new Rotation3d(0, Units.degreesToRadians(18), 0),
   //            new Translation3d(Units.inchesToMeters(-4.628),
