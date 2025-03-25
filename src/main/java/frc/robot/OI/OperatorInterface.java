@@ -55,8 +55,8 @@ public class OperatorInterface {
 
         // mineController.axisGreaterThan(2, 0.1).whileTrue(new ProcessorInt_OutCommand(processor, true));
         // mineController.axisGreaterThan(3, 0.1).whileTrue(new ProcessorRotCommand(processor, true));
-        mineController.axisGreaterThan(5, 0.1).whileTrue(new ClimbCommand(climb, false));
-        mineController.axisLessThan(5, -0.1).whileTrue(new ClimbCommand(climb, true));
+        mineController.axisGreaterThan(5, 0.1).whileTrue(new ClimbCommand(climb, true));
+        mineController.axisLessThan(5, -0.1).whileTrue(new ClimbCommand(climb, false));
         mineController.button(5).whileTrue(new ManualModeCommand());
         mineController.pov(0).whileTrue(new ManualElevatorCommand(elevator, true));
         mineController.pov(180).whileTrue(new ManualElevatorCommand(elevator, false));

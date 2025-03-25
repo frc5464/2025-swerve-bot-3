@@ -118,7 +118,7 @@ public class Robot extends TimedRobot{
     CommandScheduler.getInstance().run();
     // elevatorSubsystem.periodic();
     // //processorArmSubsystem.periodic();
-    // climbSubsystem.periodic();
+    subsystemManager.getClimbSubsystem().periodic();
     // wristSubsystem.periodic();
     // subsystemManager.getVisionSubsystem().periodic();
     subsystemManager.getWristSubsystem().periodic();

@@ -2,7 +2,6 @@ package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ClimbSubsystem;
-import frc.robot.subsystems.WristSubsystem;
 
 public class ClimbCommand extends Command{
     private final ClimbSubsystem climb;
@@ -22,11 +21,7 @@ public class ClimbCommand extends Command{
     public void execute() {
         // System.out.println("climbing?!");
         if(m_climb == true){
-            if(climb.climbEncoderPos >= 0){
-                climb.bringIn();
-            } else {
-                climb.stop();
-            }  
+            climb.bringIn();
         } else{
             climb.bringOut();
         }

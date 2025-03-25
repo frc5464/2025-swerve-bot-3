@@ -1,52 +1,39 @@
 package frc.robot.subsystems;
-
-import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.config.SparkMaxConfig;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ClimbSubsystem {
   
   SparkMax climber = new SparkMax(3, MotorType.kBrushless);
-
+  DigitalInput limit_sw = new DigitalInput(0);
   public RelativeEncoder climbEncoder;
 
-
-
   private static final boolean ENABLED = true;
-
-
-  SparkMaxConfig sparkMaxConfig3 = new SparkMaxConfig();
-  // SparkClosedLoopController loopController = climb1.getClosedLoopController();
-  SparkClosedLoopController climbPID = climber.getClosedLoopController();
-  double kP = 0;
-  double kI = 0;
-  double kD = 0;
-  double kIz = 0;
-  double kFF = 0;
-  double extMaxOutput = 0;
-  double extMinOutput = 0;
   
-
+  double max_extension_counts = -250;
+  double max_retraction_counts = 0;
 
   public double climbEncoderPos;
   public double counts;
-  
+  public boolean zeroed = false;
+
   public ClimbSubsystem(){
     climbEncoder = climber.getEncoder();
     climbEncoder.setPosition(0);
   }
 
   public void periodic(){
-
-    SmartDashboard.putNumber("ClimbEncoder", climbEncoderPos);
-    //ClimbToLevel(0);
-        //loopController.setReference(400, ControlType.kPosition );
-        
-        climbEncoderPos = climbEncoder.getPosition();
+      SmartDashboard.putNumber("ClimbEncoder", climbEncoderPos);
+      SmartDashboard.putBoolean("ClimbLimit", limit_sw.get());
+      climbEncoderPos = climbEncoder.getPosition();
+      if((zeroed == false) && limit_sw.get()){
+        zeroed = true;
+        reBoot();
+      }
     } 
     
     // @Override
@@ -54,14 +41,28 @@ public class ClimbSubsystem {
       return ENABLED;
     }
 
-    
-
     public void bringOut(){
-      climber.set(1);
+      if(zeroed &&
+        (climbEncoder.getPosition() > max_extension_counts)){
+        climber.set(-1);
+      }
+      else{
+        climber.set(0);
+      }
     }
     public void bringIn(){
-      climber.set(-1);
+      if(limit_sw.get()){
+        climber.set(0);
+        reBoot();
+      }
+      else if(zeroed == false){
+        climber.set(1);
+      }
+      else{
+        climber.set(1);
+      }
     }
+
     public void stop(){
       climber.set(0);
     }
@@ -69,17 +70,5 @@ public class ClimbSubsystem {
     public void reBoot(){
       climbEncoder.setPosition(0);
     }
-
-    // public void ClimbToLevel(int level){
-    //   if(level == 1){
-    //     counts = 1;
-    //   }
-      
-    //   if(level == 2){
-    //     counts = 2;
-    //   }
-
-    //   climbPID.setReference(counts, ControlType.kPosition);
-    // }
 }
 
