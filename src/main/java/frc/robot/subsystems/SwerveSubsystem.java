@@ -7,6 +7,7 @@ import java.io.File;
 import java.util.Optional;
 import java.util.function.Supplier;
 
+import org.dyn4j.geometry.Rotation;
 import org.photonvision.targeting.PhotonPipelineResult;
 
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -40,9 +41,12 @@ public class SwerveSubsystem extends SubsystemBase{
     private SwerveDrive swerveDrive;
     private final Field2d field = new Field2d();
 
-    Translation2d translation = new Translation2d(3.73, 2.96);
-      Rotation2d rotation = new Rotation2d(-0.52);
-      public Pose2d pose1 = new Pose2d(translation, rotation);
+    Translation2d r4Translation = new Translation2d(3.73, 2.96);
+    Rotation2d r4Rotation = new Rotation2d(-0.52);
+    Translation2d r5Translation = new Translation2d(3.28, 4.02);
+    Rotation2d r5Rotation = new Rotation2d(-1.57);
+      public Pose2d r4 = new Pose2d(r4Translation, r4Rotation);
+      public Pose2d r5 = new Pose2d(r5Translation, r5Rotation);
 
     public SwerveSubsystem(){
       SmartDashboard.putData("field", field);
