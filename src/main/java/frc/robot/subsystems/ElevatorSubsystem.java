@@ -166,17 +166,17 @@ public class ElevatorSubsystem {
     }
     
     if(level == 2.0){
-      targetPosition = 147;
+      targetPosition = 107;
     }
     if(level == 2.5){
       targetPosition = 478;
     }
     if(level == 3.0){
-      targetPosition = 342;
+      targetPosition = 303;
     }
 
     if(level == 4.0){
-      targetPosition  = 720;
+      targetPosition  = 725;
     }
     if(laserOk){
       if(emergencyStop(lasercanMeasurement, elencoderPos)){
