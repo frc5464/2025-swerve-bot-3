@@ -14,7 +14,7 @@ public class ClimbSubsystem {
 
   private static final boolean ENABLED = true;
   
-  double max_extension_counts = -250;
+  double max_extension_counts = -275;
   double max_retraction_counts = 0;
 
   public double climbEncoderPos;
@@ -54,9 +54,6 @@ public class ClimbSubsystem {
       if(limit_sw.get()){
         climber.set(0);
         reBoot();
-      }
-      else if(zeroed == false){
-        climber.set(1);
       }
       else{
         climber.set(1);
