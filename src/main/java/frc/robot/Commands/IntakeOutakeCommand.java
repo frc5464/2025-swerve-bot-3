@@ -49,7 +49,7 @@ public class IntakeOutakeCommand extends Command {
         }
 
          // This should cause autonomous to only intake game pieces for a bit
-        else if((timer.get() > 1.5) && RobotState.isAutonomous() && m_intake){
+        else if((timer.get() > 2.0) && RobotState.isAutonomous() && m_intake){
             return true;
         }
         
