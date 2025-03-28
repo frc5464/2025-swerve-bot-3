@@ -76,7 +76,7 @@ private static double climbCamy = 3.5;
 private static double climbCamz = 34.5;
 private static double TopCamx = 4.75;
 private static double TopCamy = -11.5;
-private static double TopCamz = 39.0;
+private static double TopCamz = 38.75;
 
 Transform3d camOnRobot = new Transform3d(new Translation3d(bottomCamx, bottomCamy, bottomCamz), new Rotation3d(0,0,90));
 
