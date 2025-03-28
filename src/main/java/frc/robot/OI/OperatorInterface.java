@@ -2,6 +2,7 @@ package frc.robot.OI;
 
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.SubsystemManager;
+import frc.robot.Universals;
 import frc.robot.Commands.IntakeOutakeCommand;
 import frc.robot.Commands.ManualElevatorCommand;
 import frc.robot.Commands.BrakeCommand;
@@ -42,10 +43,10 @@ public class OperatorInterface {
         driver.axisGreaterThan(2, 0.1).whileTrue(new IntakeOutakeCommand(wrist, true));
         driver.axisGreaterThan(2, 0.1).whileTrue(new PickupCommand(elevator, wrist));
         driver.axisGreaterThan(3, 0).whileTrue(new IntakeOutakeCommand(wrist, false));
-        driver.button(1).onTrue(new ToLevelCommand(elevator, 1, wrist, 16));
-        driver.button(2).onTrue(new ToLevelCommand(elevator, 2, wrist, 15));
-        driver.button(3).onTrue(new ToLevelCommand(elevator, 3, wrist, 15));
-        driver.button(4).onTrue(new ToLevelCommand(elevator, 4, wrist, 18));
+        driver.button(1).onTrue(new ToLevelCommand(elevator, 1, wrist, Universals.wrist1));
+        driver.button(2).onTrue(new ToLevelCommand(elevator, 2, wrist, Universals.wrist2));
+        driver.button(3).onTrue(new ToLevelCommand(elevator, 3, wrist, Universals.wrist3));
+        driver.button(4).onTrue(new ToLevelCommand(elevator, 4, wrist, Universals.wrist4));
         driver.button(5).whileTrue(new IntakeOutakeCommand(wrist, true));
         driver.button(6).whileTrue(new BrakeCommand(drive));
         driver.button(7).onTrue(new GyroReset(drive));

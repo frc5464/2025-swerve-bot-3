@@ -121,10 +121,11 @@ public class ElevatorSubsystem {
     SmartDashboard.putNumber("ElLaser", lasercanMeasurement);
     SmartDashboard.putNumber("ElTarget", targetPosition);
     SmartDashboard.putNumber("ElError", targetPosition - lasercanMeasurement);
+    SmartDashboard.putBoolean("Zoom", Universals.zoom);
 
     checkForPidChanges();
     
-    if(lasercanMeasurement < 15){
+    if(lasercanMeasurement < 15 || level < 3){
       Universals.zoom = true;
     } else {
       Universals.zoom = false;
@@ -168,9 +169,9 @@ public class ElevatorSubsystem {
     if(level == 2.0){
       targetPosition = 107;
     }
-    if(level == 2.5){
-      targetPosition = 478;
-    }
+    // if(level == 2.5){
+    //   targetPosition = 478;
+    // }
     if(level == 3.0){
       targetPosition = 303;
     }

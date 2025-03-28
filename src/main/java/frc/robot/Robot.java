@@ -68,10 +68,10 @@ public class Robot extends TimedRobot{
     //ClimbSubsystem climb = subsystemManager.getClimbSubsystem();
 
     pickupCommand = new PickupCommand(elevator, wrist);
-    toLevel1 = new ToLevelCommand(elevator,1.0, wrist, 16);
-    toLevel2 = new ToLevelCommand(elevator, 2.0, wrist, 16);
-    toLevel3 = new ToLevelCommand(elevator, 3.0, wrist, 16);
-    toLevel4 = new ToLevelCommand(elevator, 4.0, wrist, 19);
+    toLevel1 = new ToLevelCommand(elevator, 1.0, wrist, Universals.wrist1);
+    toLevel2 = new ToLevelCommand(elevator, 2.0, wrist, Universals.wrist2);
+    toLevel3 = new ToLevelCommand(elevator, 3.0, wrist, Universals.wrist3);
+    toLevel4 = new ToLevelCommand(elevator, 4.0, wrist, Universals.wrist4);
     intakeCommand = new IntakeOutakeCommand(wrist, true);
     outakeCommand = new IntakeOutakeCommand(wrist, false);
     
